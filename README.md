@@ -28,7 +28,7 @@ Steps to Run the App
 
 Clone the repository:
 
-git clone https://github.com/AT-Digitals/balance_app.git
+git clone https://github.com/AT-Digitals/flutter-balance-app.git
 
 cd balance_app
 
