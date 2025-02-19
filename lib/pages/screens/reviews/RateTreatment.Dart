@@ -41,36 +41,58 @@ class _RateTreatmentState extends State<RateTreatment> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: ListView(
+        child: Column(
           children: [
             SizedBox(height: 15),
             Text(
               'Overall, how would you rate your treatment?',
               style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+                fontFamily: 'Playfair Display',
+                fontSize: 30,
+                fontWeight: FontWeight.w700,
                 color: Color(0xFF0b5369),
               ),
             ),
             SizedBox(height: 20),
             _buildStarRating(), // Function to build the star rating
-            SizedBox(height: 350),
-            ElevatedButton(
-              onPressed: _selectedStars >= 1
-                  ? () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => OnboardingPage()),
-                      );
+            Expanded(child: Container()), // Takes up remaining space
+            SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 16.0), // Bottom padding
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: ElevatedButton(
+                    onPressed: _selectedStars >= 1
+                        ? () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => OnboardingPage()),
+                            );
+                          }
+                        : null,
+                    // style: ElevatedButton.styleFrom(
+                    //   backgroundColor: _selectedStars >= 1
+                    //       ? Color(0xFF4C48B7)
+                    //       : Color(0xFF4C48B7).withOpacity(0.5),
+                    // ),
+                     style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                  (Set<MaterialState> _selectedStars) {
+                    if (_selectedStars.contains(MaterialState.disabled)) {
+                      return Color(0xFF4C48B7).withOpacity(0.5);
                     }
-                  : null, // Disable button if rating is less than 3 stars
-              style: ElevatedButton.styleFrom(
-                backgroundColor: _selectedStars >= 1 ? Color(0xFF4C48B7) : Colors.grey,
-                minimumSize: Size(double.infinity, 50),
+                    return Color(0xFF4C48B7);
+                  },
+                ),
+                minimumSize: MaterialStateProperty.all(Size(double.infinity, 50)),
               ),
-              child: Text(
-                'Publish Review',
-                style: TextStyle(fontSize: 18, color: Colors.white),
+                    child: Text(
+                      'Publish Review',
+                      style: TextStyle(fontSize: 18, color: Colors.white),
+                    ),
+                  ),
+                ),
               ),
             ),
           ],
