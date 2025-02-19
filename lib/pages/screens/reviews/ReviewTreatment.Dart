@@ -39,59 +39,68 @@ class _ReviewTreatmentState extends State<ReviewTreatment> {
         centerTitle: true,
         toolbarHeight: 100.0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: ListView(
-          children: [
-            SizedBox(height: 15),
-            Text(
-              'What type of treatment do you want to review?',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF0b5369),
+      body: Column(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: ListView(
+                children: [
+                  Text(
+                    'What type of treatment do you want to review?',
+                    style: TextStyle(
+                      fontFamily: 'Playfair Display',
+                      fontSize: 30,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xFF0b5369),
+                    ),
+                  ),
+                  SizedBox(height: 30),
+                  // Radio button for "HRT"
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Color(0xFFE6E6FF),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: RadioListTile<String>(
+                      title: Text(
+                        'HRT',
+                        style: TextStyle(fontSize: 18, color: Color(0xFF0b5369)),
+                      ),
+                      value: 'HRT',
+                      groupValue: _selectedOption,
+                      onChanged: (value) {
+                        _onOptionSelected(value!);
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  // Radio button for "Alternatives to HRT"
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Color(0xFFE6E6FF),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: RadioListTile<String>(
+                      title: Text(
+                        'Alternatives to HRT',
+                        style: TextStyle(fontSize: 18, color: Color(0xFF0b5369)),
+                      ),
+                      value: 'alternatives to hrt',
+                      groupValue: _selectedOption,
+                      onChanged: (value) {
+                        _onOptionSelected(value!);
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
-            SizedBox(height: 30),
-            // Radio button for "ON" with green background
-            Container(
-              decoration: BoxDecoration(
-                color: Color(0xFFE6E6FF), // Green background color
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: RadioListTile<String>(
-                title: Text(
-                  'HRT',
-                  style: TextStyle(fontSize: 18, color: Color(0xFF0b5369),),
-                ),
-                value: 'HRT',
-                groupValue: _selectedOption,
-                onChanged: (value) {
-                  _onOptionSelected(value!);
-                },
-              ),
-            ),
-            SizedBox(height: 10),
-            // Radio button for "OFF" with green background
-            Container(
-              decoration: BoxDecoration(
-                color: Color(0xFFE6E6FF), // Green background color
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: RadioListTile<String>(
-                title: Text(
-                  'Alternatives to HRT',
-                  style: TextStyle(fontSize: 18, color: Color(0xFF0b5369),),
-                ),
-                value: 'alternatives to hrt',
-                groupValue: _selectedOption,
-                onChanged: (value) {
-                  _onOptionSelected(value!);
-                },
-              ),
-            ),
-            SizedBox(height: 300),
-            ElevatedButton(
+          ),
+          // Button at the bottom
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: ElevatedButton(
               onPressed: _selectedOption != null
                   ? () {
                       Navigator.push(
@@ -100,17 +109,24 @@ class _ReviewTreatmentState extends State<ReviewTreatment> {
                       );
                     }
                   : null, // Disable button if no option is selected
-              style: ElevatedButton.styleFrom(
-                backgroundColor: _selectedOption != null ? Color(0xFF4C48B7) : Colors.grey,
-                minimumSize: Size(double.infinity, 50),
-              ),
+            style: ButtonStyle(
+    backgroundColor: MaterialStateProperty.resolveWith<Color>(
+      (Set<MaterialState> states) {
+        if (states.contains(MaterialState.disabled)) {
+          return Color(0xFF4C48B7).withOpacity(0.5); // Lighter blue when disabled
+        }
+        return Color(0xFF4C48B7); // Normal blue when enabled
+      },
+    ),
+    minimumSize: MaterialStateProperty.all(Size(double.infinity, 50)),
+  ),
               child: Text(
                 'Next',
                 style: TextStyle(fontSize: 18, color: Colors.white),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

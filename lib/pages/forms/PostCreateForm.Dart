@@ -16,6 +16,8 @@ class _PostCreateFormState extends State<PostCreateForm> {
   // Track if the dropdown is open or closed
   bool _isDropdownOpen = false;
   bool _isSwitched = true;
+  final ScrollController _scrollController = ScrollController();
+  
 
   final TextEditingController _storyTitleController = TextEditingController();
   final TextEditingController _storyContentController = TextEditingController();
@@ -39,6 +41,16 @@ class _PostCreateFormState extends State<PostCreateForm> {
       // Proceed with posting the story
       print("Story posted successfully!");
     }
+  }
+
+  void _scrollToDropdown() {
+    Future.delayed(Duration(milliseconds: 300), () {
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent, // Scroll to the bottom
+        duration: Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+    });
   }
 
   @override
@@ -66,6 +78,7 @@ class _PostCreateFormState extends State<PostCreateForm> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ListView(
+          controller: _scrollController, 
           children: [
             SizedBox(height: 2),
             Row(
@@ -134,7 +147,14 @@ class _PostCreateFormState extends State<PostCreateForm> {
                   ),
                 ),
                 Spacer(),
-                Container(
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _isDropdownOpen = true;
+                    });
+                    _scrollToDropdown();
+                  },
+                 child: Container(
       padding: EdgeInsets.all(4), // Padding inside the box
       decoration: BoxDecoration(
         color: Color(0xFF2409AB), // Background color
@@ -146,6 +166,7 @@ class _PostCreateFormState extends State<PostCreateForm> {
         size: 16, // Icon size
       ),
     ),
+                ),
               ],
             ),
             SizedBox(height: 8),
@@ -188,76 +209,86 @@ class _PostCreateFormState extends State<PostCreateForm> {
               maxLines: 10,
             ),
             SizedBox(height: 20),
-ElevatedButton(
-  onPressed: () async {
-    final selectedTags = await Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => AddTags()),
-    );
+// 
+Column(
+  crossAxisAlignment: CrossAxisAlignment.start,
+  children: [
+    ElevatedButton(
+      onPressed: () async {
+        final selectedTags = await Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => AddTags(selectedTags: _selectedTags)),
+        );
 
-    if (selectedTags != null && selectedTags is List<String>) {
-      setState(() {
-        _selectedTags = selectedTags; // Store selected tags
-      });
-    }
-  },
-  style: ElevatedButton.styleFrom(
-    backgroundColor: Color(0xFFE6E6FF),
-    minimumSize: Size(double.infinity, 100),
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-  ),
-  child: _selectedTags.isEmpty
-      ? Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Tap to select tags',
-              style: TextStyle(fontSize: 18, color: Color(0xFFB793E6)),
-            ),
-            Text(
-              ' *',
-              style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
-            ),
-          ],
-        )
-      : Container(
-          constraints: BoxConstraints(
-            maxHeight: 150, // Set a maximum height for expansion
-          ),
-          child: SingleChildScrollView(
-            child: Wrap(
-              spacing: 10, // Horizontal spacing
-              runSpacing: 8, // Vertical spacing
-              children: _selectedTags
-                  .map(
-                    (tag) => Chip(
-                      label: Text(
-                        tag,
-                        style: const TextStyle(
-                          color: Color(0xFF0b5369),
+        if (selectedTags != null && selectedTags is List<String>) {
+          setState(() {
+            _selectedTags = selectedTags; // Store selected tags
+            _tagsError = null; // Clear the error when tags are selected
+          });
+        }
+      },
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Color(0xFFE6E6FF),
+        minimumSize: Size(double.infinity, 100),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      ),
+      child: _selectedTags.isEmpty
+          ? Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Tap to select tags',
+                  style: TextStyle(fontSize: 18, color: Color(0xFFB793E6)),
+                ),
+                Text(
+                  ' *',
+                  style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+                ),
+              ],
+            )
+          : Container(
+              constraints: BoxConstraints(maxHeight: 150), // Set a max height for expansion
+              child: SingleChildScrollView(
+                child: Wrap(
+                  spacing: 10, // Horizontal spacing
+                  runSpacing: 8, // Vertical spacing
+                  children: _selectedTags
+                      .map(
+                        (tag) => Chip(
+                          label: Text(
+                            tag,
+                            style: const TextStyle(color: Color(0xFF0b5369)),
+                          ),
+                          deleteIcon: const Icon(Icons.close),
+                          onDeleted: () {
+                            setState(() {
+                              _selectedTags.remove(tag);
+                              if (_selectedTags.isEmpty) {
+                                _tagsError = "Please select at least one tag";
+                              }
+                            });
+                          },
+                          backgroundColor: Color(0xFFE6E6FF),
+                          shape: RoundedRectangleBorder(
+                            side: const BorderSide(color: Color(0xFF0b5369), width: 1.5),
+                            borderRadius: BorderRadius.circular(30),
+                          ),
                         ),
-                      ),
-                      deleteIcon: const Icon(Icons.close),
-                      onDeleted: () {
-                        setState(() {
-                          _selectedTags.remove(tag);
-                        });
-                      },
-                      backgroundColor: Color(0xFFE6E6FF), // Background color
-                      shape: RoundedRectangleBorder(
-                        side: const BorderSide(
-                          color: Color(0xFF0b5369), // Border color
-                          width: 1.5,
-                        ),
-                        borderRadius: BorderRadius.circular(30), // Rounded corners
-                      ),
-                    ),
-                  )
-                  .toList(),
+                      )
+                      .toList(),
+                ),
+              ),
             ),
-          ),
+    ),
+    if (_tagsError != null)
+      Padding(
+        padding: const EdgeInsets.only(top: 8.0),
+        child: Text(
+          _tagsError!,
+          style: TextStyle(color: Colors.red, fontSize: 14),
         ),
-
+      ),
+  ],
 ),
 
 

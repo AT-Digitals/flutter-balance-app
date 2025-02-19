@@ -39,113 +39,37 @@ class _CurrentTreatmentState extends State<CurrentTreatment> {
         centerTitle: true,
         toolbarHeight: 100.0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: ListView(
-          children: [
-            SizedBox(height: 15),
-            Text(
-              'How long hav you been taking your current treatment?',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF0b5369),
+      body: Column(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: ListView(
+                children: [
+                  SizedBox(height: 15),
+                  Text(
+                    'How long have you been taking your current treatment?',
+                    style: TextStyle(
+                      fontFamily: 'Playfair Display',
+                      fontSize: 30,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xFF0b5369),
+                    ),
+                  ),
+                  SizedBox(height: 30),
+                  _buildOption('Less than 3 months'),
+                  _buildOption('3-12 months'),
+                  _buildOption('1-2 years'),
+                  _buildOption('2-5 years'),
+                  _buildOption('Over 5 years'),
+                ],
               ),
             ),
-            SizedBox(height: 30),
-            // Radio button for "ON" with green background
-            Container(
-              decoration: BoxDecoration(
-                color: Color(0xFFE6E6FF), // Green background color
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: RadioListTile<String>(
-                title: Text(
-                  'Less than 3 months',
-                  style: TextStyle(fontSize: 18, color: Color(0xFF0b5369),),
-                ),
-                value: 'less than 3 months',
-                groupValue: _selectedOption,
-                onChanged: (value) {
-                  _onOptionSelected(value!);
-                },
-              ),
-            ),
-            SizedBox(height: 10),
-            // Radio button for "OFF" with green background
-            Container(
-              decoration: BoxDecoration(
-                color: Color(0xFFE6E6FF), // Green background color
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: RadioListTile<String>(
-                title: Text(
-                  '3-12 months',
-                  style: TextStyle(fontSize: 18, color: Color(0xFF0b5369),),
-                ),
-                value: '3-12 months',
-                groupValue: _selectedOption,
-                onChanged: (value) {
-                  _onOptionSelected(value!);
-                },
-              ),
-            ),
-             SizedBox(height: 10),
-             Container(
-              decoration: BoxDecoration(
-                color: Color(0xFFE6E6FF), // Green background color
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: RadioListTile<String>(
-                title: Text(
-                  '1-2 years',
-                  style: TextStyle(fontSize: 18, color: Color(0xFF0b5369),),
-                ),
-                value: '1-2 years',
-                groupValue: _selectedOption,
-                onChanged: (value) {
-                  _onOptionSelected(value!);
-                },
-              ),
-            ),
-              SizedBox(height: 10),
-             Container(
-              decoration: BoxDecoration(
-                color: Color(0xFFE6E6FF), // Green background color
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: RadioListTile<String>(
-                title: Text(
-                  '2-5 years',
-                  style: TextStyle(fontSize: 18, color: Color(0xFF0b5369),),
-                ),
-                value: '2-5 years',
-                groupValue: _selectedOption,
-                onChanged: (value) {
-                  _onOptionSelected(value!);
-                },
-              ),
-            ),
-              SizedBox(height: 10),
-             Container(
-              decoration: BoxDecoration(
-                color: Color(0xFFE6E6FF), // Green background color
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: RadioListTile<String>(
-                title: Text(
-                  'Over 5 years',
-                  style: TextStyle(fontSize: 18, color: Color(0xFF0b5369),),
-                ),
-                value: 'Over 5 years',
-                groupValue: _selectedOption,
-                onChanged: (value) {
-                  _onOptionSelected(value!);
-                },
-              ),
-            ),
-            SizedBox(height: 150),
-            ElevatedButton(
+          ),
+          // Button at the bottom
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: ElevatedButton(
               onPressed: _selectedOption != null
                   ? () {
                       Navigator.push(
@@ -154,16 +78,46 @@ class _CurrentTreatmentState extends State<CurrentTreatment> {
                       );
                     }
                   : null, // Disable button if no option is selected
-              style: ElevatedButton.styleFrom(
-                backgroundColor: _selectedOption != null ? Color(0xFF4C48B7) : Colors.grey,
-                minimumSize: Size(double.infinity, 50),
-              ),
+             style: ButtonStyle(
+    backgroundColor: MaterialStateProperty.resolveWith<Color>(
+      (Set<MaterialState> states) {
+        if (states.contains(MaterialState.disabled)) {
+          return Color(0xFF4C48B7).withOpacity(0.5); // Lighter blue when disabled
+        }
+        return Color(0xFF4C48B7); // Normal blue when enabled
+      },
+    ),
+    minimumSize: MaterialStateProperty.all(Size(double.infinity, 50)),
+  ),
               child: Text(
                 'Next',
                 style: TextStyle(fontSize: 18, color: Colors.white),
               ),
             ),
-          ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildOption(String title) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Color(0xFFE6E6FF), // Background color
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: RadioListTile<String>(
+          title: Text(
+            title,
+            style: TextStyle(fontSize: 18, color: Color(0xFF0b5369)),
+          ),
+          value: title,
+          groupValue: _selectedOption,
+          onChanged: (value) {
+            _onOptionSelected(value!);
+          },
         ),
       ),
     );

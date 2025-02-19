@@ -10,16 +10,19 @@ class ExperienceTreatment extends StatefulWidget {
 class _ExperienceTreatmentState extends State<ExperienceTreatment> {
   final TextEditingController _feedbackController = TextEditingController();
   bool _isButtonEnabled = false;
+  int _maxCharacters = 150;
+  int _remainingCharacters = 150;
 
   @override
   void initState() {
     super.initState();
-    _feedbackController.addListener(_checkInput);
+   _feedbackController.addListener(_checkInput);
   }
 
   void _checkInput() {
     setState(() {
       _isButtonEnabled = _feedbackController.text.trim().isNotEmpty;
+      _remainingCharacters = _maxCharacters - _feedbackController.text.length;
     });
   }
 
@@ -55,56 +58,84 @@ class _ExperienceTreatmentState extends State<ExperienceTreatment> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: ListView(
+        child: Column(
           children: [
-            SizedBox(height: 15),
-            Text(
-              'Summarise your experience with this treatment.',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF0b5369),
+            Expanded(
+              child: ListView(
+                children: [
+                  SizedBox(height: 15),
+                  Text(
+                    'Summarise your experience with this treatment.',
+                    style: TextStyle(
+                      fontFamily: 'Playfair Display',
+                      fontSize: 30,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xFF0b5369),
+                    ),
+                  ),
+                  SizedBox(height: 30),
+                  TextField(
+                    controller: _feedbackController,
+                    maxLength: _maxCharacters,
+                    decoration: InputDecoration(
+                      hintText: "Tell us about it",
+                      hintStyle: TextStyle(fontSize: 20, color: Color(0xFFE5C7FC)),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xFFE5C7FC)),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xFFE5C7FC)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xFFE5C7FC)),
+                      ),
+                       counterText: "",
+                    ),
+                    maxLines: 5,
+                  ),
+                  SizedBox(height: 5),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      '$_remainingCharacters characters left',
+                      style: TextStyle(fontSize: 14, color: Colors.grey),
+                    ),
+                  ),
+                ],
               ),
             ),
-            SizedBox(height: 30),
-            TextField(
-              controller: _feedbackController,
-              decoration: InputDecoration(
-                hintText: "Tell us about it",
-                border: OutlineInputBorder(),
-              ),
-              maxLines: 5,
-            ),
-            SizedBox(height: 5),
-            Row(
-  mainAxisAlignment: MainAxisAlignment.end, // Align to the right
-  children: [
-    Text(
-      '150 characters left',
-      style: TextStyle(
-        fontSize: 14,
-        color: Colors.grey,
-      ),
-    ),
-  ],
-),
-            SizedBox(height: 200),
-            ElevatedButton(
-              onPressed: _isButtonEnabled
-                  ? () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => RateTreatment()),
-                      );
+            SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 16.0), // Bottom padding
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: ElevatedButton(
+                    onPressed: _isButtonEnabled
+                        ? () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => RateTreatment()),
+                            );
+                          }
+                        : null,
+                     style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                  (Set<MaterialState> states) {
+                    if (states.contains(MaterialState.disabled)) {
+                      return Color(0xFF4C48B7).withOpacity(0.5);
                     }
-                  : null, // Disable button if no option is selected
-              style: ElevatedButton.styleFrom(
-                backgroundColor: _isButtonEnabled ? Color(0xFF4C48B7) : Colors.grey,
-                minimumSize: Size(double.infinity, 50),
+                    return Color(0xFF4C48B7);
+                  },
+                ),
+                minimumSize: MaterialStateProperty.all(Size(double.infinity, 50)),
               ),
-              child: Text(
-                'Next',
-                style: TextStyle(fontSize: 18, color: Colors.white),
+                    child: Text(
+                      'Next',
+                      style: TextStyle(fontSize: 18, color: Colors.white),
+                    ),
+                  ),
+                ),
               ),
             ),
           ],
