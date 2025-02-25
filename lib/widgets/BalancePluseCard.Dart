@@ -41,7 +41,7 @@ class BalancePluseCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
                 gradient: LinearGradient(
                   colors: [
-                    Colors.purple.withOpacity(0.6),
+                    Color(0xFF3739c0).withOpacity(0.5),
                     Colors.black.withOpacity(0.4),
                   ],
                   begin: Alignment.topCenter,
@@ -84,7 +84,7 @@ class BalancePluseCard extends StatelessWidget {
                         children: [
                           Text(
                             'Read more',
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.white, fontSize:18),
                           ),
                           Icon(
                             Icons.arrow_forward,
@@ -114,7 +114,7 @@ class BalancePluseCard extends StatelessWidget {
                       // textAlign: TextAlign.center,
                       text: TextSpan(
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 18,
                           color: Colors.white,
                           height: 1.5,
                         ),
@@ -146,7 +146,7 @@ class BalancePluseCard extends StatelessWidget {
                           SizedBox(width: 8),
                           Text(
                             'Back',
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.white, fontSize:18),
                           ),
                         ],
                       ),
