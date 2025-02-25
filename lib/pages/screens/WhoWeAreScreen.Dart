@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:balance_app/pages/screens/BalanceAppScreen.dart'; // Corrected the file name import
 import 'package:balance_app/widgets/BalancePluseCard.dart';
+import 'package:balance_app/widgets/CommonTextButton.dart';
 import 'package:balance_app/pages/screens/BalanceTabScreen.dart';
 
 class WhoWeAreScreen extends StatelessWidget {
@@ -36,7 +37,7 @@ class WhoWeAreScreen extends StatelessWidget {
   ),
   title: Text(
     'Who we are',
-    style: TextStyle(color: Colors.white),
+    style: TextStyle(color: Colors.white, fontSize: 18),
   ),
   backgroundColor: Color(0xFF0b5369),
   centerTitle: true,
@@ -45,8 +46,8 @@ class WhoWeAreScreen extends StatelessWidget {
     child: Padding(
       padding: EdgeInsets.only(bottom: 15.0), // Add bottom margin
       child: Container(
-        width: 368, // Reduce width
-        height: 50, // Reduce height
+        width: 330, // Reduce width
+        height: 46, // Reduce height
         decoration: BoxDecoration(
           color: const Color(0xFF04424F), // Dark teal
           borderRadius: BorderRadius.vertical(
@@ -57,51 +58,56 @@ class WhoWeAreScreen extends StatelessWidget {
          child: Material( // Add this to remove the default tab underline
       color: Colors.transparent, // Keep background same as container
         child: TabBar(
+         // Change the color if needed
+         dividerColor: Colors.transparent,
           unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal),
           indicator: BoxDecoration(
             color: Color(0xFFf8e7ef),
+
             borderRadius: BorderRadius.circular(25),
           ),
-          indicatorPadding: EdgeInsets.symmetric(horizontal: -34.0, vertical: 1.0),
+          indicatorPadding: EdgeInsets.symmetric(horizontal: -32.0, vertical: 1.0),
           labelColor: const Color(0xFF1E5D73),
+          labelPadding: EdgeInsets.only(right: 10),
           unselectedLabelColor: Colors.white,
-          labelStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           tabs: [
             Tab(text: 'About the app'),
             Tab(text: "What's balance+?"),
           ],
-          indicatorColor: Colors.transparent,
+          isScrollable: false,
+          indicatorSize: TabBarIndicatorSize.label
         ),
       ),
       ),
     ),
   ),
 ),
+backgroundColor: Color(0xFFFAF9FF),
 
         body: TabBarView(
           children: [
             // Tab 1 Content
             SingleChildScrollView( // Wrap this part with SingleChildScrollView
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 30.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 16),
+                  SizedBox(height: 26),
                   RichText(
                     text: TextSpan(
                       style: TextStyle(
                         fontSize: 18,
                         height: 1.5,
-                        color: Color(0xFF99b5c0),
+                        color: Color(0xFF1E5D73),
                       ),
                       children: [
-                        TextSpan(text: 'Our mission at balance is to make menopause support '),
+                        TextSpan(text: 'Our mission at balance is to make\nmenopause support '),
                         TextSpan(text: 'inclusive', style: TextStyle(color: Color(0xFF1E5D73), fontWeight: FontWeight.bold)),
-                        TextSpan(text: ' and '),
+                        TextSpan(text: ' and\n'),
                         TextSpan(text: 'accessible', style: TextStyle(color: Color(0xFF1E5D73), fontWeight: FontWeight.bold)),
-                        TextSpan(text: ' for all, so the main part of the app is'),
-                        TextSpan(text: ' free', style: TextStyle(color: Color(0xFF1E5D73), fontWeight: FontWeight.bold)),
-                        TextSpan(text: '!'),
+                        TextSpan(text: ' for all, so the main part\nof the app is'),
+                        TextSpan(text: ' free!', style: TextStyle(color: Color(0xFF1E5D73), fontWeight: FontWeight.bold)),
                       ],
                     ),
                   ),
@@ -111,15 +117,15 @@ class WhoWeAreScreen extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 18,
                         height: 1.5,
-                        color: Color(0xFF99b5c0),
+                        color: Color(0xFF1E5D73),
                       ),
                       children: [
                         TextSpan(text: 'We then introduced '),
                         TextSpan(text: 'balance+', style: TextStyle(color: Color(0xFF1E5D73), fontWeight: FontWeight.bold)),
-                        TextSpan(text: ' as an optional '),
-                        TextSpan(text: 'premium subscription ', style: TextStyle(color: Color(0xFF1E5D73), fontWeight: FontWeight.bold)),
-                        TextSpan(text: ' All this revenue goes '),
-                        TextSpan(text: 'towards keeping the main part of the app free.'),
+                        TextSpan(text: ' as\nan optional '),
+                        TextSpan(text: 'premium subscription\n', style: TextStyle(color: Color(0xFF1E5D73), fontWeight: FontWeight.bold)),
+                        TextSpan(text: 'that offers a more personalised\nExperience. All this revenue goes\n'),
+                        TextSpan(text: 'towards keeping the main part of\nthe app free.'),
                       ],
                     ),
                   ),
@@ -129,7 +135,7 @@ class WhoWeAreScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFF1E5D73)),
                   ),
 
-                  // SizedBox(height: 10),
+                  SizedBox(height: 20),
                   Center(
               child: SizedBox(
                 height: 260, // Define a height for the PageView
@@ -138,7 +144,7 @@ class WhoWeAreScreen extends StatelessWidget {
         children: [
           // First Page: "Read More" Content
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -150,7 +156,7 @@ class WhoWeAreScreen extends StatelessWidget {
       Icon(
         Icons.menu_book_outlined,
         color: const Color(0xFF1E5D73),
-        size: 36,
+        size: 46,
       ),
       SizedBox(width: 26),
       RichText(
@@ -185,31 +191,24 @@ class WhoWeAreScreen extends StatelessWidget {
                   ),
                 SizedBox(height: 8),
                   Center(
-                    child: TextButton(
-                      onPressed: () {
-                        // Handle read more action
-                         _pageController1.animateToPage(
-                      1,
-                      duration: Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                    );
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('Read more', textAlign: TextAlign.center, style: TextStyle(color: const Color(0xFFB793E6), fontSize: 16)),
-                          SizedBox(width: 0),
-                          Icon(Icons.arrow_forward, color: const Color(0xFFB793E6), size: 18),
-                        ],
-                      ),
-                    ),
+                    child: CommonTextButton(
+  onPressed: () {
+    _pageController1.animateToPage(
+      1,
+      duration: Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  },
+  text: 'Read more',
+),
+
                   ),
               ],
             ),
           ),
           // Second Page: "Back" Content
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -221,13 +220,13 @@ class WhoWeAreScreen extends StatelessWidget {
       Icon(
         Icons.menu_book_outlined,
         color: const Color(0xFF1E5D73),
-        size: 36,
+        size: 46,
       ),
       SizedBox(height: 16), // Space between icon and text
       RichText(
         textAlign: TextAlign.center, // Center the text
         text: TextSpan(
-          style: TextStyle(fontSize: 16, color: Colors.black, height: 1.5),
+          style: TextStyle(fontSize: 17, color: Colors.black, height: 1.5),
           children: [
             TextSpan(
               text: 'Dive into our extensive library of\n expert content. Find out info about\n HRT, treament options, and how you\n can manage your symptoms.',
@@ -246,24 +245,17 @@ class WhoWeAreScreen extends StatelessWidget {
             
                  SizedBox(height: 8),
                   Center(
-                    child: TextButton(
-                      onPressed: () {
-                        _pageController1.animateToPage(
-                      0,
-                      duration: Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                    );
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.arrow_back, color: const Color(0xFFB793E6), size: 18),
-
-                          Text('Back', textAlign: TextAlign.center, style: TextStyle(color: const Color(0xFFB793E6), fontSize: 16)),
-                          SizedBox(width: 0),
-                        ],
-                      ),
-                    ),
+                    child: CommonTextButton(
+  onPressed: () {
+    _pageController1.animateToPage(
+      0,
+      duration: Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  },
+  text: 'Back',
+),
+                   
                   ),
               ],
             ),
@@ -276,13 +268,13 @@ class WhoWeAreScreen extends StatelessWidget {
                   // SizedBox(height: 10),
                   Center(
               child: SizedBox(
-                height: 260, // Define a height for the PageView
+                height: 270, // Define a height for the PageView
                 child: PageView(
         controller: _pageController2,
         children: [
           // First Page: "Read More" Content
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -294,7 +286,7 @@ class WhoWeAreScreen extends StatelessWidget {
                         Icon(
                           Icons.calendar_today_outlined,
                           color: const Color(0xFF1E5D73),
-                          size: 36,
+                          size: 46,
                         ),
                         SizedBox(width: 26),
                         RichText(
@@ -312,31 +304,24 @@ class WhoWeAreScreen extends StatelessWidget {
                   ),
                 SizedBox(height: 8),
                   Center(
-                    child: TextButton(
-                      onPressed: () {
-                        // Handle read more action
-                         _pageController2.animateToPage(
-                      1,
-                      duration: Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                    );
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('Read more', textAlign: TextAlign.center, style: TextStyle(color: const Color(0xFFB793E6), fontSize: 16)),
-                          SizedBox(width: 0),
-                          Icon(Icons.arrow_forward, color: const Color(0xFFB793E6), size: 18),
-                        ],
-                      ),
-                    ),
+                    child: CommonTextButton(
+  onPressed: () {
+    _pageController2.animateToPage(
+      1,
+      duration: Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  },
+  text: 'Read more',
+),
+
                   ),
               ],
             ),
           ),
           // Second Page: "Back" Content
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -348,13 +333,13 @@ class WhoWeAreScreen extends StatelessWidget {
       Icon(
         Icons.calendar_today_outlined,
         color: const Color(0xFF1E5D73),
-        size: 36,
+        size: 46,
       ),
       SizedBox(height: 16), // Space between icon and text
       RichText(
         textAlign: TextAlign.center, // Center the text
         text: TextSpan(
-          style: TextStyle(fontSize: 16, color: Colors.black, height: 1.5),
+          style: TextStyle(fontSize: 17, color: Colors.black, height: 1.5),
           children: [
             TextSpan(
               text: 'Menopause can be tricky to\n identify. By tracking symptoms\n daily, you can better manage your\n health and wellbeing by pinpointing\n your needs.',
@@ -369,28 +354,18 @@ class WhoWeAreScreen extends StatelessWidget {
     ],
   ),
 ),
-
-            
                  SizedBox(height: 8),
                   Center(
-                    child: TextButton(
-                      onPressed: () {
-                        _pageController2.animateToPage(
-                      0,
-                      duration: Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                    );
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.arrow_back, color: const Color(0xFFB793E6), size: 18),
-
-                          Text('Back', textAlign: TextAlign.center, style: TextStyle(color: const Color(0xFFB793E6), fontSize: 16)),
-                          SizedBox(width: 0),
-                        ],
-                      ),
-                    ),
+                    child: CommonTextButton(
+  onPressed: () {
+    _pageController2.animateToPage(
+      0,
+      duration: Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  },
+  text: 'Back',
+),
                   ),
               ],
             ),
@@ -409,7 +384,7 @@ class WhoWeAreScreen extends StatelessWidget {
         children: [
           // First Page: "Read More" Content
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(4.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -421,7 +396,7 @@ class WhoWeAreScreen extends StatelessWidget {
                         Icon(
                           Icons.assignment_outlined,
                           color: const Color(0xFF1E5D73),
-                          size: 36,
+                          size: 46,
                         ),
                         SizedBox(width: 26),
                         RichText(
@@ -438,31 +413,24 @@ class WhoWeAreScreen extends StatelessWidget {
                   ),
                 SizedBox(height: 8),
                   Center(
-                    child: TextButton(
-                      onPressed: () {
-                        // Handle read more action
-                         _pageController3.animateToPage(
-                      1,
-                      duration: Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                    );
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('Read more', textAlign: TextAlign.center, style: TextStyle(color: const Color(0xFFB793E6), fontSize: 16)),
-                          SizedBox(width: 0),
-                          Icon(Icons.arrow_forward, color: const Color(0xFFB793E6), size: 18),
-                        ],
-                      ),
-                    ),
+                    child: CommonTextButton(
+  onPressed: () {
+    _pageController3.animateToPage(
+      1,
+      duration: Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  },
+  text: 'Read more',
+),
+                   
                   ),
               ],
             ),
           ),
           // Second Page: "Back" Content
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -474,13 +442,13 @@ class WhoWeAreScreen extends StatelessWidget {
       Icon(
         Icons.assignment_outlined,
         color: const Color(0xFF1E5D73),
-        size: 36,
+        size: 46,
       ),
       SizedBox(height: 16), // Space between icon and text
       RichText(
         textAlign: TextAlign.center, // Center the text
         text: TextSpan(
-          style: TextStyle(fontSize: 16, color: Colors.black, height: 1.5),
+          style: TextStyle(fontSize: 17, color: Colors.black, height: 1.5),
           children: [
             TextSpan(
               text: 'Fast track your care by generating\n your own balance health report to\n take to GP appointments.',
@@ -499,24 +467,16 @@ class WhoWeAreScreen extends StatelessWidget {
             
                  SizedBox(height: 8),
                   Center(
-                    child: TextButton(
-                      onPressed: () {
-                        _pageController3.animateToPage(
-                      0,
-                      duration: Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                    );
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.arrow_back, color: const Color(0xFFB793E6), size: 18),
-
-                          Text('Back', textAlign: TextAlign.center, style: TextStyle(color: const Color(0xFFB793E6), fontSize: 16)),
-                          SizedBox(width: 0),
-                        ],
-                      ),
-                    ),
+                    child: CommonTextButton(
+  onPressed: () {
+    _pageController3.animateToPage(
+      0,
+      duration: Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  },
+  text: 'Back',
+),
                   ),
               ],
             ),
@@ -536,7 +496,7 @@ class WhoWeAreScreen extends StatelessWidget {
         children: [
           // First Page: "Read More" Content
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(6.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -548,7 +508,7 @@ class WhoWeAreScreen extends StatelessWidget {
                         Icon(
                           Icons.groups_outlined,
                           color: const Color(0xFF1E5D73),
-                          size: 36,
+                          size: 46,
                         ),
                         SizedBox(width: 26),
                         RichText(
@@ -566,31 +526,23 @@ class WhoWeAreScreen extends StatelessWidget {
                   ),
                 SizedBox(height: 8),
                   Center(
-                    child: TextButton(
-                      onPressed: () {
-                        // Handle read more action
-                         _pageController4.animateToPage(
-                      1,
-                      duration: Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                    );
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('Read more', textAlign: TextAlign.center, style: TextStyle(color: const Color(0xFFB793E6), fontSize: 16)),
-                          SizedBox(width: 0),
-                          Icon(Icons.arrow_forward, color: const Color(0xFFB793E6), size: 18),
-                        ],
-                      ),
-                    ),
+                    child: CommonTextButton(
+  onPressed: () {
+    _pageController4.animateToPage(
+      1,
+      duration: Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  },
+  text: 'Read more',
+),
                   ),
               ],
             ),
           ),
           // Second Page: "Back" Content
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -602,13 +554,13 @@ class WhoWeAreScreen extends StatelessWidget {
       Icon(
         Icons.groups_outlined,
         color: const Color(0xFF1E5D73),
-        size: 36,
+        size: 46,
       ),
       SizedBox(height: 16), // Space between icon and text
       RichText(
         textAlign: TextAlign.center, // Center the text
         text: TextSpan(
-          style: TextStyle(fontSize: 16, color: Colors.black, height: 1.5),
+          style: TextStyle(fontSize: 17, color: Colors.black, height: 1.5),
           children: [
             TextSpan(
               text: 'Fast track your care by generating\n your own balance health report to\n take to GP appointments.',
@@ -627,24 +579,16 @@ class WhoWeAreScreen extends StatelessWidget {
             
                  SizedBox(height: 8),
                   Center(
-                    child: TextButton(
-                      onPressed: () {
-                        _pageController4.animateToPage(
-                      0,
-                      duration: Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                    );
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.arrow_back, color: const Color(0xFFB793E6), size: 18),
-
-                          Text('Back', textAlign: TextAlign.center, style: TextStyle(color: const Color(0xFFB793E6), fontSize: 16)),
-                          SizedBox(width: 0),
-                        ],
-                      ),
-                    ),
+                    child:  CommonTextButton(
+  onPressed: () {
+    _pageController4.animateToPage(
+      0,
+      duration: Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  },
+  text: 'Back',
+),
                   ),
               ],
             ),
@@ -662,7 +606,7 @@ class WhoWeAreScreen extends StatelessWidget {
         children: [
           // First Page: "Read More" Content
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(6.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -674,7 +618,7 @@ class WhoWeAreScreen extends StatelessWidget {
                         Icon(
                           Icons.groups_outlined,
                           color: const Color(0xFF1E5D73),
-                          size: 36,
+                          size: 46,
                         ),
                         SizedBox(width: 26),
                         RichText(
@@ -694,31 +638,23 @@ class WhoWeAreScreen extends StatelessWidget {
                   ),
                 SizedBox(height: 8),
                   Center(
-                    child: TextButton(
-                      onPressed: () {
-                        // Handle read more action
-                         _pageController5.animateToPage(
-                      1,
-                      duration: Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                    );
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('Read more', textAlign: TextAlign.center, style: TextStyle(color: const Color(0xFFB793E6), fontSize: 16)),
-                          SizedBox(width: 0),
-                          Icon(Icons.arrow_forward, color: const Color(0xFFB793E6), size: 18),
-                        ],
-                      ),
-                    ),
+                    child: CommonTextButton(
+  onPressed: () {
+    _pageController5.animateToPage(
+      1,
+      duration: Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  },
+  text: 'Read more',
+),
                   ),
               ],
             ),
           ),
           // Second Page: "Back" Content
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -730,13 +666,13 @@ class WhoWeAreScreen extends StatelessWidget {
       Icon(
         Icons.groups_outlined,
         color: const Color(0xFF1E5D73),
-        size: 36,
+        size: 46,
       ),
       SizedBox(height: 16), // Space between icon and text
       RichText(
         textAlign: TextAlign.center, // Center the text
         text: TextSpan(
-          style: TextStyle(fontSize: 16, color: Colors.black, height: 1.5),
+          style: TextStyle(fontSize: 17, color: Colors.black, height: 1.5),
           children: [
             TextSpan(
               text: 'Fast track your care by generating\n your own balance health report to\n take to GP appointments.',
@@ -755,24 +691,16 @@ class WhoWeAreScreen extends StatelessWidget {
             
                  SizedBox(height: 8),
                   Center(
-                    child: TextButton(
-                      onPressed: () {
-                        _pageController5.animateToPage(
-                      0,
-                      duration: Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                    );
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.arrow_back, color: const Color(0xFFB793E6), size: 18),
-
-                          Text('Back', textAlign: TextAlign.center, style: TextStyle(color: const Color(0xFFB793E6), fontSize: 16)),
-                          SizedBox(width: 0),
-                        ],
-                      ),
-                    ),
+                    child: CommonTextButton(
+  onPressed: () {
+    _pageController5.animateToPage(
+      0,
+      duration: Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  },
+  text: 'Back',
+),
                   ),
               ],
             ),
@@ -790,7 +718,7 @@ class WhoWeAreScreen extends StatelessWidget {
         children: [
           // First Page: "Read More" Content
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(6.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -802,7 +730,7 @@ class WhoWeAreScreen extends StatelessWidget {
                         Icon(
                           Icons.groups_outlined,
                           color: const Color(0xFF1E5D73),
-                          size: 36,
+                          size: 46,
                         ),
                         SizedBox(width: 26),
                         RichText(
@@ -820,31 +748,23 @@ class WhoWeAreScreen extends StatelessWidget {
                   ),
                 SizedBox(height: 8),
                   Center(
-                    child: TextButton(
-                      onPressed: () {
-                        // Handle read more action
-                         _pageController6.animateToPage(
-                      1,
-                      duration: Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                    );
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('Read more', textAlign: TextAlign.center, style: TextStyle(color: const Color(0xFFB793E6), fontSize: 16)),
-                          SizedBox(width: 0),
-                          Icon(Icons.arrow_forward, color: const Color(0xFFB793E6), size: 18),
-                        ],
-                      ),
-                    ),
+                    child: CommonTextButton(
+  onPressed: () {
+    _pageController6.animateToPage(
+      1,
+      duration: Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  },
+  text: 'Read more',
+),
                   ),
               ],
             ),
           ),
           // Second Page: "Back" Content
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -856,13 +776,13 @@ class WhoWeAreScreen extends StatelessWidget {
       Icon(
         Icons.groups_outlined,
         color: const Color(0xFF1E5D73),
-        size: 36,
+        size: 46,
       ),
       SizedBox(height: 16), // Space between icon and text
       RichText(
         textAlign: TextAlign.center, // Center the text
         text: TextSpan(
-          style: TextStyle(fontSize: 16, color: Colors.black, height: 1.5),
+          style: TextStyle(fontSize: 17, color: Colors.black, height: 1.5),
           children: [
             TextSpan(
               text: 'Fast track your care by generating\n your own balance health report to\n take to GP appointments.',
@@ -881,24 +801,16 @@ class WhoWeAreScreen extends StatelessWidget {
             
                  SizedBox(height: 8),
                   Center(
-                    child: TextButton(
-                      onPressed: () {
-                        _pageController6.animateToPage(
-                      0,
-                      duration: Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                    );
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.arrow_back, color: const Color(0xFFB793E6), size: 18),
-
-                          Text('Back', textAlign: TextAlign.center, style: TextStyle(color: const Color(0xFFB793E6), fontSize: 16)),
-                          SizedBox(width: 0),
-                        ],
-                      ),
-                    ),
+                    child: CommonTextButton(
+  onPressed: () {
+    _pageController6.animateToPage(
+      0,
+      duration: Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  },
+  text: 'Back',
+),
                   ),
               ],
             ),
@@ -916,7 +828,7 @@ class WhoWeAreScreen extends StatelessWidget {
         children: [
           // First Page: "Read More" Content
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(6.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -928,7 +840,7 @@ class WhoWeAreScreen extends StatelessWidget {
                         Icon(
                           Icons.groups_outlined,
                           color: const Color(0xFF1E5D73),
-                          size: 36,
+                          size: 46,
                         ),
                         SizedBox(width: 26),
                         RichText(
@@ -945,31 +857,23 @@ class WhoWeAreScreen extends StatelessWidget {
                   ),
                 SizedBox(height: 8),
                   Center(
-                    child: TextButton(
-                      onPressed: () {
-                        // Handle read more action
-                         _pageController7.animateToPage(
-                      1,
-                      duration: Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                    );
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('Read more', textAlign: TextAlign.center, style: TextStyle(color: const Color(0xFFB793E6), fontSize: 16)),
-                          SizedBox(width: 0),
-                          Icon(Icons.arrow_forward, color: const Color(0xFFB793E6), size: 18),
-                        ],
-                      ),
-                    ),
+                    child: CommonTextButton(
+  onPressed: () {
+    _pageController7.animateToPage(
+      1,
+      duration: Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  },
+  text: 'Read more',
+),
                   ),
               ],
             ),
           ),
           // Second Page: "Back" Content
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -981,13 +885,13 @@ class WhoWeAreScreen extends StatelessWidget {
       Icon(
         Icons.groups_outlined,
         color: const Color(0xFF1E5D73),
-        size: 36,
+        size: 46,
       ),
       SizedBox(height: 16), // Space between icon and text
       RichText(
         textAlign: TextAlign.center, // Center the text
         text: TextSpan(
-          style: TextStyle(fontSize: 16, color: Colors.black, height: 1.5),
+          style: TextStyle(fontSize: 17, color: Colors.black, height: 1.5),
           children: [
             TextSpan(
               text: 'Fast track your care by generating\n your own balance health report to\n take to GP appointments.',
@@ -1006,24 +910,16 @@ class WhoWeAreScreen extends StatelessWidget {
             
                  SizedBox(height: 8),
                   Center(
-                    child: TextButton(
-                      onPressed: () {
-                        _pageController7.animateToPage(
-                      0,
-                      duration: Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                    );
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.arrow_back, color: const Color(0xFFB793E6), size: 18),
-
-                          Text('Back', textAlign: TextAlign.center, style: TextStyle(color: const Color(0xFFB793E6), fontSize: 16)),
-                          SizedBox(width: 0),
-                        ],
-                      ),
-                    ),
+                    child: CommonTextButton(
+  onPressed: () {
+    _pageController7.animateToPage(
+      0,
+      duration: Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  },
+  text: 'Back',
+),
                   ),
               ],
             ),
@@ -1036,24 +932,17 @@ class WhoWeAreScreen extends StatelessWidget {
 
                    SizedBox(height: 20),
                   Container(
-                    height: 1200,
+                    height: 1100,
                     child: Stack(
                       children: [
-                        // Positioned.fill(
-                        //   child: ClipRRect(
-                        //     borderRadius: BorderRadius.circular(12),
-                        //     child: Image.asset(
-                        //       'assets/images/profile.png',
-                        //       fit: BoxFit.cover,
-                        //     ),
-                        //   ),
-                        // ),
                         Positioned.fill(
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(12),
                               gradient: LinearGradient(
-                                colors: [Color(0xFF8E87D5), Colors.purple.withOpacity(0.4)],
+                                colors: [Color(0xFF3739c0), Color(0xFF3739c0).withOpacity(0.4)],
+                                // colors: [Color(0xFF8E87D5), Colors.purple.withOpacity(0.4)],
+                                // 0xFF3739c0
                                 begin: Alignment.topCenter,
                                 end: Alignment.bottomCenter,
                               ),
@@ -1074,19 +963,12 @@ class WhoWeAreScreen extends StatelessWidget {
                           text: TextSpan(
                             style: TextStyle(fontSize: 35, color: Colors.black, height: 1.5),
                             children: [
-                              TextSpan(text: 'Introducing  \n balance+     \n', style: TextStyle(color:  Colors.yellow, fontWeight: FontWeight.bold)),
+                              TextSpan(text: 'Introducing  \n balance+     \n', style: TextStyle(color:  Color(0xFFDDC494), fontWeight: FontWeight.bold)),
                             ],
                           ),
                         ),
                         //  SizedBox(height: 10),
-                        //   RichText(
-                        //   text: TextSpan(
-                        //     style: TextStyle(fontSize: 20, color: Colors.white, height: 1.5),
-                        //     children: [
-                        //       TextSpan(text: 'As well as the free part of the  \napp, we introduced a premium\n option that gives a more holistic and personalised experience. \n', style: TextStyle(color: const Color(0xFF1E5D73), fontWeight: FontWeight.bold)),
-                        //     ],
-                        //   ),
-                        // ),
+                       
                       ],
                     ),
                   ),
@@ -1103,7 +985,7 @@ class WhoWeAreScreen extends StatelessWidget {
         RichText(
           textAlign: TextAlign.center,
           text: TextSpan(
-            style: TextStyle(fontSize: 16, color: Colors.white, height: 1.5),
+            style: TextStyle(fontSize: 17, color: Colors.white, height: 1.5),
             children: [
               TextSpan(
                 text: 'As well as the free part of the app,\nwe introduced a premium option\nthat gives a more holistic and\npersonalised experience.\n\nNot only does Balance+ give you\naccess to unparalleled premium\ncontent, but by subscribing, you\nare also helping to keep the main\npart of the app free for those \nwho aren’t able to pay.\n\n',
@@ -1112,7 +994,7 @@ class WhoWeAreScreen extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(height: 20.0),
+        // SizedBox(height: 4.0),
         ListView(
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(), // Prevent scrolling if inside another scrollable widget
@@ -1120,17 +1002,17 @@ class WhoWeAreScreen extends StatelessWidget {
                 Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(Icons.check_circle, color: Colors.yellow),
+                Icon(Icons.check_circle_outline, color: Color(0xFFDDC494), size:26),
                 SizedBox(width: 8.0),
              
                 Expanded(
       child: RichText(
         text: TextSpan(
-          style: TextStyle(fontSize: 16.0, color: Colors.white), // Default text style
+          style: TextStyle(fontSize: 17.0, color: Colors.white), // Default text style
           children: [
             TextSpan(
               text: 'Live sessions, ',
-              style: TextStyle(fontWeight: FontWeight.bold,  color: Colors.yellow), // Apply bold to this part
+              style: TextStyle(fontWeight: FontWeight.bold,  color: Color(0xFFDDC494)), // Apply bold to this part
             ),
             TextSpan(
               text: 'with Dr Louise \nNewson.', // Regular text
@@ -1145,20 +1027,20 @@ class WhoWeAreScreen extends StatelessWidget {
                 Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(Icons.check_circle, color: Colors.yellow),
+                Icon(Icons.check_circle_outline, color: Color(0xFFDDC494), size: 26),
                 SizedBox(width: 8.0),
              
                 Expanded(
       child: RichText(
         text: TextSpan(
-          style: TextStyle(fontSize: 16.0, color: Colors.white), // Default text style
+          style: TextStyle(fontSize: 17.0, color: Colors.white), // Default text style
           children: [
              TextSpan(
               text: 'Access to ', // Regular text
             ),
             TextSpan(
-              text: 'video recipes,\n weight management, yoga,\n pilates, classes ',
-              style: TextStyle(fontWeight: FontWeight.bold,  color: Colors.yellow), // Apply bold to this part
+              text: 'video recipes,\nweight management, yoga,\npilates, classes ',
+              style: TextStyle(fontWeight: FontWeight.bold,  color: Color(0xFFDDC494)), // Apply bold to this part
             ),
              TextSpan(
               text: 'and more!', // Regular text
@@ -1174,23 +1056,23 @@ class WhoWeAreScreen extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(Icons.check_circle, color: Colors.yellow),
+                Icon(Icons.check_circle_outline, color: Color(0xFFDDC494), size:26),
                 SizedBox(width: 8.0),
              
                 Expanded(
       child: RichText(
         text: TextSpan(
-          style: TextStyle(fontSize: 16.0, color: Colors.white), // Default text style
+          style: TextStyle(fontSize: 17.0, color: Colors.white), // Default text style
           children: [
               TextSpan(
               text: 'Explore', // Regular text
             ),
             TextSpan(
               text: ' expert channels, ',
-              style: TextStyle(fontWeight: FontWeight.bold,  color: Colors.yellow), // Apply bold to this part
+              style: TextStyle(fontWeight: FontWeight.bold,  color: Color(0xFFDDC494)), // Apply bold to this part
             ),
             TextSpan(
-              text: 'to\n get a holistic personalised\n experience.', // Regular text
+              text: 'to\nget a holistic personalised\nexperience.', // Regular text
             ),
           ],
         ),
@@ -1202,125 +1084,70 @@ class WhoWeAreScreen extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(Icons.check_circle, color: Colors.yellow),
+                Icon(Icons.check_circle_outline, color: Color(0xFFDDC494), size:26),
                 SizedBox(width: 8.0),
                              Expanded(
       child: RichText(
         text: TextSpan(
-          style: TextStyle(fontSize: 16.0, color: Colors.white), // Default text style
+          style: TextStyle(fontSize: 17.0, color: Colors.white), // Default text style
           children: [
               TextSpan(
               text: 'Watch', // Regular text
             ),
             TextSpan(
-              text: ' healthcare consultation scenarios, ',
-              style: TextStyle(fontWeight: FontWeight.bold,  color: Colors.yellow), // Apply bold to this part
+              text: ' healthcare\nconsultation scenarios, ',
+              style: TextStyle(fontWeight: FontWeight.bold,  color: Color(0xFFDDC494)), // Apply bold to this part
             ),
             TextSpan(
-               text: 'to\n help prepare you for doctor\'s \nvisits.',
+               text: 'to\nhelp prepare you for doctor\'s\nvisits.',
             ),
           ],
         ),
       ),
     ),
-                // Expanded(
-                //   child: Text(
-                //     "Watch healthcare consultation scenarios to help prepare you for doctor's visits.",
-                //     style: TextStyle(fontSize: 16.0, color: Colors.white),
-                //   ),
-                // ),
+               
               ],
             ),
             SizedBox(height: 20),
+             Center(
+                  child: Text(
+                    "...And so much more!",
+                    style: TextStyle(fontSize: 17.0, color: Colors.white),
+                  ),
+                ),
             Center(
         child: Image.asset(
           'assets/images/findBalance2.png', // Replace with your saved image path
-          height: 250,
+          height: 160,
           width: 350,
           // fit: BoxFit.cover, // Optional: adjust how the image fits
         ),
       ),
-    //         Container(
-    //           decoration: BoxDecoration(
-    //             color: const Color(0xFF1E5D73), // Dark teal
-    //             borderRadius: BorderRadius.vertical(
-    //               top: Radius.circular(25),
-    //               bottom: Radius.circular(25),
-    //             ),
-    //           ),
-    //           child: TabBar(
-    //             indicator: BoxDecoration(
-    //               color: Color(0xFFf8e7ef), // Background for selected tab
-    //               borderRadius: BorderRadius.circular(25), // Rounded corners for tab indicator
-    //             ),
-    //             indicatorPadding: EdgeInsets.symmetric(horizontal: -33.5, vertical: 4.0),
-    //             labelColor: const Color(0xFF1E5D73), // Text color for selected tab
-    //             unselectedLabelColor: Colors.white, // Text color for unselected tabs
-    //             labelStyle: TextStyle(fontSize: 18),
-    //             tabs: [
-    //               Tab(text: 'For you'),
-    //               Tab(text: "Learn"),
-    //               Tab(text: "balance+"),
-    //             ],
-    //           ),
-    //         ),
-    //           SizedBox(height: 8.0),
-    // Row(
-    //   mainAxisAlignment: MainAxisAlignment.center,
-    //   children: [
-    //     Text(
-    //       "Find balance+ ",
-    //       style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white,),
-    //     ),
-    //     // SizedBox(width: 1.0),
-    //       Image.asset(
-    //           'assets/images/image.png', // Replace with your saved image path
-    //           height: 50,
-    //           width: 50,
-    //         ),
-          
-        
-    //   ],
-    // ),
-                // SizedBox(height: 2.0),
-    // Row(
-    //   mainAxisAlignment: MainAxisAlignment.center,
-    //   children: [
-        
-        
-    //         Text(
-    //       "on the top menu",
-    //       style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white,),
-    //     ),
-        
-    //   ],
-    // ),
-       const SizedBox(height: 20),
+
+      //  const SizedBox(height: 20),
                   OutlinedButton(
-                    onPressed: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(builder: (context) => LoginScreen()),
-                      // );
-                      // Add log-in action
-                    },
-                    style: OutlinedButton.styleFrom(
-                      side: const BorderSide(color: Color(0xFF4C48B7)),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      padding: const EdgeInsets.symmetric(vertical: 15),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        'Find out more',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Color(0xFF4C48B7),
-                        ),
-                      ),
-                    ),
-                  ),
+  onPressed: () {
+    // Add log-in action
+  },
+  style: OutlinedButton.styleFrom(
+    side: const BorderSide(color: Color(0xFF4C48B7), width: 2), // Border size 2
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(30),
+    ),
+    padding: const EdgeInsets.symmetric(vertical: 15),
+  ),
+  child: const Center(
+    child: Text(
+      'Find out more',
+      style: TextStyle(
+        fontSize: 18,
+        fontWeight: FontWeight.bold, // Make text bold
+        color: Color(0xFF4C48B7),
+      ),
+    ),
+  ),
+),
+
           ],
         ),
       ],
@@ -1328,68 +1155,30 @@ class WhoWeAreScreen extends StatelessWidget {
   ),
 ),
 
-                        
-                          //   Positioned(
-                          // top: 10,
-                          // left: 16,
-                          // right: 16,
-                          // child: ListView(
-    //                             children: [
-    //                               Row(
-    //   // crossAxisAlignment: CrossAxisAlignment.start,
-    //   children: [
-    //     Icon(Icons.check_circle, color: Colors.yellow),
-    //     // SizedBox(width: 8.0),
-    //     Expanded(
-    //       child: Text(
-    //        'Explore expert channels, to get a holistic personalised experience.',
-    //         style: TextStyle(fontSize: 16.0),
-    //       ),
-    //     ),
-    //   ],
-    // ),
-                
-    //                             ]
-                      
-    //                        ),
-                        // ),
+               
                       ],
                     ),
                   ),
                  
                   SizedBox(height: 24),
-                  Center(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        // Handle button press
-                         Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => BalanceTabScreen()),
-              );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF3739c0),
-                        minimumSize: Size(double.infinity, 50),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-                      ),
-                      child: Text(
-                        'Create my free account!',
-                        style: TextStyle(fontSize: 16, color: Colors.white),
-                      ),
-                    ),
-                  ),
+                 
                 ],
               ),
             ),
             // Tab 2 Content
             SingleChildScrollView( // Wrap this part with SingleChildScrollView
-              padding: const EdgeInsets.all(16.0),
+             padding: const EdgeInsets.symmetric(horizontal: 30.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(height: 16),
                   Text(
-                    'balance+ is an optional premium subscription that unlocks more content to give you a more holistic and personalised experience. The revenue we earn from subscriptions is used to keep the lights on for the free app for those who aren’t able to pay.',
-                    style: TextStyle(fontSize: 18, height: 1.5, color: Color(0xFF99b5c0)),
+                    'balance+ is an optional premium\nsubscription that unlocks more\ncontent to give you a more holistic\nand personalised experience. The\nrevenue we earn from subscriptions\nis used to keep the lights on for the \nfree app for those who aren’t able\nto pay.',
+                     style: TextStyle(
+                        fontSize: 18,
+                        height: 1.5,
+                        color: Color(0xFF1E5D73),
+                      ),
                   ),
                   SizedBox(height: 16),
                   Text(
@@ -1406,7 +1195,7 @@ BalancePluseCard(
           children: [
             TextSpan(
               text: 'Live sessions ',
-              style: TextStyle(fontWeight: FontWeight.bold,  color: Colors.yellow), // Apply bold to this part
+              style: TextStyle(fontWeight: FontWeight.bold,  color: Color(0xFFDDC494)), // Apply bold to this part
             ),
             TextSpan(
                text: 'with\nDr. Louise Newson',
@@ -1425,7 +1214,7 @@ BalancePluseCard(
   pageController:_pageController8,
   textVal: 'Join our founder, Dr.\nLouise Newson in regular\nlive sessions featuring\nhandpicked guests, and\nexperts in the menopause.'
   ),
-  SizedBox(height: 16),
+  SizedBox(height: 26),
   BalancePluseCard(
    imagePath: 'assets/images/profile.png',
     richText: RichText(
@@ -1437,7 +1226,7 @@ BalancePluseCard(
             ),
             TextSpan(
               text: 'recipe videos',
-              style: TextStyle(fontWeight: FontWeight.bold,  color: Colors.yellow), // Apply bold to this part
+              style: TextStyle(fontWeight: FontWeight.bold,  color: Color(0xFFDDC494)), // Apply bold to this part
             ),
             
           ],
@@ -1453,7 +1242,7 @@ BalancePluseCard(
   pageController:_pageController9,
   textVal: 'Not sure which foods help\nor hinder your symptoms?\nJoin our nutrition experts for\nplenty of cooking inspiration,\nrecipes, and helpful advice.'
   ),
-    SizedBox(height: 16),
+    SizedBox(height: 26),
   BalancePluseCard(
    imagePath: 'assets/images/profile.png',
     richText: RichText(
@@ -1462,21 +1251,21 @@ BalancePluseCard(
           children: [
              TextSpan(
               text: 'Pilates',
-              style: TextStyle(fontWeight: FontWeight.bold,  color: Colors.yellow), // Apply bold to this part
+              style: TextStyle(fontWeight: FontWeight.bold,  color: Color(0xFFDDC494)), // Apply bold to this part
             ),
               TextSpan(
               text: ',', // Regular text
             ),
             TextSpan(
               text: 'yoga',
-              style: TextStyle(fontWeight: FontWeight.bold,  color: Colors.yellow), // Apply bold to this part
+              style: TextStyle(fontWeight: FontWeight.bold,  color: Color(0xFFDDC494)), // Apply bold to this part
             ),
                TextSpan(
               text: 'and\nguided ', // Regular text
             ),
              TextSpan(
-              text: 'meditation',
-              style: TextStyle(fontWeight: FontWeight.bold,  color: Colors.yellow), // Apply bold to this part
+              text: 'meditation\n',
+              style: TextStyle(fontWeight: FontWeight.bold,  color: Color(0xFFDDC494)), // Apply bold to this part
             ),
              TextSpan(
               text: 'sessions', // Regular text
@@ -1494,7 +1283,7 @@ BalancePluseCard(
                       },
   pageController:_pageController10,
   textVal: 'Prioritise your health and\nwellbeing with access to\nexclusive exercise and\nwellbeing sessions with our\nbalance experts.'),
-    SizedBox(height: 16),
+    SizedBox(height: 26),
   BalancePluseCard(
    imagePath: 'assets/images/profile.png',
     richText: RichText(
@@ -1503,14 +1292,14 @@ BalancePluseCard(
           children: [
              TextSpan(
               text: 'Nutrition\n',
-              style: TextStyle(fontWeight: FontWeight.bold,  color: Colors.yellow), // Apply bold to this part
+              style: TextStyle(fontWeight: FontWeight.bold,  color: Color(0xFFDDC494)), // Apply bold to this part
             ),
               TextSpan(
               text: 'and ', // Regular text
             ),
             TextSpan(
               text: 'weight',
-              style: TextStyle(fontWeight: FontWeight.bold,  color: Colors.yellow), // Apply bold to this part
+              style: TextStyle(fontWeight: FontWeight.bold,  color: Color(0xFFDDC494)), // Apply bold to this part
             ),
              TextSpan(
               text: '\nmanagement', // Regular text
@@ -1528,7 +1317,7 @@ BalancePluseCard(
                       },
   pageController:_pageController11,
   textVal: 'Take back control of your\nbody! Learn more about\nthe ways that nutrition can\n improve your symptoms\nand weight changes in\nmenopause.'),
-    SizedBox(height: 16),
+    SizedBox(height: 26),
   BalancePluseCard(
    imagePath: 'assets/images/profile.png',
     richText: RichText(
@@ -1538,7 +1327,7 @@ BalancePluseCard(
             
             TextSpan(
               text: 'Consultation\nexample ',
-              style: TextStyle(fontWeight: FontWeight.bold,  color: Colors.yellow), // Apply bold to this part
+              style: TextStyle(fontWeight: FontWeight.bold,  color: Color(0xFFDDC494)), // Apply bold to this part
             ),
               TextSpan(
               text: 'videos', // Regular text
@@ -1556,7 +1345,7 @@ BalancePluseCard(
                       },
   pageController:_pageController12,
   textVal: 'Watch our recreations of\na wide range of real-life\nconsultations to help you\nbetter prepare yourself for\nyour next GP appointment.' ),
-    SizedBox(height: 16),
+    SizedBox(height: 26),
   BalancePluseCard(
    imagePath: 'assets/images/profile.png',
     richText: RichText(
@@ -1566,10 +1355,10 @@ BalancePluseCard(
             
             TextSpan(
               text: 'Sexual health ',
-              style: TextStyle(fontWeight: FontWeight.bold,  color: Colors.yellow), // Apply bold to this part
+              style: TextStyle(fontWeight: FontWeight.bold,  color: Color(0xFFDDC494)), // Apply bold to this part
             ),
               TextSpan(
-              text: 'and\n pelvic floor experts', // Regular text
+              text: 'and\npelvic floor experts', // Regular text
             ),
             
           ],
@@ -1583,108 +1372,52 @@ BalancePluseCard(
                         );
                       },
   pageController:_pageController13,
-  textVal: 'Revive your confidence,\nrebuld your relationship\nwith your body. Menopause can be a very frustrating,\nuncomfortable and confusing\ntime when it comes to sexual\nhealth. Our handpicked\nexperts are here to heip!'
+  textVal: 'Revive your confidence,\nrebuild your relationship\nwith your body. Menopause can be a very frustrating,\nuncomfortable and confusing\ntime when it comes to sexual\nhealth. Our handpicked\nexperts are here to heip!'
    ),
     SizedBox(height: 10),
 Center(
         child: Image.asset(
           'assets/images/findBalance1.jpg', // Replace with your saved image path
-          height: 250,
-          width: 350,
+          height: 150,
+          width: 450,
           // fit: BoxFit.cover, // Optional: adjust how the image fits
         ),
       ),
               SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () {
-                           Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => BalanceTabScreen()),
-              );
-                },
-                style: ElevatedButton.styleFrom(
-                  minimumSize: Size(double.infinity, 50),
-                  backgroundColor: const Color(0xFF3739c0),
-                ),
-                child: Text(
-                        'Create my free account!',
-                        style: TextStyle(fontSize: 16, color: Colors.white),
-                      ),
-              ),
-                  SizedBox(height: 40),
+             
+         
                 ],
               ),
             ),
           ],
         ),
+bottomNavigationBar: Container(
+  padding: EdgeInsets.all(16),
+  decoration: BoxDecoration(
+    color: Color(0xFFFAF9FF), // Background color
+  ),
+  child: ElevatedButton(
+    onPressed: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => BalanceTabScreen()),
+      );
+    },
+    style: ElevatedButton.styleFrom(
+      minimumSize: Size(double.infinity, 50),
+      backgroundColor: const Color(0xFF3739c0),
+    ),
+    child: Text(
+      'Create my free account!',
+      style: TextStyle(fontSize: 16, color: Colors.white),
+    ),
+  ),
+),
+
+
       ),
     );
   }
-
-
-  //  Widget _buildTab(BuildContext context, String title, bool isActive) {
-  //   return Expanded(
-  //     child: GestureDetector(
-  //       onTap: () {
-  //         // Handle tab click
-  //       },
-  //       child: Container(
-  //         padding: EdgeInsets.symmetric(vertical: 12.0),
-  //         decoration: BoxDecoration(
-  //           color: isActive ? Colors.white : Colors.transparent,
-  //           borderRadius: BorderRadius.vertical(top: Radius.circular(12.0)),
-  //         ),
-  //         child: Center(
-  //           child: Text(
-  //             title,
-  //             style: TextStyle(
-  //               color: isActive ? Colors.black : Colors.white,
-  //               fontWeight: FontWeight.bold,
-  //             ),
-  //           ),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  //  }
-
-  // Widget _buildListItem(String text) {
-  //   return Row(
-  //     crossAxisAlignment: CrossAxisAlignment.start,
-  //     children: [
-  //       Icon(Icons.check_circle, color: Colors.yellow),
-  //       SizedBox(width: 8.0),
-  //       Expanded(
-  //         child: Text(
-  //           text,
-  //           style: TextStyle(fontSize: 16.0),
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
-
-  // Widget _buildMiniTab(String title, {bool isActive = false}) {
-  //   return GestureDetector(
-  //     onTap: () {
-  //       // Handle mini-tab click
-  //     },
-  //     child: Container(
-  //       padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-  //       decoration: BoxDecoration(
-  //         color: isActive ? Color(0xFF5A48FA) : Colors.transparent,
-  //         borderRadius: BorderRadius.circular(8.0),
-  //       ),
-  //       child: Text(
-  //         title,
-  //         style: TextStyle(
-  //           color: isActive ? Colors.white : Colors.black,
-  //           fontWeight: FontWeight.bold,
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
   
 }
 

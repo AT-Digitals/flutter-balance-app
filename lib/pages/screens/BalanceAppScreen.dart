@@ -27,7 +27,15 @@ class _BalanceAppScreenState extends State<BalanceAppScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0, // Higher value = more shadow
+        // surfaceTintColor: Colors.transparent,
+        toolbarHeight: 7.0,
+      ),
+
       backgroundColor: const Color(0xFFF8EBF7), // Light pink background
+
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
@@ -38,6 +46,8 @@ class _BalanceAppScreenState extends State<BalanceAppScreen> {
                 child: IntrinsicHeight(
                   child: Column(
                     children: [
+                      SizedBox(height: _showMessage ? 85 : 60),
+
                       // Description text with expansion
                       GestureDetector(
                         onTap: _toggleMessage,
@@ -51,6 +61,8 @@ class _BalanceAppScreenState extends State<BalanceAppScreen> {
                                     child: SingleChildScrollView(
                                         child: Column(
                                       children: [
+                                        // SizedBox(height: 70.0),
+
                                         const SizedBox(height: 30),
                                         Image.asset(
                                           'assets/images/balance.jpg',
@@ -60,7 +72,8 @@ class _BalanceAppScreenState extends State<BalanceAppScreen> {
                                         RichText(
                                           text: TextSpan(
                                             style: TextStyle(
-                                              fontSize: 25,
+                                              fontSize: 20,
+                                              height: 1.3,
                                               color: Color(
                                                   0xFF1E5D6E), // Default text color
                                             ),
@@ -79,7 +92,7 @@ class _BalanceAppScreenState extends State<BalanceAppScreen> {
                                               ),
                                               TextSpan(
                                                 text:
-                                                    "\n\nI'm Dr Louise Newson - GP,\nMenopause Specialist and\nFounder of ",
+                                                    "\nI'm Dr Louise Newson - GP,\nMenopause Specialist and\nFounder of ",
                                               ),
                                               TextSpan(
                                                 text:
@@ -99,7 +112,7 @@ class _BalanceAppScreenState extends State<BalanceAppScreen> {
                                                     "and\nanything that may impact the\nmenopause and how it's treated.\n\n"
                                                     "So once we have a little more\ninformation about you, we'll be\nable to help you understand\nmore about your body - "
                                                     "we'll\nalways keep your information\nsafe so that you feel comfortable\nsharing it with us.\n\n"
-                                                    "Remember, this app should\nnever replace an in-person\nconsultation with your doctor.",
+                                                    "Remember, this app should\nnever replace an in-person\nconsultation with your\nhealthcare professional.",
                                               ),
                                             ],
                                           ),
@@ -128,26 +141,26 @@ class _BalanceAppScreenState extends State<BalanceAppScreen> {
                                     const Text(
                                       'Read a message from Louise',
                                       style: TextStyle(
-                                        fontSize: 18,
+                                        fontSize: 16,
                                         color: Color(0xFF4C48B7),
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                    const SizedBox(height: 20),
+                                    const SizedBox(height: 0),
 
                                     // Main illustration
                                     Image.asset(
                                       'assets/images/firstpage.jpg',
-                                      height: 250,
+                                      height: 294,
                                       width: 400,
                                     ),
                                     // const SizedBox(height: 40),
                                   ])),
                       ),
-                      const SizedBox(height: 37),
+                      // SizedBox(height: _showMessage ? 12 : 0),
                       // Buttons
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
                         child: Column(
                           children: [
                             ElevatedButton(
@@ -186,8 +199,10 @@ class _BalanceAppScreenState extends State<BalanceAppScreen> {
                                 );
                               },
                               style: OutlinedButton.styleFrom(
-                                side:
-                                    const BorderSide(color: Color(0xFF4C48B7)),
+                                side: const BorderSide(
+                                  color: Color(0xFF4C48B7),
+                                  width: 2, // Increased border width
+                                ),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30),
                                 ),
@@ -204,7 +219,7 @@ class _BalanceAppScreenState extends State<BalanceAppScreen> {
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 30),
+                            // const SizedBox(height: 30),
                           ],
                         ),
                       ),

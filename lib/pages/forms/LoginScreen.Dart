@@ -65,8 +65,11 @@ class _LoginScreenState extends State<LoginScreen> {
               TextFormField(
   decoration: InputDecoration(
     hintText: 'e.g. sandra@example.com',
+      filled: true,
+    fillColor: Colors.white,
+    contentPadding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 10.0),
      hintStyle: TextStyle(
-      color: const Color(0xFF1E5D6E).withOpacity(0.5), // 50% opacity
+      color: const Color(0xFF3640BB).withOpacity(0.5), // 50% opacity
     ), // Hint text color
     border: OutlineInputBorder(),
 
@@ -98,6 +101,9 @@ class _LoginScreenState extends State<LoginScreen> {
               TextFormField(
                 obscureText: _obscurePassword, // Toggle password visibility
                 decoration: InputDecoration(
+                   filled: true,
+    fillColor: Colors.white,
+    contentPadding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 10.0),
                   suffixIcon: IconButton(
                     icon: Icon(
                       _obscurePassword ? Icons.visibility_off : Icons.visibility,
@@ -139,7 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
   ),
   child: const Text(
     'I forgot my password',
-    style: TextStyle(fontWeight: FontWeight.bold, color:Color(0xFF3640BB)),
+    style: TextStyle(color:Color(0xFF3640BB), fontSize: 18.0),
   ),
 ),
 
@@ -156,12 +162,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
                 style: ElevatedButton.styleFrom(
                   // backgroundColor: Color(0xFF353fbb),
-                  backgroundColor: Color(0xFF3640BB).withOpacity(0.1),
+                  backgroundColor: Color(0xFF3640BB).withOpacity(0.5),
                   minimumSize: Size(double.infinity, 50),
                 ),
                 child: Text(
                   'Log in',
-                  style: TextStyle(color: Color(0xFFE5ECF2)),
+                  style: TextStyle(color: Color(0xFFE5C1F5).withOpacity(0.5), fontSize: 16.0),
                 ),
               ),
             ],
