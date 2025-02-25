@@ -8,7 +8,8 @@ class SideEffectTreatment extends StatefulWidget {
 }
 
 class _SideEffectTreatmentState extends State<SideEffectTreatment> {
-  String? _selectedOption; // Variable to track the selected option
+  String? _selectedOption = 'no';
+  TextEditingController _sideEffectController = TextEditingController();
 
   void _onOptionSelected(String value) {
     setState(() {
@@ -31,67 +32,65 @@ class _SideEffectTreatmentState extends State<SideEffectTreatment> {
         ),
         title: Text(
           'Review a Treatment',
-          style: TextStyle(
-            color: Colors.white, // White color for the title text
-          ),
+          style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Color(0xFF0b5369),
         centerTitle: true,
         toolbarHeight: 100.0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: ListView(
-          children: [
-            SizedBox(height: 15),
-            Text(
-              'Have you experienced any side effects?',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF0b5369),
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 15),
+                  Text(
+                    'Have you experienced any side effects?',
+                    style: TextStyle(
+                      fontFamily: 'Playfair Display',
+                      fontSize: 30,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xFF0b5369),
+                    ),
+                  ),
+                  SizedBox(height: 30),
+                  buildRadioButton('Yes', 'yes'),
+                  SizedBox(height: 10),
+                  buildRadioButton('No', 'no'),
+
+                  // Show TextField when 'Yes' is selected
+                  if (_selectedOption == 'yes') ...[
+                    SizedBox(height: 20),
+                    TextField(
+                      controller: _sideEffectController,
+                      maxLines: 4,
+                      decoration: InputDecoration(
+                        hintText: 'Enter your side effects',
+                       hintStyle: TextStyle(fontSize: 20, color: Color(0xFFE5C7FC)),
+    border: OutlineInputBorder(
+      borderSide: BorderSide(color: Color(0xFFE5C7FC)), // Light gray border
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Color(0xFFE5C7FC)), // Light gray when not focused
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Color(0xFFE5C7FC)), // Slightly darker gray when focused
+    ),
+  ),
+                
+                    ),
+                  ],
+                ],
               ),
             ),
-            SizedBox(height: 30),
-            // Radio button for "ON" with green background
-            Container(
-              decoration: BoxDecoration(
-                color: Color(0xFFE6E6FF), // Green background color
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: RadioListTile<String>(
-                title: Text(
-                  'Yes',
-                  style: TextStyle(fontSize: 18, color: Color(0xFF0b5369),),
-                ),
-                value: 'yes',
-                groupValue: _selectedOption,
-                onChanged: (value) {
-                  _onOptionSelected(value!);
-                },
-              ),
-            ),
-            SizedBox(height: 10),
-            // Radio button for "OFF" with green background
-            Container(
-              decoration: BoxDecoration(
-                color: Color(0xFFE6E6FF), // Green background color
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: RadioListTile<String>(
-                title: Text(
-                  'No',
-                  style: TextStyle(fontSize: 18, color: Color(0xFF0b5369),),
-                ),
-                value: 'no',
-                groupValue: _selectedOption,
-                onChanged: (value) {
-                  _onOptionSelected(value!);
-                },
-              ),
-            ),
-            SizedBox(height: 200),
-            ElevatedButton(
+          ),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            width: double.infinity,
+            child: ElevatedButton(
               onPressed: _selectedOption != null
                   ? () {
                       Navigator.push(
@@ -100,17 +99,44 @@ class _SideEffectTreatmentState extends State<SideEffectTreatment> {
                       );
                     }
                   : null, // Disable button if no option is selected
-              style: ElevatedButton.styleFrom(
-                backgroundColor: _selectedOption != null ? Color(0xFF4C48B7) : Colors.grey,
-                minimumSize: Size(double.infinity, 50),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                  (Set<MaterialState> states) {
+                    if (states.contains(MaterialState.disabled)) {
+                      return Color(0xFF4C48B7).withOpacity(0.5);
+                    }
+                    return Color(0xFF4C48B7);
+                  },
+                ),
+                minimumSize: MaterialStateProperty.all(Size(double.infinity, 50)),
               ),
               child: Text(
                 'Next',
                 style: TextStyle(fontSize: 18, color: Colors.white),
               ),
             ),
-          ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildRadioButton(String title, String value) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Color(0xFFE6E6FF),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: RadioListTile<String>(
+        title: Text(
+          title,
+          style: TextStyle(fontSize: 18, color: Color(0xFF0b5369)),
         ),
+        value: value,
+        groupValue: _selectedOption,
+        onChanged: (newValue) {
+          _onOptionSelected(newValue!);
+        },
       ),
     );
   }

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:balance_app/pages/screens/reviews/SummariseTreatment.Dart';
 import 'TreatmentReview.Dart';
 
-
-
 class SymptomTreatment extends StatefulWidget {
   const SymptomTreatment({Key? key}) : super(key: key);
 
@@ -51,8 +49,9 @@ class _SymptomTreatmentFormState extends State<SymptomTreatment> {
             Text(
               'Which treatment symptoms do you take treatment for?',
               style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
+               fontFamily: 'Playfair Display', 
+                fontSize: 30,
+                fontWeight: FontWeight.w700,
                 color: Color(0xFF0b5369),
               ),
             ),

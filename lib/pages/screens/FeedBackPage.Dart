@@ -58,9 +58,9 @@ class _FeedBackPageState extends State<FeedBackPage> {
             Text(
               'Tell us what you think about the app',
               style: TextStyle(
-                 fontFamily: 'LibreBaskerville', 
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
+                 fontFamily: 'Playfair Display', 
+                fontSize: 30,
+                fontWeight: FontWeight.w700,
                 color: Color(0xFF0b5369),
               ),
             ),
@@ -88,34 +88,34 @@ class _FeedBackPageState extends State<FeedBackPage> {
               'If you are reporting an issue, please provide the details below to help us solve the issue as quickly as possible.',
               style: TextStyle(
                 fontSize: 18,
-                fontWeight: FontWeight.bold,
+                //fontWeight: FontWeight.bold,
                 color: Color(0xFF0b5369),
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 15),
             Text(
               '1) Your device model (e.g., iPhone 13 Pro, Samsung Galaxy S20)',
               style: TextStyle(
                 fontSize: 18,
-                fontWeight: FontWeight.bold,
+                //fontWeight: FontWeight.bold,
                 color: Color(0xFF0b5369),
               ),
             ),
-            SizedBox(height: 5),
+            SizedBox(height: 15),
             Text(
               '2) OS version (e.g., iOS 13, Android 11)',
               style: TextStyle(
                 fontSize: 18,
-                fontWeight: FontWeight.bold,
+               // fontWeight: FontWeight.bold,
                 color: Color(0xFF0b5369),
               ),
             ),
-            SizedBox(height: 5),
+            SizedBox(height: 15),
             Text(
               '3) Provide as much detail as possible about the steps you took to produce the issue to help our developers recreate it.',
               style: TextStyle(
                 fontSize: 18,
-                fontWeight: FontWeight.bold,
+                //fontWeight: FontWeight.bold,
                 color: Color(0xFF0b5369),
               ),
             ),
@@ -129,11 +129,17 @@ class _FeedBackPageState extends State<FeedBackPage> {
                       // );
                     }
                   : null, // Disable the button when no text is entered
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFF4C48B7),
-                minimumSize: Size(double.infinity, 50),
-                disabledBackgroundColor: Colors.grey, // Button color when disabled
-              ),
+               style: ButtonStyle(
+    backgroundColor: MaterialStateProperty.resolveWith<Color>(
+      (Set<MaterialState> states) {
+        if (states.contains(MaterialState.disabled)) {
+          return Color(0xFF4C48B7).withOpacity(0.5); // Lighter blue when disabled
+        }
+        return Color(0xFF4C48B7); // Normal blue when enabled
+      },
+    ),
+    minimumSize: MaterialStateProperty.all(Size(double.infinity, 50)),
+  ),
               child: Text(
                 'Send',
                 style: TextStyle(fontSize: 18, color: Colors.white),
