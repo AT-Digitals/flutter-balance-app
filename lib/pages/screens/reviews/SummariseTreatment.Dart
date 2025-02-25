@@ -3,12 +3,19 @@ import 'package:balance_app/pages/screens/reviews/SideEffectTreatment.Dart';
 import 'package:balance_app/pages/screens/reviews/SymptomTreatment.Dart';
 
 class SummariseTreatment extends StatefulWidget {
+
+ final List<String> selectedPreviousItems; // Receive selected items
+
+  SummariseTreatment({required this.selectedPreviousItems});
+
   @override
   _SummariseTreatmentState createState() => _SummariseTreatmentState();
 }
 
 class _SummariseTreatmentState extends State<SummariseTreatment> {
   String? _selectedOption;
+
+ final List<String> _selectedPreviousItems = [];
 
   void _onOptionSelected(String value) {
     setState(() {
@@ -22,11 +29,14 @@ class _SummariseTreatmentState extends State<SummariseTreatment> {
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => SymptomTreatment()),
-            );
+          // onPressed: () {
+          //   Navigator.push(
+          //     context,
+          //     MaterialPageRoute(builder: (context) => SymptomTreatment()),
+          //   );
+          // },
+           onPressed: () {
+            Navigator.pop(context, _selectedPreviousItems); // Return selected option when going back
           },
         ),
         title: Text(
@@ -73,7 +83,7 @@ class _SummariseTreatmentState extends State<SummariseTreatment> {
                   ? () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => SideEffectTreatment()),
+                        MaterialPageRoute(builder: (context) => SideEffectTreatment(previousValue: _selectedOption)),
                       );
                     }
                   : null,

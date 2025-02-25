@@ -3,12 +3,26 @@ import 'package:balance_app/pages/screens/OnboardingPage.Dart';
 import 'package:balance_app/pages/screens/reviews/ExperienceTreatment.Dart';
 
 class RateTreatment extends StatefulWidget {
+
+  final String? previousValue; // Receive selected option
+
+  RateTreatment({this.previousValue});
   @override
   _RateTreatmentState createState() => _RateTreatmentState();
 }
 
 class _RateTreatmentState extends State<RateTreatment> {
   int _selectedStars = 0; // Variable to track the selected star rating
+
+   String? _previousValue;
+
+  
+  @override
+
+  void newState() {
+    super.initState();
+    _previousValue = widget.previousValue; // Restore previous selection
+  }
 
   void _onStarSelected(int rating) {
     setState(() {
@@ -22,11 +36,15 @@ class _RateTreatmentState extends State<RateTreatment> {
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => ExperienceTreatment()),
-            );
+          // onPressed: () {
+          //   Navigator.push(
+          //     context,
+          //     MaterialPageRoute(builder: (context) => ExperienceTreatment()),
+          //   );
+          // },
+           onPressed: () {
+            Navigator.pop(context, _previousValue); // Return selected option when going back
+      
           },
         ),
         title: Text(

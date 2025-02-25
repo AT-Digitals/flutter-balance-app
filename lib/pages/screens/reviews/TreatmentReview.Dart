@@ -3,6 +3,9 @@ import 'package:balance_app/pages/screens/reviews/SymptomTreatment.Dart';
 import 'package:flutter/material.dart';
 
 class TreatmentReview extends StatefulWidget {
+   final String? previousValue; // Receive selected option
+
+  TreatmentReview({this.previousValue});
 
   @override
   _TreatmentReviewState createState() => _TreatmentReviewState();
@@ -40,7 +43,13 @@ class _TreatmentReviewState extends State<TreatmentReview> {
 
 
     final List<String> _selectedItems = [];
+String? _previousValue;
 
+  @override
+  void initState() {
+    super.initState();
+    _previousValue = widget.previousValue; // Restore previous selection
+  }
 
 
 
@@ -50,11 +59,8 @@ class _TreatmentReviewState extends State<TreatmentReview> {
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.white),
-             onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => CurrentTreatment()),
-            );
+            onPressed: () {
+            Navigator.pop(context, _previousValue); // Return selected option when going back
           },
         ),
         title: Text('Review a Treatment', style: TextStyle(color: Colors.white)),
@@ -205,7 +211,7 @@ class _TreatmentReviewState extends State<TreatmentReview> {
       ? () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) =>  SymptomTreatment()),
+            MaterialPageRoute(builder: (context) =>  SymptomTreatment(selectedPreviousItems: _selectedItems)),
           );
         }
       : null, // Disable button if no items are selected
