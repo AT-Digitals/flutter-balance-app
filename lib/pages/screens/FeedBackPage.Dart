@@ -69,15 +69,18 @@ class _FeedBackPageState extends State<FeedBackPage> {
   controller: _feedbackController,
   decoration: InputDecoration(
     hintText: "e.g. We'd love to know what you think of balance",
-    hintStyle: TextStyle(color: Colors.grey.shade400),
+    hintStyle: TextStyle(color: Color(0xFFE5C7FC)),
     border: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.grey.shade300), // Light gray border
+        borderRadius: BorderRadius.circular(12.0),
+      borderSide: BorderSide(color: Color(0xFFE5C7FC)), // Light gray border
     ),
     enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.grey.shade300), // Light gray when not focused
+        borderRadius: BorderRadius.circular(12.0),
+      borderSide: BorderSide(color: Color(0xFFE5C7FC)), // Light gray when not focused
     ),
     focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.grey.shade300), // Slightly darker gray when focused
+        borderRadius: BorderRadius.circular(12.0),
+      borderSide: BorderSide(color: Color(0xFFE5C7FC)), // Slightly darker gray when focused
     ),
   ),
   maxLines: 5,
