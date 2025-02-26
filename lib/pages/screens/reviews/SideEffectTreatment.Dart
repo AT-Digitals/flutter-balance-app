@@ -3,6 +3,11 @@ import 'package:balance_app/pages/screens/reviews/ExperienceTreatment.Dart';
 import 'SummariseTreatment.Dart';
 
 class SideEffectTreatment extends StatefulWidget {
+
+final String? previousValue; // Receive selected option
+
+  SideEffectTreatment({this.previousValue});
+
   @override
   _SideEffectTreatmentState createState() => _SideEffectTreatmentState();
 }
@@ -11,23 +16,28 @@ class _SideEffectTreatmentState extends State<SideEffectTreatment> {
   String? _selectedOption = 'no';
   TextEditingController _sideEffectController = TextEditingController();
 
-  void _onOptionSelected(String value) {
+  String? _previousValue;
+
+  @override
+  void initState() {
+    super.initState();
+    _previousValue = widget.previousValue; // Restore previous selection
+  }
+
+ void _onOptionSelected(String value) {
     setState(() {
       _selectedOption = value;
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => SummariseTreatment()),
-            );
+       
+             onPressed: () {
+            Navigator.pop(context, _previousValue); // Return selected option when going back
           },
         ),
         title: Text(
@@ -95,7 +105,7 @@ class _SideEffectTreatmentState extends State<SideEffectTreatment> {
                   ? () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => ExperienceTreatment()),
+                        MaterialPageRoute(builder: (context) => ExperienceTreatment(previousValue: _selectedOption)),
                       );
                     }
                   : null, // Disable button if no option is selected

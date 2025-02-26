@@ -3,6 +3,11 @@ import 'package:balance_app/pages/screens/reviews/RateTreatment.Dart';
 import 'package:balance_app/pages/screens/reviews/SideEffectTreatment.Dart';
 
 class ExperienceTreatment extends StatefulWidget {
+
+  final String? previousValue; // Receive selected option
+
+  ExperienceTreatment({this.previousValue});
+
   @override
   _ExperienceTreatmentState createState() => _ExperienceTreatmentState();
 }
@@ -13,11 +18,20 @@ class _ExperienceTreatmentState extends State<ExperienceTreatment> {
   int _maxCharacters = 150;
   int _remainingCharacters = 150;
 
+ String? _previousValue;
+
+  
   @override
   void initState() {
     super.initState();
    _feedbackController.addListener(_checkInput);
   }
+
+  void newState() {
+    super.initState();
+    _previousValue = widget.previousValue; // Restore previous selection
+  }
+
 
   void _checkInput() {
     setState(() {
@@ -33,17 +47,22 @@ class _ExperienceTreatmentState extends State<ExperienceTreatment> {
     super.dispose();
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => SideEffectTreatment()),
-            );
+          // onPressed: () {
+          //   Navigator.push(
+          //     context,
+          //     MaterialPageRoute(builder: (context) => SideEffectTreatment()),
+          //   );
+          //    },
+           onPressed: () {
+            Navigator.pop(context, _previousValue); // Return selected option when going back
+      
           },
         ),
         title: Text(
@@ -111,11 +130,12 @@ class _ExperienceTreatmentState extends State<ExperienceTreatment> {
                   width: double.infinity,
                   height: 50,
                   child: ElevatedButton(
+                       
                     onPressed: _isButtonEnabled
                         ? () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => RateTreatment()),
+                              MaterialPageRoute(builder: (context) => RateTreatment(previousValue: _feedbackController.text)),
                             );
                           }
                         : null,

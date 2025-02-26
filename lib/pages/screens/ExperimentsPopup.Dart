@@ -34,7 +34,7 @@ class ExperimentsPopup extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16.0),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(25.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -42,7 +42,7 @@ class ExperimentsPopup extends StatelessWidget {
                       const Text(
                         "What are experiments?",
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 24,
                           height: 1.5,
                           color: Color(0xFF0b5369),
                         ),
@@ -51,7 +51,7 @@ class ExperimentsPopup extends StatelessWidget {
                       const Text(
                         "These are tasks we've created for you to try based on things other people have found to help their wellbeing.",
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 18,
                           height: 1.5,
                           color: Color(0xFF0b5369),
                         ),
@@ -60,7 +60,7 @@ class ExperimentsPopup extends StatelessWidget {
                       const Text(
                         "They won’t necessarily work for everyone, but they're all based on improving general health. So why not try a couple and see what works for you?",
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 18,
                           height: 1.5,
                           color: Color(0xFF0b5369),
                         ),
@@ -79,7 +79,7 @@ class ExperimentsPopup extends StatelessWidget {
                         ),
                         child: Text(
                           'Okay, got it',
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(fontSize: 20, color: Colors.white),
                         ),
                       ),
                     ],
