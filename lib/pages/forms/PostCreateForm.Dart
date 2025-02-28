@@ -115,16 +115,17 @@ class _PostCreateFormState extends State<PostCreateForm> {
               controller: _storyTitleController,
               decoration: InputDecoration(
                 hintText: 'Tap to start typing',
-                 hintStyle: TextStyle(color: Colors.grey.shade400),
-                border: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.grey.shade300), // Light gray border
+                hintStyle: TextStyle(
+      color: const Color(0xFF3640BB).withOpacity(0.5), // 50% opacity
+    ), 
+    border: OutlineInputBorder(
+       borderSide: const BorderSide(color: Color(0xFFE5C7FC)),
     ),
     enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.grey.shade300), // Light gray when not focused
+      borderRadius: BorderRadius.circular(8),
+      borderSide: const BorderSide(color: Color(0xFFE5C7FC)), // 50% opacity
     ),
-    focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.grey.shade300,), // Slightly darker gray when focused
-    ),
+   
      errorText: _titleError,
               ),
             ),
@@ -194,15 +195,20 @@ class _PostCreateFormState extends State<PostCreateForm> {
               controller: _storyContentController,
               decoration: InputDecoration(
                 hintText: 'Tap to start typing',
-                   hintStyle: TextStyle(color: Colors.grey.shade400),
+                  hintStyle: TextStyle(
+      color: const Color(0xFF3640BB).withOpacity(0.5), // 50% opacity
+    ), // Hint text color
                  border: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.grey.shade300), // Light gray border
+                    borderRadius: BorderRadius.circular(8),
+      borderSide: const BorderSide(color: Color(0xFFE5C7FC))
     ),
     enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.grey.shade300), // Light gray when not focused
+        borderRadius: BorderRadius.circular(8),
+      borderSide:  BorderSide(color: Color(0xFFE5C7FC)) // Light gray when not focused
     ),
     focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.grey.shade300), // Slightly darker gray when focused
+        borderRadius: BorderRadius.circular(8),
+      borderSide:  BorderSide(color: Color(0xFFE5C7FC))
     ),
      errorText: _contentError,
               ),
@@ -211,6 +217,7 @@ class _PostCreateFormState extends State<PostCreateForm> {
             SizedBox(height: 20),
 // 
 Column(
+  
   crossAxisAlignment: CrossAxisAlignment.start,
   children: [
     ElevatedButton(
@@ -228,6 +235,7 @@ Column(
         }
       },
       style: ElevatedButton.styleFrom(
+   padding: EdgeInsets.all(40),
         backgroundColor: Color(0xFFE6E6FF),
         minimumSize: Size(double.infinity, 100),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
@@ -235,6 +243,7 @@ Column(
       child: _selectedTags.isEmpty
           ? Row(
               mainAxisAlignment: MainAxisAlignment.center,
+                    
               children: [
                 Text(
                   'Tap to select tags',
@@ -294,7 +303,7 @@ Column(
 
             SizedBox(height: 20),
             Container(
-              padding: EdgeInsets.all(40),
+              padding: EdgeInsets.all(20),
               decoration: BoxDecoration(
                 color: Color(0xFFE6E6FF),
                 borderRadius: BorderRadius.circular(15),
@@ -383,58 +392,134 @@ Column(
            
             if (_isDropdownOpen)
              Padding(
-    padding: const EdgeInsets.only(top: 8.0),
-    child: Text(
-      'Healthcare Professionals\nDescribe your experiences with healthcare professionals so far.',
-      style: TextStyle(
-        fontSize: 18,
-        color: Color(0xFF0b5369),
+    padding: const EdgeInsets.only(top: 12.0),
+   child: Text.rich(
+  TextSpan(
+    children: [
+      TextSpan(
+        text: 'Healthcare Professionals\n',
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w600, // Bold for this part
+          color: Color(0xFF0b5369),
+        ),
       ),
-    ),
+      TextSpan(
+        text: 'Describe your experiences with healthcare professionals so far.',
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.normal, // Normal for this part
+          color: Color(0xFF0b5369),
+        ),
+      ),
+    ],
+  ),
+),
+
   ),
                 if (_isDropdownOpen)
                  Padding(
-    padding: const EdgeInsets.only(top: 8.0),
-    child: Text(
-      'HRT (Hormone Replacement Therapy)\nExplain your experiences with HRT, if you have had any.',
-      style: TextStyle(
-        fontSize: 18,
-        color: Color(0xFF0b5369),
+    padding: const EdgeInsets.only(top: 12.0),
+     child: Text.rich(
+  TextSpan(
+    children: [
+      TextSpan(
+        text: 'HRT (Hormone Replacement Therapy)\n',
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w600, // Bold for this part
+          color: Color(0xFF0b5369),
+        ),
       ),
-    ),
+      TextSpan(
+        text: 'Explain your experiences with HRT, if you have had any.',
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.normal, // Normal for this part
+          color: Color(0xFF0b5369),
+        ),
+      ),
+    ],
+  ),
+),
   ),
                 if (_isDropdownOpen)
                  Padding(
-    padding: const EdgeInsets.only(top: 8.0),
-    child: Text(
-      'Lifestyle changes\nHave you made any or attempted to make any lifestyle changes? Explain your experience.',
-      style: TextStyle(
-        fontSize: 18,
-        color: Color(0xFF0b5369),
+    padding: const EdgeInsets.only(top: 12.0),
+     child: Text.rich(
+  TextSpan(
+    children: [
+      TextSpan(
+        text: 'Lifestyle changes\n',
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w600, // Bold for this part
+          color: Color(0xFF0b5369),
+        ),
       ),
-    ),
+      TextSpan(
+        text: 'Have you made any or attempted to make any lifestyle changes? Explain your experience.',
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.normal, // Normal for this part
+          color: Color(0xFF0b5369),
+        ),
+      ),
+    ],
+  ),
+),
   ), 
    if (_isDropdownOpen)
                  Padding(
-    padding: const EdgeInsets.only(top: 8.0),
-    child: Text(
-      'Work life\nDescribe your experiences in the workplace during your perimenopause/menopause journey.',
-      style: TextStyle(
-        fontSize: 18,
-        color: Color(0xFF0b5369),
+    padding: const EdgeInsets.only(top: 12.0),
+     child: Text.rich(
+  TextSpan(
+    children: [
+      TextSpan(
+        text: 'Work life\n',
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w600, // Bold for this part
+          color: Color(0xFF0b5369),
+        ),
       ),
-    ),
+      TextSpan(
+        text: 'Describe your experiences in the workplace during your perimenopause/menopause journey.',
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.normal, // Normal for this part
+          color: Color(0xFF0b5369),
+        ),
+      ),
+    ],
+  ),
+),
   ),
    if (_isDropdownOpen)
                  Padding(
-    padding: const EdgeInsets.only(top: 8.0),
-    child: Text(
-      'Words of wisdom\nShare any advice, or learnings from your experience with the community',
-      style: TextStyle(
-        fontSize: 18,
-        color: Color(0xFF0b5369),
+    padding: const EdgeInsets.only(top: 12.0),
+     child: Text.rich(
+  TextSpan(
+    children: [
+      TextSpan(
+        text: 'Words of wisdom\n',
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w600, // Bold for this part
+          color: Color(0xFF0b5369),
+        ),
       ),
-    ),
+      TextSpan(
+        text: 'Share any advice, or learnings from your experience with the community',
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.normal, // Normal for this part
+          color: Color(0xFF0b5369),
+        ),
+      ),
+    ],
+  ),
+),
   ),
             SizedBox(height: 20),
             ElevatedButton(
