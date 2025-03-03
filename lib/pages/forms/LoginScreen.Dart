@@ -11,6 +11,13 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>(); // Form key for validation
   bool _obscurePassword = true; // Track password visibility
+  bool _isFormValid = false;
+
+    void _validateForm() {
+    setState(() {
+      _isFormValid = _formKey.currentState?.validate() ?? false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey, // Assign the form key
+           onChanged: _validateForm, // Check form validity on input change
           child: ListView(
             // Wrap the body content in ListView to make it scrollable
             children: [
@@ -162,12 +170,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
                 style: ElevatedButton.styleFrom(
                   // backgroundColor: Color(0xFF353fbb),
-                  backgroundColor: Color(0xFF3640BB).withOpacity(0.5),
+                  backgroundColor: _isFormValid ? const Color(0xFF3640BB) : const Color(0xFF3640BB).withOpacity(0.5),
                   minimumSize: Size(double.infinity, 50),
                 ),
                 child: Text(
                   'Log in',
-                  style: TextStyle(color: Color(0xFFE5C1F5).withOpacity(0.5), fontSize: 16.0),
+                  style: TextStyle(color: _isFormValid ? Colors.white: const Color(0xFFE5C1F5).withOpacity(0.5), fontSize: 16.0),
                 ),
               ),
             ],

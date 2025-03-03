@@ -8,11 +8,17 @@ class ResetPasswordPage extends StatefulWidget {
 class _ResetPasswordPageState extends State<ResetPasswordPage> {
   final _formKey = GlobalKey<FormState>(); // Form key for validation
   final TextEditingController _emailController = TextEditingController();
+  bool _isFormValid = false;
 
   void _requestReset() {
     final email = _emailController.text;
     // Add your reset logic here
     print('Requesting reset for: $email');
+  }
+   void _validateForm() {
+    setState(() {
+      _isFormValid = _formKey.currentState?.validate() ?? false;
+    });
   }
 
   @override
@@ -35,6 +41,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey, // Assign the form key
+          onChanged: _validateForm, // Check form validity on input change
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -94,14 +101,14 @@ keyboardType: TextInputType.emailAddress,
                   },
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.symmetric(vertical: 12.0),
-                    backgroundColor: Color(0xFF3640BB).withOpacity(0.5),
+                    backgroundColor:  _isFormValid ? const Color(0xFF3640BB): const Color(0xFF3640BB).withOpacity(0.5),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25.0),
                     ),
                   ),
                   child: Text(
                     'Request reset',
-                    style: TextStyle(color: Color(0xFFE5C1F5).withOpacity(0.5), fontSize: 16.0),
+                    style: TextStyle(color: _isFormValid ? Colors.white: const Color(0xFFE5C1F5).withOpacity(0.5), fontSize: 16.0),
                   ),
                 ),
               ),
