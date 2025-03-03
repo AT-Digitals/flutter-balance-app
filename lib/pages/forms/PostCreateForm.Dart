@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:balance_app/pages/screens/BalanceAppScreen.Dart';
 import 'package:balance_app/pages/screens/OnboardingPage.Dart';
 import 'package:balance_app/pages/forms/ResetPasswordPage.Dart';
-import 'package:balance_app/pages/screens/AddTags.Dart';
+import 'package:balance_app/pages/forms/AddTags.Dart';
 import 'package:balance_app/pages/screens/ExperimentsPopup.Dart';
 import 'package:balance_app/pages/screens/FeedBackPage.Dart';
 import 'package:balance_app/pages/screens/OnboardingPage.Dart';
