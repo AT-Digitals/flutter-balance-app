@@ -5,7 +5,7 @@ import 'package:balance_app/widgets/CustomCheckbox.dart';
 import 'package:balance_app/pages/screens/TermsAndConditionsPage.dart';
 import 'package:balance_app/pages/forms/CheckEmailPage.dart';
 import 'package:balance_app/pages/screens/PersonalDataInfoPage.dart';
-import 'package:balance_app/pages/forms/CreateAccountForm.Dart';
+import 'package:balance_app/pages/forms/CreateAccountForm.dart';
 
 class BalanceTabScreen extends StatefulWidget {
   const BalanceTabScreen({Key? key}) : super(key: key);
@@ -14,32 +14,44 @@ class BalanceTabScreen extends StatefulWidget {
   State<BalanceTabScreen> createState() => _BalanceTabScreenState();
 }
 
-class _BalanceTabScreenState extends State<BalanceTabScreen> {
+class _BalanceTabScreenState extends State<BalanceTabScreen> with SingleTickerProviderStateMixin {
   int selectedIndex = 0;
   bool isTermsAccepted = false;
   bool isPrivacyAccepted = false;
-  bool isTermsAccepted1 = false;
-  bool isPrivacyAccepted1 = false;
   bool isImprovingHealthcare = false;
   bool isEmail = false;
-  final int totalTabs = 4; 
+  final int totalTabs = 4;
+  bool isTermsAccepted1 = false;
+  bool isPrivacyAccepted1 = false;
 
-   void handleButtonPress(int index) {
-    setState(() {
-      selectedIndex = index;
-    });
-    print("Button $index pressed!");
-  }
+  late TabController _tabController;
+  final ScrollController _scrollController1 = ScrollController();
+  final ScrollController _scrollController2 = ScrollController();
 
-void _moveToNextTab() {
-  if (selectedIndex < totalTabs - 1) {
-    setState(() {
-      selectedIndex += 1; // Move to next tab
-    });
-  }
-}
   @override
-Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 4, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    _scrollController1.dispose();
+    _scrollController2.dispose();
+    super.dispose();
+  }
+
+  void _moveToNextTab() {
+    if (selectedIndex < totalTabs - 1) {
+      setState(() {
+        selectedIndex += 1;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -47,55 +59,63 @@ Widget build(BuildContext context) {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => BalanceAppScreen()),
+              MaterialPageRoute(builder: (context) => BalanceAppScreen()), // Removed `const`
             );
           },
         ),
-         title: Text(
-         selectedIndex == 1
-            ? 'Create your account'
-            : 'Sign Up',
-    style: const TextStyle(color: Colors.white),
-  ),
-         backgroundColor: Color(0xFF0b5369),
+        title: Text(
+          selectedIndex == 1 ? 'Create your account' : 'Sign Up',
+          style: const TextStyle(color: Colors.white),
+        ),
+        backgroundColor: const Color(0xFF0b5369),
         centerTitle: true,
         toolbarHeight: 70.0,
       ),
-      backgroundColor: Color(0xFFFAF9FF),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(height: 20),
-            // Horizontal Tabs
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: List.generate(4, (index) {
-                return GestureDetector(
-                  onTap: () {
-                    handleButtonPress(index);
-                    // setState(() {
-                    //   selectedIndex = index;
-                    // });
-                    print("Hello, Flutter! $selectedIndex");
-                  },
-                  child: Container(
-                    height: 4,
-                    width: MediaQuery.of(context).size.width * 0.2,
-                   color: selectedIndex >= index ? Colors.teal : Colors.grey,
-                    margin: const EdgeInsets.symmetric(horizontal: 8.0),
-                  ),
-                );
-              }),
-            ),
-            const SizedBox(height: 20),
+      backgroundColor: const Color(0xFFFAF9FF),
+      body: Column(
+        children: [
+          const SizedBox(height: 20),
+          // Horizontal Tabs
+          Padding(
+  padding: const EdgeInsets.symmetric(horizontal: 10.0), // Add left and right padding
+  child:
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: List.generate(4, (index) {
+              return GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedIndex = index;
+                  });
+                },
+                child: Container(
+                  height: 4,
+                  width: MediaQuery.of(context).size.width * 0.2,
+                  // color: selectedIndex >= index ? Colors.teal : Colors.grey,
+                  margin: const EdgeInsets.symmetric(horizontal: 4.0),
+                  decoration: BoxDecoration(
+            color: selectedIndex >= index ? Colors.teal : Colors.grey,
+            borderRadius: BorderRadius.circular(4.0), // Add rounded corners to each tab line
+          ),
+                ),
+              );
+            }),
+          ),
+      ),
+          const SizedBox(height: 20),
 
-            // Tab Content
-            IndexedStack(
+          // Tab Content
+          Expanded(
+            child: IndexedStack(
               index: selectedIndex,
               children: [
-                // Tab 1
- Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                // Tab 1: Terms & Conditions
+
+
+                                // Tab 1
+    SingleChildScrollView(
+                  controller: _scrollController1,
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -441,22 +461,106 @@ Container(
         ],
       ),
         ),
-         // Tab 2
-Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: CreateAccountForm(), // Tab 2 with CreateAccountForm
-            ),
 
-                // Tab 3
+
+                // SingleChildScrollView(
+                //   controller: _scrollController1,
+                //   padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                //   child: Column(
+                //     crossAxisAlignment: CrossAxisAlignment.start,
+                //     children: [
+                //       // Checkbox for Terms & Conditions
+                //       CustomCheckbox(
+                //         value: isTermsAccepted,
+                //         onChanged: (value) {
+                //           setState(() {
+                //             isTermsAccepted = value ?? false;
+                //           });
+                //         },
+                //         label: 'I have read and agreed to the\nterms and conditions',
+                //         errorText: 'You must accept our terms and conditions to\ncontinue.',
+                //         labelColor: const Color(0xFF0b5369),
+                //         activeColor: const Color(0xFF3640BB),
+                //       ),
+                //       const SizedBox(height: 10),
+
+                //       GestureDetector(
+                //         onTap: () {
+                //           Navigator.push(
+                //             context,
+                //             MaterialPageRoute(builder: (context) => TermsAndConditionsPage()), // Removed `const`
+                //           );
+                //         },
+                //         child: const Center(
+                //           child: Text(
+                //             'View Terms and Conditions',
+                //             textAlign: TextAlign.center,
+                //             style: TextStyle(
+                //               fontSize: 18,
+                //               color: Color(0xFF3640BB),
+                //               fontWeight: FontWeight.bold,
+                //             ),
+                //           ),
+                //         ),
+                //       ),
+                //       const SizedBox(height: 30),
+
+                //       // Checkbox for Data Use Agreement
+                //       CustomCheckbox(
+                //         value: isPrivacyAccepted,
+                //         onChanged: (value) {
+                //           setState(() {
+                //             isPrivacyAccepted = value ?? false;
+                //           });
+                //         },
+                //         label: 'I accept that you may use\nthe data I share for the above\npurposes',
+                //         labelColor: const Color(0xFF0b5369),
+                //         activeColor: const Color(0xFF3640BB),
+                //       ),
+                //       const SizedBox(height: 10),
+
+                //       // Sign-Up Button
+                //       SizedBox(
+                //         width: double.infinity,
+                //         child: ElevatedButton(
+                //           onPressed: () {
+                //             if (isTermsAccepted && isPrivacyAccepted) {
+                //               _moveToNextTab();
+                //             }
+                //           },
+                //           style: ElevatedButton.styleFrom(
+                //             backgroundColor: const Color(0xFF3640BB),
+                //             padding: const EdgeInsets.symmetric(vertical: 15),
+                //           ),
+                //           child: const Text(
+                //             "Let's get started",
+                //             style: TextStyle(
+                //               fontSize: 16,
+                //               fontWeight: FontWeight.bold,
+                //               color: Colors.white,
+                //             ),
+                //           ),
+                //         ),
+                //       ),
+                //       const SizedBox(height: 30),
+                //     ],
+                //   ),
+                // ),
+
+                // Tab 2: Create Account Form
+                SingleChildScrollView(
+                  controller: _scrollController2,
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: CreateAccountForm(), // Removed `const`
+                ),
+
+                // Tab 3: Check Email Page
                 Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-        CheckEmailPage(),
-        ])),
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: CheckEmailPage(), // Removed `const`
+                ),
 
-                // Tab 4
+                // Tab 4: Completion Screen
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const [
@@ -464,15 +568,14 @@ Padding(
                     SizedBox(height: 10),
                     Text(
                       'All tasks are complete!',
-                      style: TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
               ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

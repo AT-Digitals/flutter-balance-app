@@ -97,7 +97,7 @@ if (isExpanded)
     child: Text(
       widget.content,
       style: const TextStyle(
-        fontSize: 14,
+        fontSize: 16,
         height: 1.5,
         color: Color(0xFF0b5369)
       ),

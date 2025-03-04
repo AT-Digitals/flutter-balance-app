@@ -48,7 +48,7 @@ class _CreateAccountFormState extends State<CreateAccountForm> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(0),
       child: Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -57,28 +57,75 @@ class _CreateAccountFormState extends State<CreateAccountForm> {
             children: [
               const Text(
                 'Your name',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF0b5369)),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF1E5D6E)),
               ),
-              const SizedBox(height: 8),
-              const TextField(
-                decoration: InputDecoration(
-                  hintText: 'e.g. Sandra B',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 10),
+              // const TextField(
+              //   decoration: InputDecoration(
+              //     hintText: 'e.g. Sandra B',
+              //     border: OutlineInputBorder(),
+              //   ),
+              // ),
+                            TextFormField(
+                             cursorColor: Colors.teal, // Change blinking cursor color
+                              style: TextStyle(color: Color(0xFF1E5D6E)), // Change the typing text color
+  decoration: InputDecoration(
+    hintText: 'e.g. Sandra B',
+      filled: true,
+    fillColor: Colors.white,
+    contentPadding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 10.0),
+     hintStyle: TextStyle(
+      color: const Color(0xFF3640BB).withOpacity(0.5), // 50% opacity
+    ), // Hint text color
+    border: OutlineInputBorder(),
+
+    // Default border
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(8),
+      borderSide:  BorderSide(color: Color(0xFF3640BB).withOpacity(0.5), width: 2), // 50% opacity
+    ),
+     focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Color(0xFF3640BB), width: 2),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+
+  ),
+
+),
+
+              const SizedBox(height: 30),
               const Text(
                 'Your email',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF0b5369)),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF1E5D6E)),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 10),
               TextFormField(
-                controller: _emailController,
-                decoration: const InputDecoration(
-                  hintText: 'Enter your email here',
-                  border: OutlineInputBorder(),
-                ),
-                keyboardType: TextInputType.emailAddress,
+                             controller: _emailController,
+                             cursorColor: Colors.teal, // Change blinking cursor color
+                              style: TextStyle(color: Color(0xFF1E5D6E)), // Change the typing text color
+  decoration: InputDecoration(
+    hintText: 'Enter your email here',
+      filled: true,
+    fillColor: Colors.white,
+    contentPadding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 24.0),
+     hintStyle: TextStyle(
+      color: const Color(0xFF3640BB).withOpacity(0.5), // 50% opacity
+    ), // Hint text color
+    border: OutlineInputBorder(),
+
+    // Default border
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(8),
+      borderSide:  BorderSide(color: Color(0xFF3640BB).withOpacity(0.5), width: 2), // 50% opacity
+    ),
+     focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Color(0xFF3640BB), width: 2),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+
+  ),
+
+ keyboardType: TextInputType.emailAddress,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Email is required';
@@ -88,18 +135,37 @@ class _CreateAccountFormState extends State<CreateAccountForm> {
                   }
                   return null;
                 },
-              ),
-              const SizedBox(height: 16),
+),
+
+
+              const SizedBox(height: 30),
               const Text(
                 'Create a password',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF0b5369)),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF1E5D6E)),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _passwordController,
+                 cursorColor: Colors.teal, // Change blinking cursor color
                 decoration: InputDecoration(
                   hintText: 'Enter a password',
-                  border: const OutlineInputBorder(),
+                    filled: true,
+    fillColor: Colors.white,
+    contentPadding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 10.0),
+     hintStyle: TextStyle(
+      color: const Color(0xFF3640BB).withOpacity(0.5), // 50% opacity
+    ), // Hint text color
+    border: OutlineInputBorder(),
+
+    // Default border
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(8),
+      borderSide:  BorderSide(color: Color(0xFF3640BB).withOpacity(0.5), width: 2), // 50% opacity
+    ),
+     focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Color(0xFF3640BB), width: 2),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
                   suffixIcon: IconButton(
                     icon: Icon(_obscurePassword ? Icons.visibility_off : Icons.visibility),
                     onPressed: () {
@@ -112,29 +178,85 @@ class _CreateAccountFormState extends State<CreateAccountForm> {
                 obscureText: _obscurePassword,
                 validator: _validatePassword,
               ),
-              const SizedBox(height: 8),
-              const Text(
-                'A One uppercase   a One lowercase\n% One special e.g. #!?   8+ Eight plus characters',
-                style: TextStyle(color: Color(0xFF0b5369)),
-              ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 10),
+              const Text.rich(
+  TextSpan(
+    children: [
+      TextSpan(
+        text: 'A',
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 16, // Set font size
+          color: Color(0xFF0b5369),
+        ),
+      ),
+      TextSpan(
+        text: ' One uppercase   ',
+        style: TextStyle(
+          fontSize: 16, // Set font size
+          color: Color(0xFF0b5369),
+        ),
+      ),
+      TextSpan(
+        text: 'a',
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 16, // Set font size
+          color: Color(0xFF0b5369),
+        ),
+      ),
+      TextSpan(
+        text: ' One lowercase\n% One special e.g. #!?\n',
+        style: TextStyle(
+          fontSize: 16, // Set font size
+          color: Color(0xFF0b5369),
+        ),
+      ),
+      TextSpan(
+        text: '8+',
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 16, // Set font size
+          color: Color(0xFF0b5369),
+        ),
+      ),
+      TextSpan(
+        text: ' Eight plus characters',
+        style: TextStyle(
+          fontSize: 16, // Set font size
+          color: Color(0xFF0b5369),
+        ),
+      ),
+    ],
+  ),
+),
+
+              const SizedBox(height: 30),
               const Text(
                 'Confirm password',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF0b5369)),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF1E5D6E)),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _confirmPasswordController,
+                 cursorColor: Colors.teal, // Change blinking cursor color
                 decoration: InputDecoration(
                   hintText: 'Enter password again',
-                  hintStyle: const TextStyle(color: Color(0xFF4C47F7)),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Color(0xFF4C47F7)),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Color(0xFF4C47F7)),
+                    filled: true,
+    fillColor: Colors.white,
+    contentPadding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 10.0),
+     hintStyle: TextStyle(
+      color: const Color(0xFF3640BB).withOpacity(0.5), // 50% opacity
+    ), // Hint text color
+    border: OutlineInputBorder(),
+
+    // Default border
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(8),
+      borderSide:  BorderSide(color: Color(0xFF3640BB).withOpacity(0.5), width: 2), // 50% opacity
+    ),
+     focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Color(0xFF3640BB), width: 2),
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   suffixIcon: IconButton(
