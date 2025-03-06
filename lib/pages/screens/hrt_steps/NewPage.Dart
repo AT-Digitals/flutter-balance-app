@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:balance_app/pages/screens/hrt_steps/HRTMedicationScreen.Dart';
-import 'package:balance_app/pages/screens/OnboardingPage.Dart';
+import 'package:balance_app/pages/screens/hrt_steps/HealthConditionsPage.Dart';
 
-class PeriodScreen extends StatefulWidget {
+class NewPage extends StatefulWidget {
   @override
-  _PeriodScreenState createState() => _PeriodScreenState();
+  _NewPageState createState() => _NewPageState();
 }
 
-class _PeriodScreenState extends State<PeriodScreen> {
-  String? selectedOption = "They're regular";
+class _NewPageState extends State<NewPage> {
+List<String> selectedOptions = [];
   String warningMessage =
       "Your currently selected answer will disable the Period Journal feature.";
   int selectedIndex = 0;
@@ -17,36 +15,14 @@ class _PeriodScreenState extends State<PeriodScreen> {
   List<String> tabTitles = [
     'Periods',
     'HRT Medication',
-    'Contraception',
-    'Other Medication',
-    'Procedures',
-    'Health Conditions',
-    'Frequent Symptoms',
-    'Height',
-    'Weight',
-    'Smoking',
-    'Alcohol'
+    'Tab3',
+    'Tab4',
+    'Tab5',
+    'Tab6',
+    'Tab7',
+    'Tab8',
+    'Tab9',
   ];
-
-  @override
-  void initState() {
-    super.initState();
-    _loadSavedSelection();
-  }
-
-  // Load saved selection from SharedPreferences
-  Future<void> _loadSavedSelection() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      selectedOption = prefs.getString('selectedPeriodOption') ?? "They're regular";
-    });
-  }
-
-  // Save selection in SharedPreferences
-  Future<void> _saveSelection(String value) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('selectedPeriodOption', value);
-  }
 
   void handleButtonPress(int index) {
     setState(() {
@@ -73,23 +49,23 @@ class _PeriodScreenState extends State<PeriodScreen> {
       ),
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(tabTitles.length, (index) {
-                return GestureDetector(
-                  onTap: () => handleButtonPress(index),
-                  child: Container(
-                    height: 4,
-                    width: screenWidth * 0.08,
-                    color: selectedIndex == index ? Colors.teal : Colors.grey,
-                    margin: const EdgeInsets.symmetric(horizontal: 2.0),
-                  ),
-                );
-              }),
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(vertical: 12.0),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: List.generate(tabTitles.length, (index) {
+          //       return GestureDetector(
+          //         onTap: () => handleButtonPress(index),
+          //         child: Container(
+          //           height: 4,
+          //           width: screenWidth * 0.08,
+          //           color: selectedIndex == index ? Colors.teal : Colors.grey,
+          //           margin: const EdgeInsets.symmetric(horizontal: 2.0),
+          //         ),
+          //       );
+          //     }),
+          //   ),
+          // ),
           Expanded(
             child: IndexedStack(
               index: selectedIndex,
@@ -103,24 +79,28 @@ class _PeriodScreenState extends State<PeriodScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                "How would you describe your periods?",
-                                style: TextStyle(
-                                  fontFamily: 'Playfair Display',
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.w700,
-                                  color: Color(0xFF0b5369),
-                                ),
-                              ),
                               SizedBox(height: 20),
                               Column(
                                 children: [
-                                  _buildOptionTile("They're regular"),
-                                  _buildOptionTile("They're erratic or irregular"),
-                                  _buildOptionTile("I don't have periods"),
+                                 _buildOptionTile("Adenomyosis"),
+                                  _buildOptionTile("Breast cancer"),
+                                  _buildOptionTile("Chronic kidney disease"),
+                                   _buildOptionTile("Diabetes"),
+                                     _buildOptionTile("Endometriosis"),
+                                       _buildOptionTile("Fibroids"),
+                                         _buildOptionTile("Gynaecological cancer"),
+                                           _buildOptionTile("Heart disease"),
+                                             _buildOptionTile("High blood pressure"),
+                                               _buildOptionTile("Migraine"),
+                                                   _buildOptionTile("MOsteoarthritis"),
+                                                       _buildOptionTile("Osteoporosis"),
+                                                           _buildOptionTile("PCOS"),
+                                                           _buildOptionTile("Rheumatoid arthritis"),
+                                                           _buildOptionTile("Severe mental illness"),
                                 ],
                               ),
-                              if (selectedOption == "I don't have periods")
+                            if (selectedOptions.contains("I've had both ovaries removed") ||
+                                   selectedOptions.contains("I've had my womb removed"))
                                 Padding(
                                   padding: const EdgeInsets.symmetric(vertical: 10.0),
                                   child: Row(
@@ -151,10 +131,10 @@ class _PeriodScreenState extends State<PeriodScreen> {
                             width: double.infinity,
                             child: ElevatedButton(
                               onPressed: () {
-                                setState(() {
+                                 setState(() {
                                   selectedIndex = 1; // Switch to "HRT Medication" tab
-                                });
-                              },
+                                  });
+                                },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: const Color(0xFF4C48B7),
                                 padding: const EdgeInsets.symmetric(vertical: 15),
@@ -163,7 +143,7 @@ class _PeriodScreenState extends State<PeriodScreen> {
                                 ),
                               ),
                               child: const Text(
-                                'Next: HRT',
+                                'Next: Health conditions',
                                 style: TextStyle(fontSize: 18, color: Colors.white),
                               ),
                             ),
@@ -171,12 +151,7 @@ class _PeriodScreenState extends State<PeriodScreen> {
                           SizedBox(height: 10),
                           TextButton(
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => OnboardingPage(selectedOption: selectedOption),
-                                ),
-                              );
+                              // Save functionality
                             },
                             child: Text(
                               "Save and continue later",
@@ -191,7 +166,7 @@ class _PeriodScreenState extends State<PeriodScreen> {
                 Center(
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: HRTMedicationScreen(),
+                    child: HealthConditionsPage(),
                   ),
                 ),
                 ...List.generate(7, (index) {
@@ -207,30 +182,35 @@ class _PeriodScreenState extends State<PeriodScreen> {
     );
   }
 
-  Widget _buildOptionTile(String text) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 12),
-      decoration: BoxDecoration(
-        color: Color(0xFFDCDCF6),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: RadioListTile<String>(
-        value: text,
-        groupValue: selectedOption,
-        onChanged: (value) {
-          setState(() {
-            selectedOption = value;
-            _saveSelection(value!); // Save selection
-          });
-        },
-        title: Text(
-          text,
-          style: TextStyle(
-            color: Color(0xFF054D63), fontSize: 18,
-          ),
+ Widget _buildOptionTile(String text) {
+  return Container(
+    margin: EdgeInsets.only(bottom: 12),
+    decoration: BoxDecoration(
+      color: Color(0xFFDCDCF6),
+      borderRadius: BorderRadius.circular(8),
+    ),
+    child: CheckboxListTile(
+      value: selectedOptions.contains(text), // Check if the option is selected
+      onChanged: (bool? value) {
+        setState(() {
+          if (value == true) {
+            selectedOptions.add(text); // Add if checked
+          } else {
+            selectedOptions.remove(text); // Remove if unchecked
+          }
+        });
+      },
+      title: Text(
+        text,
+        style: TextStyle(
+          color: Color(0xFF054D63), 
+          fontSize: 18,
         ),
-        tileColor: Colors.transparent,
       ),
-    );
-  }
+      controlAffinity: ListTileControlAffinity.leading, // Checkbox on the left
+      tileColor: Colors.transparent,
+    ),
+  );
+}
+
 }
