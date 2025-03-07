@@ -355,24 +355,24 @@ String? _validateConfirmPassword(String? value) {
               ),
           ),
 
-  Container(
-  margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 10.0), // Uncomment if needed
-  child: SizedBox(
-    width: double.infinity,
-    child: ElevatedButton(
-      onPressed: widget.onNext, // Remove parentheses
-      child: Text(
-        'Next',
-        style: TextStyle(
-          color: _isFormValid ? Colors.white : const Color(0xFFE5C1F5).withOpacity(0.5),
-          fontSize: 16.0,
-        ),
-      ),
-    ),
-  ),
+  // Container(
+  // margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 10.0), // Uncomment if needed
+  // child: SizedBox(
+  //   width: double.infinity,
+  //   child: ElevatedButton(
+  //     onPressed: widget.onNext, // Remove parentheses
+  //     child: Text(
+  //       'Next',
+  //       style: TextStyle(
+  //         color: _isFormValid ? Colors.white : const Color(0xFFE5C1F5).withOpacity(0.5),
+  //         fontSize: 16.0,
+  //       ),
+  //     ),
+  //   ),
+  // ),
 
 
-          ),
+  //         ),
         
         
             ],
