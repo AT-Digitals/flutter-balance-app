@@ -6,7 +6,7 @@ class HRTMedicationScreen extends StatefulWidget {
 
   final String? selectedOption;
   
-  ContraceptionScreen({required this.selectedOption});
+  HRTMedicationScreen({required this.selectedOption});
   @override
   _HRTMedicationScreenState createState() => _HRTMedicationScreenState();
 }
@@ -211,9 +211,9 @@ class _HRTMedicationScreenState extends State<HRTMedicationScreen> {
                             width: double.infinity,
                             child: ElevatedButton(
                               onPressed: () {
-                                //  setState(() {
-                                //   selectedIndex = 1; // Switch to "HRT Medication" tab
-                                //   });
+                                 setState(() {
+                                  selectedIndex = 1; // Switch to "HRT Medication" tab
+                                  });
                                 Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -247,8 +247,20 @@ class _HRTMedicationScreenState extends State<HRTMedicationScreen> {
                         ],
                       ),
                     ),
+                //      Center(
+                //   child: Padding(
+                //     padding: const EdgeInsets.all(16.0),
+                //     child: ContraceptionScreen(),
+                //   ),
+                // ),
+                // ...List.generate(10, (index) {
+                //   return Center(
+                //     child: Text("Content for tab ${index + 3}"),
+                //   );
+                // }),
             ],
           ),
+          
         ),
       ),
     );

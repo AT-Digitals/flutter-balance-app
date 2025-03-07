@@ -14,7 +14,7 @@ List<String> selectedOptions = [];
   int selectedIndex = 0;
 
   List<String> tabTitles = [
-    'Periods',
+    'Procedures',
     'HRT Medication',
     'Contraception',
     'Other Medication',

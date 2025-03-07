@@ -11,7 +11,7 @@ class _OtherMedicationPageState extends State<OtherMedicationPage> {
   int selectedIndex = 0;
 
   List<String> tabTitles = [
-    'Periods',
+    'Other Medication',
     'HRT Medication',
     'Contraception',
     'Other Medication',
@@ -32,6 +32,7 @@ class _OtherMedicationPageState extends State<OtherMedicationPage> {
 
   @override
   Widget build(BuildContext context) {
+      double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
        appBar: AppBar(
         title: Text(
@@ -48,6 +49,23 @@ class _OtherMedicationPageState extends State<OtherMedicationPage> {
       body: SafeArea(
         child: Column(
           children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 12.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(tabTitles.length, (index) {
+                return GestureDetector(
+                  onTap: () => handleButtonPress(index),
+                  child: Container(
+                    height: 4,
+                    width: screenWidth * 0.08,
+                    color: selectedIndex == index ? Colors.teal : Colors.grey,
+                    margin: const EdgeInsets.symmetric(horizontal: 2.0),
+                  ),
+                );
+              }),
+            ),
+          ),
             Expanded(
               child: SingleChildScrollView(
                 child: Padding(

@@ -174,7 +174,7 @@ class _PeriodScreenState extends State<PeriodScreen> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => OnboardingPage(selectedOption: selectedOption),
+                                  builder: (context) => OnboardingPage(),
                                 ),
                               );
                             },
@@ -191,7 +191,7 @@ class _PeriodScreenState extends State<PeriodScreen> {
                 Center(
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: HRTMedicationScreen(),
+                    child: HRTMedicationScreen(selectedOption: selectedOption),
                   ),
                 ),
                 ...List.generate(7, (index) {

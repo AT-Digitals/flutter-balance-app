@@ -223,48 +223,48 @@ Stack(
                     //     style: TextStyle(fontSize: 18, color: Colors.white),
                     //   ),
                     // ),
-                    const SizedBox(height: 24),
-                     ElevatedButton(
-                      onPressed: () {
-                          Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => NewPage()),
-                    );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF4C48B7), // Purple color
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 120, vertical: 15),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
-                      child: const Text(
-                        'New Page',
-                        style: TextStyle(fontSize: 18, color: Colors.white),
-                      ),
-                    ),
-                    const SizedBox(height: 24),
-                     ElevatedButton(
-                      onPressed: () {
-                          Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ProceduresPage()),
-                    );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF4C48B7), // Purple color
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 120, vertical: 15),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
-                      child: const Text(
-                        'Procedure',
-                        style: TextStyle(fontSize: 18, color: Colors.white),
-                      ),
-                    ),
+                    // const SizedBox(height: 24),
+                    //  ElevatedButton(
+                    //   onPressed: () {
+                    //       Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => NewPage()),
+                    // );
+                    //   },
+                    //   style: ElevatedButton.styleFrom(
+                    //     backgroundColor: const Color(0xFF4C48B7), // Purple color
+                    //     padding: const EdgeInsets.symmetric(
+                    //         horizontal: 120, vertical: 15),
+                    //     shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(30),
+                    //     ),
+                    //   ),
+                    //   child: const Text(
+                    //     'New Page',
+                    //     style: TextStyle(fontSize: 18, color: Colors.white),
+                    //   ),
+                    // ),
+                    // const SizedBox(height: 24),
+                    //  ElevatedButton(
+                    //   onPressed: () {
+                    //       Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => ProceduresPage()),
+                    // );
+                    //   },
+                    //   style: ElevatedButton.styleFrom(
+                    //     backgroundColor: const Color(0xFF4C48B7), // Purple color
+                    //     padding: const EdgeInsets.symmetric(
+                    //         horizontal: 120, vertical: 15),
+                    //     shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(30),
+                    //     ),
+                    //   ),
+                    //   child: const Text(
+                    //     'Procedure',
+                    //     style: TextStyle(fontSize: 18, color: Colors.white),
+                    //   ),
+                    // ),
                     //  const SizedBox(height: 24),
                     //  ElevatedButton(
                     //   onPressed: () {

@@ -4,6 +4,11 @@ import 'package:balance_app/pages/screens/hrt_steps/OtherMedicationPage.Dart';
 import 'package:balance_app/pages/screens/OnboardingPage.Dart';
 
 class ContraceptionScreen extends StatefulWidget {
+
+  // final List<String> selectedPreviousItems; // Receive selected items
+
+  // ContraceptionScreen({required this.selectedPreviousItems});
+
   @override
   _ContraceptionScreenState createState() => _ContraceptionScreenState();
 }
@@ -17,9 +22,16 @@ class _ContraceptionScreenState extends State<ContraceptionScreen> {
 
   final List<String> _selectedItems = [];
   int selectedIndex = 0;
+
+  void handleButtonPress(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
+  }
+
   
 List<String> tabTitles = [
-     'Periods',
+    'Contraception',
     'HRT Medication',
     'Contraception',
     'Other Medication',
@@ -35,11 +47,11 @@ List<String> tabTitles = [
 
   @override
 
-   void handleButtonPress(int index) {
-    setState(() {
-      selectedIndex = index;
-    });
-  }
+  //  void handleButtonPress(int index) {
+  //   setState(() {
+  //     selectedIndex = index;
+  //   });
+  // }
   void initState() {
     super.initState();
     _filteredSymptoms = _sectionSymptoms['Symptoms']!;
@@ -72,6 +84,7 @@ List<String> tabTitles = [
           onPressed: () => Navigator.pop(context),
         ),
       ),
+      
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
