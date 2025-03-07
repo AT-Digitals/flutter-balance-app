@@ -25,7 +25,7 @@ class _ExpandableSectionState extends State<ExpandableSection> {
       // Background color for the entire section
       color: const Color(0xFFF8EBF7), // Light greyish background color
       // margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-      padding: const EdgeInsets.all(16.0), // Add padding inside the container
+      padding: const EdgeInsets.only(left: 20, right: 10, top: 10, bottom: 5), // Add padding inside the container
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -97,7 +97,7 @@ if (isExpanded)
     child: Text(
       widget.content,
       style: const TextStyle(
-        fontSize: 16,
+        fontSize: 15,
         height: 1.5,
         color: Color(0xFF0b5369)
       ),

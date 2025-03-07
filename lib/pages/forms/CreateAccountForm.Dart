@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:balance_app/pages/screens/EmailNotReceivedPage.dart';
 import 'package:balance_app/pages/forms/CheckEmailPage.dart';
+import 'package:balance_app/pages/screens/WoopsPage.Dart';
 
 class CreateAccountForm extends StatefulWidget {
-  const CreateAccountForm({super.key});
+   final VoidCallback onNext; // Callback function
+const CreateAccountForm({required this.onNext, Key? key}) : super(key: key); // Constructor update
 
   @override
   _CreateAccountFormState createState() => _CreateAccountFormState();
@@ -176,15 +178,6 @@ String? _validateConfirmPassword(String? value) {
  keyboardType: TextInputType.emailAddress,
                               validator: _validateEmail,
 
-                // validator: (value) {
-                //   if (value == null || value.isEmpty) {
-                //     return 'Email is required';
-                //   }
-                //   if (!RegExp(r'^[\w-.]+@([\w-]+\.)+[\w-]{2,4}\$').hasMatch(value)) {
-                //     return 'Enter a valid email';
-                //   }
-                //   return null;
-                // },
 ),
 
 
@@ -320,15 +313,6 @@ String? _validateConfirmPassword(String? value) {
                 ),
                 obscureText: _obscureConfirmPassword,
                  validator: _validateConfirmPassword,
-                // validator: (value) {
-                //   if (value == null || value.isEmpty) {
-                //     return 'Confirm password is required';
-                //   }
-                //   if (value != _passwordController.text) {
-                //     return 'Passwords do not match';
-                //   }
-                //   return null;
-                // },
               ),
               const SizedBox(height: 20),
                         Container(
@@ -336,39 +320,29 @@ String? _validateConfirmPassword(String? value) {
   child: SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  // onPressed: () {
-                  //     if (_formKey.currentState!.validate()) {
-                  //   String email = _emailController.text;
-                  //   if (email == "premila@gmail.com") {
-                  //     Navigator.push(context, MaterialPageRoute(builder: (context) => EmailNotReceivedPage()));
-                  //   } else {
-                  //     Navigator.push(context, MaterialPageRoute(builder: (context) => CheckEmailPage()));
-                  //   }
-                  // }
-                  // },
 
-                  onPressed: _isFormValid
-                    ? () {
-                        if (_formKey.currentState!.validate()) {
-                          String email = _emailController.text;
-                          if (email == "premila@gmail.com") {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        EmailNotReceivedPage()));
-                          } else {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => CheckEmailPage()));
-                          }
-                        }
-                      }
-                    : null,
+                onPressed: _isFormValid
+    ? () {
+        if (_formKey.currentState!.validate()) {
+          String email = _emailController.text;
+          if (email == "premila@gmail.com") {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>  WoopsPage(),
+              ),
+            );
+          } else {
+            // Navigate or call `onNext`
+           widget.onNext();
+          }
+        }
+      }
+    : () {},
+
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.symmetric(vertical: 12.0),
-                    backgroundColor:  _isFormValid ? const Color(0xFF3640BB): const Color(0xFF3640BB).withOpacity(0.5),
+                    backgroundColor:   _isFormValid ? const Color(0xFF3640BB): const Color(0xFF3640BB).withOpacity(0.5),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25.0),
                     ),
@@ -380,27 +354,27 @@ String? _validateConfirmPassword(String? value) {
                 ),
               ),
           ),
-              // ElevatedButton(
-              //   onPressed: () {
-              //     if (_formKey.currentState!.validate()) {
-              //       String email = _emailController.text;
-              //       if (email == "premila@gmail.com") {
-              //         Navigator.push(context, MaterialPageRoute(builder: (context) => EmailNotReceivedPage()));
-              //       } else {
-              //         Navigator.push(context, MaterialPageRoute(builder: (context) => CheckEmailPage()));
-              //       }
-              //     }
-              //   },
-              //   style: ElevatedButton.styleFrom(
-              //     backgroundColor: const Color(0xFF4C47F7),
-              //     padding: const EdgeInsets.symmetric(vertical: 12.0),
-              //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-              //   ),
-              //   child: const Text(
-              //     'Next',
-              //     style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
-              //   ),
-              // ),
+
+  Container(
+  margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 10.0), // Uncomment if needed
+  child: SizedBox(
+    width: double.infinity,
+    child: ElevatedButton(
+      onPressed: widget.onNext, // Remove parentheses
+      child: Text(
+        'Next',
+        style: TextStyle(
+          color: _isFormValid ? Colors.white : const Color(0xFFE5C1F5).withOpacity(0.5),
+          fontSize: 16.0,
+        ),
+      ),
+    ),
+  ),
+
+
+          ),
+        
+        
             ],
           ),
         ),

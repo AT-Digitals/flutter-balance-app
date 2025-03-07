@@ -38,8 +38,8 @@ class PersonalDataInfoPage extends StatelessWidget {
                   const Text(
                     'What personal data will you ask me for?',
                     style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                      // fontWeight: FontWeight.bold,
                       color: Color(0xFF0b5369),
                     ),
                   ),
@@ -47,7 +47,7 @@ class PersonalDataInfoPage extends StatelessWidget {
                   const Text(
                     "We’ll need you to create a username, tell us your age and share some information about the frequency of your periods.",
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 18,
                       height: 1.5,
                       color: Color(0xFF0b5369),
                     ),
@@ -56,7 +56,7 @@ class PersonalDataInfoPage extends StatelessWidget {
                   const Text(
                     "Then there are other things like symptoms, health conditions, medication, procedures and your medical background that are all optional but the more you tell us about yourself, the more we can personalise the app around you.",
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 18,
                       height: 1.5,
                       color: Color(0xFF0b5369),
                     ),
@@ -73,7 +73,7 @@ class PersonalDataInfoPage extends StatelessWidget {
                         backgroundColor: const Color(0xFF4C47F7), // Blue button color
                         padding: const EdgeInsets.symmetric(vertical: 12.0),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
+                          borderRadius: BorderRadius.circular(25.0),
                         ),
                       ),
                       child: const Text(

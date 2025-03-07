@@ -47,6 +47,7 @@ class _EmailNotReceivedPageState extends State<EmailNotReceivedPage> {
         centerTitle: true,
         toolbarHeight: 70.0,
       ),
+       backgroundColor: const Color(0xFFFAF9FF),
       body: Scrollbar(
         thumbVisibility: true, // Makes the scrollbar always visible
         child: SingleChildScrollView(
@@ -58,36 +59,38 @@ class _EmailNotReceivedPageState extends State<EmailNotReceivedPage> {
               const Text(
                 'Email not received',
                 style: TextStyle(
-                  fontSize: 26,
+                  fontSize: 30,
                   fontWeight: FontWeight.bold,
-                  color: Colors.blueGrey,
+                 color: Color(0xFF0b5369),
                 ),
               ),
               const SizedBox(height: 16),
               const Text(
                 'We\'ve sent an email to:',
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 20,
+                   color: Color(0xFF0b5369),
                 ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 10),
               const Text(
                 'premila1990@gmail.com',
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black87,
+                  color: Color(0xFF0b5369),
                 ),
               ),
               const SizedBox(height: 16),
               const Text(
                 'Please double-check for any typos. If there is a typo, you can re-enter it.',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 20,
                   height: 1.5,
+                   color: Color(0xFF0b5369),
                 ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 10),
               Center(
                 child: GestureDetector(
                   onTap: () {
@@ -102,43 +105,47 @@ class _EmailNotReceivedPageState extends State<EmailNotReceivedPage> {
                     'Re-enter your email',
                     style: TextStyle(
                       fontSize: 16,
-                      color: Colors.blue,
-                      fontWeight: FontWeight.w500,
-                      decoration: TextDecoration.underline,
+                      fontWeight: FontWeight.bold,
+                      // decoration: TextDecoration.underline,
+                      color:  Color(0xFF353fbb),
                     ),
                   ),
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 30),
               const Text(
                 'Check your spam; you may need to wait a couple of minutes for the email to appear.',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 20,
                   height: 1.5,
+                  color: Color(0xFF0b5369),
                 ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 10),
                Center(
               child:GestureDetector(
                 onTap: _resendEmail,
-                child: const Text(
+                child:  Text(
                   "Attempt to re-send the email",
                   style: TextStyle(
                     fontSize: 16,
-                    color: Colors.blue,
-                    fontWeight: FontWeight.w500,
-                    decoration: TextDecoration.underline,
+                    color: _showResentMessage
+    ? const Color.fromRGBO(53, 63, 187, 0.5) // RGBA equivalent with 50% opacity
+    : const Color(0xFF353FBB), // Keep this as a constant
+                    fontWeight: FontWeight.bold,
+                    // decoration: TextDecoration.underline,
                   ),
                 ),
               ),
           ),
               
-              const SizedBox(height: 16),
+              const SizedBox(height: 30),
               const Text(
                 'If you still haven’t received an email from us, you can contact us at the address below:',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 20,
                   height: 1.5,
+                  color: Color(0xFF0b5369),
                 ),
               ),
               const SizedBox(height: 8),
@@ -151,14 +158,15 @@ class _EmailNotReceivedPageState extends State<EmailNotReceivedPage> {
                     'info@balance-app.com',
                     style: TextStyle(
                       fontSize: 16,
-                      color: Colors.blue,
-                      fontWeight: FontWeight.w500,
-                      decoration: TextDecoration.underline,
+                       color:  Color(0xFF353fbb),
+
+                      fontWeight: FontWeight.bold,
+                      // decoration: TextDecoration.underline,
                     ),
                   ),
                 ),
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 0),
               Center(
                 child:    // Stack to overlay content on top of the image
               Stack(
@@ -172,9 +180,9 @@ class _EmailNotReceivedPageState extends State<EmailNotReceivedPage> {
                   // Positioned message on top of the image
                   if (_showResentMessage)
                     Positioned(
-                      bottom: 200, // Adjust position from the bottom of the image
+                      bottom: 230, // Adjust position from the bottom of the image
                       child: Container(
-  padding: const EdgeInsets.all(12.0),
+padding: const EdgeInsets.only(left: 26, right: 26, top: 12, bottom: 12),
   decoration: BoxDecoration(
     color: Color(0xFF0DF4EB),
     borderRadius: BorderRadius.circular(30.0), // Adjust the radius as needed

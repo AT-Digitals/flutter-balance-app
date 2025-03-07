@@ -49,6 +49,13 @@ class _BalanceTabScreenState extends State<BalanceTabScreen> with SingleTickerPr
       });
     }
   }
+    void _moveToBeforeTab() {
+    if (selectedIndex < totalTabs - 1) {
+      setState(() {
+        selectedIndex -= 1;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,12 +63,7 @@ class _BalanceTabScreenState extends State<BalanceTabScreen> with SingleTickerPr
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => BalanceAppScreen()), // Removed `const`
-            );
-          },
+            onPressed: () => selectedIndex == 1||selectedIndex == 2?_moveToBeforeTab():Navigator.pop(context),
         ),
         title: Text(
           selectedIndex == 1 ? 'Create your account' : 'Sign Up',
@@ -551,7 +553,7 @@ Container(
                 SingleChildScrollView(
                   controller: _scrollController2,
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: CreateAccountForm(), // Removed `const`
+                  child: CreateAccountForm(onNext: _moveToNextTab), // Removed `const`
                 ),
 
                 // Tab 3: Check Email Page
