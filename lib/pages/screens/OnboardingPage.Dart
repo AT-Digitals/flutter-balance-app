@@ -6,7 +6,9 @@ import 'package:balance_app/pages/forms/PostCreateForm.Dart';
 import 'package:balance_app/pages/screens/ExperimentsPopup.Dart';
 import 'package:balance_app/pages/screens/FeedBackPage.Dart';
 import 'package:balance_app/pages/screens/reviews/ReviewTreatment.Dart';
-
+import 'package:balance_app/pages/screens/hrt_steps/ContraceptionPopup.Dart';
+import 'package:balance_app/pages/screens/hrt_steps/ProceduresPage.Dart';
+import 'package:balance_app/pages/screens/hrt_steps/NewPage.Dart';
 
 class OnboardingPage extends StatelessWidget {
   @override
@@ -52,7 +54,7 @@ Stack(
              
           // Content
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -141,136 +143,170 @@ Stack(
               Center(
                 child: Column(
                   children: [
-                     OutlinedButton(
-                      onPressed: () {
-                          Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => QuestionnaireScreen()),
-                    );
-                      },
-                      style: OutlinedButton.styleFrom(
-                        side: const BorderSide(color: Color(0xFF4C48B7)),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 100, vertical: 15),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
-                      child: const Text(
-                        'Start Questionnaire',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Color(0xFF4C48B7),
-                        ),
-                      ),
-                    ),
+                      OutlinedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>  QuestionnaireScreen(),
+                                  ),
+                                );
+                              },
+                              style: OutlinedButton.styleFrom(
+                                side: const BorderSide(
+                                  color: Color(0xFF4C48B7),
+                                  width: 2, // Increased border width
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 15),
+                              ),
+                              child: const Center(
+                                child: Text(
+                                  'Start Questionnaire',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Color(0xFF4C48B7),
+                                  ),
+                                ),
+                              ),
+                            ),
                     
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 20),
+
+                      ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute( 
+                                    builder: (context) => PeriodScreen(),
+                                  ),
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFF4C48B7),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 15),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                              ),
+                              child: const Center(
+                                child: Text(
+                                  'Go to balance',
+                                  style: TextStyle(
+                                      fontSize: 18, color: Colors.white),
+                                ),
+                              ),
+                            ),
                    
-                    ElevatedButton(
-                      onPressed: () {
-                          Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => PeriodScreen()),
-                    );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF4C48B7), // Purple color
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 120, vertical: 15),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
-                      child: const Text(
-                        'Go to balance',
-                        style: TextStyle(fontSize: 18, color: Colors.white),
-                      ),
-                    ),
-                      const SizedBox(height: 24),
-                     ElevatedButton(
-                      onPressed: () {
-                          Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => PostCreateForm()),
-                    );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF4C48B7), // Purple color
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 120, vertical: 15),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
-                      child: const Text(
-                        'Create Post',
-                        style: TextStyle(fontSize: 18, color: Colors.white),
-                      ),
-                    ),
-                    const SizedBox(height: 24),
-                     ElevatedButton(
-                      onPressed: () {
-                          Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ExperimentsPopup()),
-                    );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF4C48B7), // Purple color
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 120, vertical: 15),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
-                      child: const Text(
-                        'Open Experiments',
-                        style: TextStyle(fontSize: 18, color: Colors.white),
-                      ),
-                    ),
-                     const SizedBox(height: 24),
-                     ElevatedButton(
-                      onPressed: () {
-                          Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => FeedBackPage()),
-                    );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF4C48B7), // Purple color
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 120, vertical: 15),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
-                      child: const Text(
-                        'Create Feedback',
-                        style: TextStyle(fontSize: 18, color: Colors.white),
-                      ),
-                    ),
-                     const SizedBox(height: 24),
-                     ElevatedButton(
-                      onPressed: () {
-                          Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ReviewTreatment()),
-                    );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF4C48B7), // Purple color
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 120, vertical: 15),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
-                      child: const Text(
-                        'Review Treatment',
-                        style: TextStyle(fontSize: 18, color: Colors.white),
-                      ),
-                    ),
+                    //   const SizedBox(height: 24),
+                    //  ElevatedButton(
+                    //   onPressed: () {
+                    //       Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => PostCreateForm()),
+                    // );
+                    //   },
+                    //   style: ElevatedButton.styleFrom(
+                    //     backgroundColor: const Color(0xFF4C48B7), // Purple color
+                    //     padding: const EdgeInsets.symmetric(
+                    //         horizontal: 120, vertical: 15),
+                    //     shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(30),
+                    //     ),
+                    //   ),
+                    //   child: const Text(
+                    //     'Create Post',
+                    //     style: TextStyle(fontSize: 18, color: Colors.white),
+                    //   ),
+                    // ),
+                    // const SizedBox(height: 24),
+                    //  ElevatedButton(
+                    //   onPressed: () {
+                    //       Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => NewPage()),
+                    // );
+                    //   },
+                    //   style: ElevatedButton.styleFrom(
+                    //     backgroundColor: const Color(0xFF4C48B7), // Purple color
+                    //     padding: const EdgeInsets.symmetric(
+                    //         horizontal: 120, vertical: 15),
+                    //     shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(30),
+                    //     ),
+                    //   ),
+                    //   child: const Text(
+                    //     'New Page',
+                    //     style: TextStyle(fontSize: 18, color: Colors.white),
+                    //   ),
+                    // ),
+                    // const SizedBox(height: 24),
+                    //  ElevatedButton(
+                    //   onPressed: () {
+                    //       Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => ProceduresPage()),
+                    // );
+                    //   },
+                    //   style: ElevatedButton.styleFrom(
+                    //     backgroundColor: const Color(0xFF4C48B7), // Purple color
+                    //     padding: const EdgeInsets.symmetric(
+                    //         horizontal: 120, vertical: 15),
+                    //     shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(30),
+                    //     ),
+                    //   ),
+                    //   child: const Text(
+                    //     'Procedure',
+                    //     style: TextStyle(fontSize: 18, color: Colors.white),
+                    //   ),
+                    // ),
+                    //  const SizedBox(height: 24),
+                    //  ElevatedButton(
+                    //   onPressed: () {
+                    //       Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => FeedBackPage()),
+                    // );
+                    //   },
+                    //   style: ElevatedButton.styleFrom(
+                    //     backgroundColor: const Color(0xFF4C48B7), // Purple color
+                    //     padding: const EdgeInsets.symmetric(
+                    //         horizontal: 120, vertical: 15),
+                    //     shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(30),
+                    //     ),
+                    //   ),
+                    //   child: const Text(
+                    //     'Create Feedback',
+                    //     style: TextStyle(fontSize: 18, color: Colors.white),
+                    //   ),
+                    // ),
+                    //  const SizedBox(height: 24),
+                    //  ElevatedButton(
+                    //   onPressed: () {
+                    //       Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => ReviewTreatment()),
+                    // );
+                    //   },
+                    //   style: ElevatedButton.styleFrom(
+                    //     backgroundColor: const Color(0xFF4C48B7), // Purple color
+                    //     padding: const EdgeInsets.symmetric(
+                    //         horizontal: 120, vertical: 15),
+                    //     shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(30),
+                    //     ),
+                    //   ),
+                    //   child: const Text(
+                    //     'Review Treatment',
+                    //     style: TextStyle(fontSize: 18, color: Colors.white),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
