@@ -4,9 +4,11 @@ class CustomCheckbox extends StatelessWidget {
   final bool value;
   final ValueChanged<bool?> onChanged;
   final String label;
+  final String errorText;
   final Color activeColor;
   final Color borderColor;
   final bool validate;
+  final Color labelColor;
 
   const CustomCheckbox({
     Key? key,
@@ -14,7 +16,9 @@ class CustomCheckbox extends StatelessWidget {
     required this.onChanged,
     required this.label,
     this.activeColor = Colors.purple,
+    this.labelColor = Colors.purple,
     this.borderColor = Colors.white,
+    this.errorText = "Error",
     this.validate = false,
   }) : super(key: key);
 
@@ -56,11 +60,11 @@ class CustomCheckbox extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(width: 10),
+              // const SizedBox(width: 5),
               Expanded(
                 child: Text(
                   label,
-                  style: const TextStyle(fontSize: 18),
+                  style: TextStyle(fontSize: 16, color: labelColor,  fontWeight: FontWeight.bold),
                 ),
               ),
             ],
@@ -70,13 +74,13 @@ class CustomCheckbox extends StatelessWidget {
        Column(
   children: [
     validate
-        ? const Text(
-            'Error',
-            textAlign: TextAlign.center,
+        ? Text(
+            errorText,
+            // textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 14,
               color: Colors.red,
-              fontWeight: FontWeight.bold,
+              // fontWeight: FontWeight.bold,
             ),
           )
         : const SizedBox.shrink(),

@@ -21,10 +21,11 @@ class _ExpandableSectionState extends State<ExpandableSection> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: double.infinity, 
       // Background color for the entire section
-      color: const Color(0xFFFFF3E0), // Light greyish background color
+      color: const Color(0xFFF8EBF7), // Light greyish background color
       // margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-      padding: const EdgeInsets.all(16.0), // Add padding inside the container
+      padding: const EdgeInsets.only(left: 20, right: 10, top: 10, bottom: 5), // Add padding inside the container
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -58,14 +59,16 @@ class _ExpandableSectionState extends State<ExpandableSection> {
                       widget.title,
                       style: const TextStyle(
                         fontSize: 16,
+                        color: Color(0xFF0b5369),
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ],
                 ),
                 Icon(
-                  isExpanded ? Icons.arrow_drop_up : Icons.arrow_drop_down,
-                  size: 28,
+                  isExpanded ? Icons.keyboard_arrow_up_outlined : Icons.keyboard_arrow_down_outlined ,
+                  size: 38,
+                  color: Color(0xFF0b5369)
                 ),
               ],
             ),
@@ -94,8 +97,9 @@ if (isExpanded)
     child: Text(
       widget.content,
       style: const TextStyle(
-        fontSize: 16,
+        fontSize: 15,
         height: 1.5,
+        color: Color(0xFF0b5369)
       ),
     ),
   ),
