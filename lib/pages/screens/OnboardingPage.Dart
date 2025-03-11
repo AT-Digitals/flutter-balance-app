@@ -8,7 +8,6 @@ import 'package:balance_app/pages/screens/FeedBackPage.Dart';
 import 'package:balance_app/pages/screens/reviews/ReviewTreatment.Dart';
 import 'package:balance_app/pages/screens/hrt_steps/ContraceptionPopup.Dart';
 import 'package:balance_app/pages/screens/hrt_steps/ProceduresPage.Dart';
-import 'package:balance_app/pages/screens/hrt_steps/NewPage.Dart';
 
 class OnboardingPage extends StatelessWidget {
   @override

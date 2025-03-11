@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:balance_app/pages/screens/hrt_steps/HealthConditionsPage.Dart';
 import 'package:balance_app/pages/screens/OnboardingPage.Dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 class ProceduresPage extends StatefulWidget {
   @override
@@ -11,7 +13,7 @@ class _ProceduresPageState extends State<ProceduresPage> {
 List<String> selectedOptions = [];
   String warningMessage =
       "Your currently selected answer will disable the Period Journal feature.";
-  int selectedIndex = 0;
+  int selectedIndex = 4;
 
   List<String> tabTitles = [
     'Procedures',
@@ -32,6 +34,24 @@ List<String> selectedOptions = [];
       selectedIndex = index;
     });
   }
+
+  Future<void> saveSelectedOptions() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setStringList('selected_procedures', selectedOptions);
+}
+
+Future<void> loadSelectedOptions() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  setState(() {
+    selectedOptions = prefs.getStringList('selected_procedures') ?? [];
+  });
+}
+
+@override
+void initState() {
+  super.initState();
+  loadSelectedOptions(); // Load saved options when opening the page
+}
 
   @override
   Widget build(BuildContext context) {
@@ -70,12 +90,6 @@ List<String> selectedOptions = [];
             ),
           ),
           Expanded(
-            child: IndexedStack(
-              index: selectedIndex,
-              children: [
-                Column(
-                  children: [
-                    Expanded(
                       child: SingleChildScrollView(
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
@@ -122,17 +136,12 @@ List<String> selectedOptions = [];
                           SizedBox(
                             width: double.infinity,
                             child: ElevatedButton(
-                              // onPressed: () {
-                              //    setState(() {
-                              //     selectedIndex = 1; // Switch to "HRT Medication" tab
-                              //     });
-                              //   },
                                onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => HealthConditionsPage()),
-                          );
-                      },
+                               Navigator.push(
+                                   context,
+                                  MaterialPageRoute(builder: (context) => HealthConditionsPage()),
+                                    );
+                              },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: const Color(0xFF4C48B7),
                                 padding: const EdgeInsets.symmetric(vertical: 15),
@@ -149,6 +158,7 @@ List<String> selectedOptions = [];
                           SizedBox(height: 10),
                           TextButton(
                             onPressed: () {
+                              saveSelectedOptions();
                                Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -163,25 +173,11 @@ List<String> selectedOptions = [];
                           ),
                         ],
                       ),
-                    ),
-                  ],
-                ),
-                // Center(
-                //   child: Padding(
-                //     padding: const EdgeInsets.all(16.0),
-                //     child: OtherMedicationPage(),
-                //   ),
-                // ),
-                // ...List.generate(7, (index) {
-                //   return Center(
-                //     child: Text("Content for tab ${index + 3}"),
-                //   );
-                // }),
-              ],
-            ),
-          ),
-        ],
-      ),
+                 
+            
+              ),
+          ],
+        ),
     );
   }
 

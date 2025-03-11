@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:balance_app/pages/screens/hrt_steps/WeightPage.Dart';
 import 'package:balance_app/pages/screens/OnboardingPage.Dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 class HeightPage extends StatefulWidget {
   @override
@@ -22,6 +24,7 @@ class _HeightPageState extends State<HeightPage> {
   void initState() {
     super.initState();
     // Add listeners to track text input
+     _loadSavedHeight(); 
     ftController.addListener(_checkIfNextShouldBeEnabled);
     inController.addListener(_checkIfNextShouldBeEnabled);
     cmController.addListener(_checkIfNextShouldBeEnabled);
@@ -49,13 +52,58 @@ class _HeightPageState extends State<HeightPage> {
     });
   }
 
+    int selectedIndex = 7;
+
+   List<String> tabTitles = [
+    'Health Conditions',
+    'HRT Medication',
+    'Contraception',
+    'Other Medication',
+    'Procedures',
+    'Health Conditions',
+    'Frequent Symptoms',
+    'Height',
+    'Weight',
+    'Smoking',
+    'Alcohol'
+  ];
+
+  void handleButtonPress(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
+  }
+
+
+Future<void> _saveHeight() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isCmSelected', isCmSelected);
+    await prefs.setString('ftValue', ftController.text);
+    await prefs.setString('inValue', inController.text);
+    await prefs.setString('cmValue', cmController.text);
+  }
+
+  // Function to load saved height values
+  Future<void> _loadSavedHeight() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isCmSelected = prefs.getBool('isCmSelected') ?? false;
+      ftController.text = prefs.getString('ftValue') ?? '';
+      inController.text = prefs.getString('inValue') ?? '';
+      cmController.text = prefs.getString('cmValue') ?? '';
+      _checkIfNextShouldBeEnabled();
+    });
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
+      double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Height Selection",
+        title: Text(
+          tabTitles[selectedIndex],
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: const Color(0xFF0b5369),
@@ -65,9 +113,25 @@ class _HeightPageState extends State<HeightPage> {
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: SafeArea(
-        child: Column(
-          children: [
+   body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 12.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(tabTitles.length, (index) {
+                return GestureDetector(
+                  onTap: () => handleButtonPress(index),
+                  child: Container(
+                    height: 4,
+                    width: screenWidth * 0.08,
+                    color: selectedIndex == index ? Colors.teal : Colors.grey,
+                    margin: const EdgeInsets.symmetric(horizontal: 2.0),
+                  ),
+                );
+              }),
+            ),
+          ),
             Expanded(
               child: SingleChildScrollView(
                 child: Padding(
@@ -247,6 +311,7 @@ class _HeightPageState extends State<HeightPage> {
                   const SizedBox(height: 10),
                   TextButton(
                     onPressed: () {
+                       _saveHeight();
                        Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -269,7 +334,6 @@ class _HeightPageState extends State<HeightPage> {
             ),
           ],
         ),
-      ),
     );
   }
 }
