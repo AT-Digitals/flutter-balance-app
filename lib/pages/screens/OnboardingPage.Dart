@@ -8,6 +8,8 @@ import 'package:balance_app/pages/screens/FeedBackPage.Dart';
 import 'package:balance_app/pages/screens/reviews/ReviewTreatment.Dart';
 import 'package:balance_app/pages/screens/hrt_steps/ContraceptionPopup.Dart';
 import 'package:balance_app/pages/screens/hrt_steps/ProceduresPage.Dart';
+import 'package:balance_app/pages/screens/hrt_steps/AccountPage.Dart';
+import 'package:balance_app/pages/screens/hrt_steps/PersonalDataPage.Dart';
 
 class OnboardingPage extends StatelessWidget {
   @override
@@ -201,27 +203,48 @@ Stack(
                               ),
                             ),
                    
-                    //   const SizedBox(height: 24),
-                    //  ElevatedButton(
-                    //   onPressed: () {
-                    //       Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(builder: (context) => PostCreateForm()),
-                    // );
-                    //   },
-                    //   style: ElevatedButton.styleFrom(
-                    //     backgroundColor: const Color(0xFF4C48B7), // Purple color
-                    //     padding: const EdgeInsets.symmetric(
-                    //         horizontal: 120, vertical: 15),
-                    //     shape: RoundedRectangleBorder(
-                    //       borderRadius: BorderRadius.circular(30),
-                    //     ),
-                    //   ),
-                    //   child: const Text(
-                    //     'Create Post',
-                    //     style: TextStyle(fontSize: 18, color: Colors.white),
-                    //   ),
-                    // ),
+                      const SizedBox(height: 24),
+                     ElevatedButton(
+                      onPressed: () {
+                          Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => AccountPage()),
+                    );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF4C48B7), // Purple color
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 120, vertical: 15),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                      child: const Text(
+                        'Account',
+                        style: TextStyle(fontSize: 18, color: Colors.white),
+                      ),
+                    ),
+                     const SizedBox(height: 24),
+                     ElevatedButton(
+                      onPressed: () {
+                          Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => PersonalDataPage()),
+                    );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF4C48B7), // Purple color
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 120, vertical: 15),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                      child: const Text(
+                        'Details',
+                        style: TextStyle(fontSize: 18, color: Colors.white),
+                      ),
+                    ),
                     // const SizedBox(height: 24),
                     //  ElevatedButton(
                     //   onPressed: () {
