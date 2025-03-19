@@ -2,6 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:balance_app/pages/screens/hrt_steps/SymptomsPage.Dart';
 import 'package:balance_app/pages/screens/hrt_steps/HeightPage.Dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
+import 'package:balance_app/pages/screens/OnboardingPage.Dart';
 
 class HealthConditionsPage extends StatefulWidget {
   @override
@@ -12,10 +15,10 @@ class _HealthConditionsPageState extends State<HealthConditionsPage> {
 List<String> selectedOptions = [];
   String warningMessage =
       "Your currently selected answer will disable the Period Journal feature.";
-  int selectedIndex = 0;
+  int selectedIndex = 5;
 
    List<String> tabTitles = [
-    'Health Conditions',
+    'Periods',
     'HRT Medication',
     'Contraception',
     'Other Medication',
@@ -33,6 +36,25 @@ List<String> selectedOptions = [];
       selectedIndex = index;
     });
   }
+
+  Future<void> saveSelectedOptions() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setStringList('selected_health', selectedOptions);
+}
+
+Future<void> loadSelectedOptions() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  setState(() {
+    selectedOptions = prefs.getStringList('selected_health') ?? [];
+  });
+}
+
+@override
+void initState() {
+  super.initState();
+  loadSelectedOptions(); // Load saved options when opening the page
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -70,12 +92,7 @@ List<String> selectedOptions = [];
               }),
             ),
           ),
-          Expanded(
-            child: IndexedStack(
-              index: selectedIndex,
-              children: [
-                Column(
-                  children: [
+        
                     Expanded(
                       child: SingleChildScrollView(
                         child: Padding(
@@ -159,9 +176,12 @@ List<String> selectedOptions = [];
                           ),
                           SizedBox(height: 10),
                           TextButton(
-                            onPressed: () {
-                              // Save functionality
-                            },
+                            onPressed: () async {
+                        await saveSelectedOptions();
+                        Navigator.push(context, MaterialPageRoute(
+                          builder: (context) => OnboardingPage(),
+                        ));
+                      },
                             child: Text(
                               "Save and continue later",
                               style: TextStyle(fontSize: 16, color: Color(0xFF4C48B7)),
@@ -170,8 +190,6 @@ List<String> selectedOptions = [];
                         ],
                       ),
                     ),
-                  ],
-                ),
                 // Center(
                 //   child: Padding(
                 //     padding: const EdgeInsets.all(16.0),
@@ -185,9 +203,7 @@ List<String> selectedOptions = [];
                 // }),
               ],
             ),
-          ),
-        ],
-      ),
+
     );
   }
 

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:balance_app/pages/screens/hrt_steps/ProceduresPage.Dart';
 import 'package:balance_app/pages/screens/OnboardingPage.Dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 class OtherMedicationPage extends StatefulWidget {
   @override
@@ -8,7 +10,9 @@ class OtherMedicationPage extends StatefulWidget {
 }
 
 class _OtherMedicationPageState extends State<OtherMedicationPage> {
-  int selectedIndex = 0;
+   TextEditingController _medicationController = TextEditingController();
+
+  int selectedIndex = 3;
 
   List<String> tabTitles = [
     'Other Medication',
@@ -29,6 +33,27 @@ class _OtherMedicationPageState extends State<OtherMedicationPage> {
       selectedIndex = index;
     });
   }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadSavedMedication(); // Load saved data when page is opened
+  }
+
+  // Save text input
+  void _saveMedication() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('otherMedication', _medicationController.text);
+  }
+
+  // Load saved text input
+  void _loadSavedMedication() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _medicationController.text = prefs.getString('otherMedication') ?? '';
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -84,6 +109,7 @@ class _OtherMedicationPageState extends State<OtherMedicationPage> {
                       ),
                       const SizedBox(height: 20),
                       TextField(
+                        controller: _medicationController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderSide: const BorderSide(color: Color(0xFFE5C7FC)),
@@ -131,6 +157,7 @@ class _OtherMedicationPageState extends State<OtherMedicationPage> {
                   const SizedBox(height: 10),
                   TextButton(
                     onPressed: () {
+                        _saveMedication(); 
                         Navigator.push(
                         context,
                         MaterialPageRoute(

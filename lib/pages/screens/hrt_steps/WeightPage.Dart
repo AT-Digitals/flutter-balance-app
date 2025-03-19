@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:balance_app/pages/screens/hrt_steps/SmokingPage.Dart';
 import 'package:balance_app/pages/screens/OnboardingPage.Dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 class WeightPage extends StatefulWidget {
   @override
@@ -9,53 +11,97 @@ class WeightPage extends StatefulWidget {
 }
 
 class _WeightPageState extends State<WeightPage> {
-  bool isCmSelected = false; // State to track the selected unit
+  bool isCmeterSelected = false; // State to track the selected unit
 
   bool isNextEnabled = false; // To track button state
 
   // Controllers for text fields
-  final TextEditingController ftController = TextEditingController();
-  final TextEditingController inController = TextEditingController();
-  final TextEditingController cmController = TextEditingController();
+  final TextEditingController feetController = TextEditingController();
+  final TextEditingController inchesController = TextEditingController();
+  final TextEditingController cmeterController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     // Add listeners to track text input
-    ftController.addListener(_checkIfNextShouldBeEnabled);
-    inController.addListener(_checkIfNextShouldBeEnabled);
-    cmController.addListener(_checkIfNextShouldBeEnabled);
+    _loadSavedValues();
+    feetController.addListener(_checkIfNextShouldBeEnabled);
+    inchesController.addListener(_checkIfNextShouldBeEnabled);
+    cmeterController.addListener(_checkIfNextShouldBeEnabled);
   }
 
   @override
   void dispose() {
     // Dispose controllers to prevent memory leaks
-    ftController.dispose();
-    inController.dispose();
-    cmController.dispose();
+    feetController.dispose();
+    inchesController.dispose();
+    cmeterController.dispose();
     super.dispose();
   }
 
   // Function to check if "Next" button should be enabled
   void _checkIfNextShouldBeEnabled() {
     setState(() {
-      if (isCmSelected) {
+      if (isCmeterSelected) {
         // If cm is selected, enable button only if cm field has value
-        isNextEnabled = cmController.text.isNotEmpty;
+        isNextEnabled = cmeterController.text.isNotEmpty;
       } else {
         // If ft/in is selected, enable button if either ft or in field has value
-        isNextEnabled = ftController.text.isNotEmpty || inController.text.isNotEmpty;
+        isNextEnabled = feetController.text.isNotEmpty || inchesController.text.isNotEmpty;
       }
     });
   }
 
+    int selectedIndex = 8;
+
+   List<String> tabTitles = [
+    'Periods',
+    'HRT Medication',
+    'Contraception',
+    'Other Medication',
+    'Procedures',
+    'Health Conditions',
+    'Frequent Symptoms',
+    'Height',
+    'Weight',
+    'Smoking',
+    'Alcohol'
+  ];
+
+  void handleButtonPress(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
+  }
+
+Future<void> _saveSelectedValues() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isCmeterSelected', isCmeterSelected);
+    await prefs.setString('feetValue', feetController.text);
+    await prefs.setString('inchesValue', inchesController.text);
+    await prefs.setString('cmeterValue', cmeterController.text);
+  }
+
+  // Function to load saved values
+  Future<void> _loadSavedValues() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isCmeterSelected = prefs.getBool('isCmeterSelected') ?? false;
+      feetController.text = prefs.getString('feetValue') ?? '';
+      inchesController.text = prefs.getString('inchesValue') ?? '';
+      cmeterController.text = prefs.getString('cmeterValue') ?? '';
+    });
+  }
+  
+
 
   @override
   Widget build(BuildContext context) {
+      double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "Height Selection",
+       appBar: AppBar(
+        title: Text(
+          tabTitles[selectedIndex],
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: const Color(0xFF0b5369),
@@ -65,9 +111,25 @@ class _WeightPageState extends State<WeightPage> {
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: SafeArea(
-        child: Column(
-          children: [
+   body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 12.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(tabTitles.length, (index) {
+                return GestureDetector(
+                  onTap: () => handleButtonPress(index),
+                  child: Container(
+                    height: 4,
+                    width: screenWidth * 0.08,
+                    color: selectedIndex == index ? Colors.teal : Colors.grey,
+                    margin: const EdgeInsets.symmetric(horizontal: 2.0),
+                  ),
+                );
+              }),
+            ),
+          ),
             Expanded(
               child: SingleChildScrollView(
                 child: Padding(
@@ -87,7 +149,7 @@ class _WeightPageState extends State<WeightPage> {
                       const SizedBox(height: 20),
 
                       // Show ft & in fields when cm is NOT selected
-                      if (!isCmSelected)
+                      if (!isCmeterSelected)
                         Row(
                           children: [
                             Expanded(
@@ -95,7 +157,7 @@ class _WeightPageState extends State<WeightPage> {
                                 children: [
                                   Expanded(
                                     child: TextField(
-                                        controller: ftController,
+                                        controller: feetController,
                                       keyboardType: TextInputType.number,
                                       inputFormatters: [
                                         FilteringTextInputFormatter.digitsOnly
@@ -129,7 +191,7 @@ class _WeightPageState extends State<WeightPage> {
                                 children: [
                                   Expanded(
                                     child: TextField(
-                                         controller: inController,
+                                         controller: inchesController,
                                       keyboardType: TextInputType.number,
                                       inputFormatters: [
                                         FilteringTextInputFormatter.digitsOnly
@@ -161,12 +223,12 @@ class _WeightPageState extends State<WeightPage> {
                         ),
 
                       // Show cm field when cm is selected
-                      if (isCmSelected)
+                      if (isCmeterSelected)
                         Row(
                           children: [
                             Expanded(
                               child: TextField(
-                                     controller: cmController,
+                                     controller: cmeterController,
                                 keyboardType: TextInputType.number,
                                 inputFormatters: [
                                   FilteringTextInputFormatter.digitsOnly
@@ -200,11 +262,11 @@ class _WeightPageState extends State<WeightPage> {
                       GestureDetector(
                         onTap: () {
                           setState(() {
-                            isCmSelected = !isCmSelected;
+                            isCmeterSelected = !isCmeterSelected;
                           });
                         },
                         child: Text(
-                          isCmSelected ? 'Switch to stones' : 'Switch to kg',
+                          isCmeterSelected ? 'Switch to stones' : 'Switch to kg',
                           style: const TextStyle(
                             fontSize: 18,
                             color: Color(0xFF4C48B7),
@@ -247,6 +309,7 @@ class _WeightPageState extends State<WeightPage> {
                   const SizedBox(height: 10),
                   TextButton(
                     onPressed: () {
+                      _saveSelectedValues();
                        Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -269,7 +332,6 @@ class _WeightPageState extends State<WeightPage> {
             ),
           ],
         ),
-      ),
     );
   }
 }

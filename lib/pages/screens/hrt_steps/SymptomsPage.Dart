@@ -1,14 +1,12 @@
 import 'package:balance_app/pages/screens/reviews/SummariseTreatment.Dart';
-//import 'package:balance_app/pages/screens/.Dart';
 import 'package:flutter/material.dart';
 import 'package:balance_app/pages/screens/hrt_steps/HeightPage.Dart';
 import 'package:balance_app/pages/screens/OnboardingPage.Dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 class SymptomsPage extends StatefulWidget {
 
-  //  final List<String> selectedPreviousItems; // Receive selected items
-
-  // SymptomTreatment({required this.selectedPreviousItems});
 
   @override
   _SymptomsPageState createState() => _SymptomsPageState();
@@ -19,18 +17,20 @@ class _SymptomsPageState extends State<SymptomsPage> {
   final TextEditingController _searchController = TextEditingController();
   List<String> _filteredSymptoms = [];
 
-   int selectedIndex = 0;
+   int selectedIndex = 6;
 
   List<String> tabTitles = [
-    'Periods',
+    'Health Conditions',
     'HRT Medication',
-    'Tab3',
-    'Tab4',
-    'Tab5',
-    'Tab6',
-    'Tab7',
-    'Tab8',
-    'Tab9',
+    'Contraception',
+    'Other Medication',
+    'Procedures',
+    'Health Conditions',
+    'Frequent Symptoms',
+    'Height',
+    'Weight',
+    'Smoking',
+    'Alcohol'
   ];
 
   final Map<String, bool> _expandedSections = {
@@ -44,7 +44,7 @@ class _SymptomsPageState extends State<SymptomsPage> {
  final Map<String, List<String>> _sectionSymptoms = {
  'Symptoms' : ['Abdominal pain', 'Acne', 'Allergies', 'Altered sense of smell', 'Anxiety', 'Bloating', 'Brain fog', 'breast pain or tenderness', 'Brittle nails', ' Burning mouth', 'Cold sweats', 'Constipation', 'Cramps', 'Crying spells', 'Diarrhoea', 'Difficulty breathing', 'Difficulty concentrating', 'Difficulty sleeping', 'Dry eyes', 'Dry hair', 'Dry skin', 'Excitable', 'Facial hair', 'Feeling nervous', 'Feeling tense', 'Frequent urination', 'Hair loss or thinning',  'Heartbutn', 'Itching', 'Joint pain', 'Low libido', 'Memory problems', 'Muscle pain', 'Panic attacks', 'weight gain', 'wind', 'wrinkles'],
  };
-    final List<String> _selectedItems = [];
+     List<String> _selectedItems = [];
 
         final List<String> _selectedPreviousItems = [];
 
@@ -52,6 +52,7 @@ class _SymptomsPageState extends State<SymptomsPage> {
   void initState() {
     super.initState();
     _filteredSymptoms = _sectionSymptoms['Symptoms']!;
+         _loadSelectedItems(); 
   }
 
   void _filterSymptoms(String query) {
@@ -65,8 +66,29 @@ class _SymptomsPageState extends State<SymptomsPage> {
       }
     });
   }
+
+   Future<void> _saveSelectedItems() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList('selected_symptoms', _selectedItems);
+  }
+
+  // Load saved selected items from SharedPreferences
+  Future<void> _loadSelectedItems() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _selectedItems = prefs.getStringList('selected_symptoms') ?? [];
+    });
+  }
+
+
+  void handleButtonPress(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
+  }
 @override
 Widget build(BuildContext context) {
+        double screenWidth = MediaQuery.of(context).size.width;
   return Scaffold(
     appBar: AppBar(
         title: Text(
@@ -80,8 +102,26 @@ Widget build(BuildContext context) {
           onPressed: () => Navigator.pop(context),
         ),
       ),
-body: Column(
-  children: [
+body: SafeArea(
+        child: Column(
+          children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 12.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(tabTitles.length, (index) {
+                return GestureDetector(
+                  onTap: () => handleButtonPress(index),
+                  child: Container(
+                    height: 4,
+                    width: screenWidth * 0.08,
+                    color: selectedIndex == index ? Colors.teal : Colors.grey,
+                    margin: const EdgeInsets.symmetric(horizontal: 2.0),
+                  ),
+                );
+              }),
+            ),
+          ),
     Expanded(
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -214,9 +254,6 @@ body: Column(
                             width: double.infinity,
                             child: ElevatedButton(
                               onPressed: () {
-                                //  setState(() {
-                                //   selectedIndex = 1; // Switch to "HRT Medication" tab
-                                //   });
                                  Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => HeightPage()),
@@ -238,6 +275,7 @@ body: Column(
                           SizedBox(height: 10),
                           TextButton(
                             onPressed: () {
+                               _saveSelectedItems();
                                Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -253,8 +291,10 @@ body: Column(
                         ],
                       ),
                     ),
-  ],
-),
+  
+          ],
+        ),
+        ),
 
   );
 }

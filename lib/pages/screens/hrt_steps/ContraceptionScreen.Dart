@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:balance_app/pages/screens/hrt_steps/ContraceptionPopup.Dart';
 import 'package:balance_app/pages/screens/hrt_steps/OtherMedicationPage.Dart';
 import 'package:balance_app/pages/screens/OnboardingPage.Dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 class ContraceptionScreen extends StatefulWidget {
 
@@ -20,8 +22,8 @@ class _ContraceptionScreenState extends State<ContraceptionScreen> {
  'Symptoms' : ['Contraceptive implant', 'Contraceptive injection', 'Contraceptive patch', 'Mini pill (progesterone only)', 'Mirena coil', 'Oral pill (combined)' ],
   };
 
-  final List<String> _selectedItems = [];
-  int selectedIndex = 0;
+   List<String> _selectedItems = [];
+  int selectedIndex = 2;
 
   void handleButtonPress(int index) {
     setState(() {
@@ -55,6 +57,7 @@ List<String> tabTitles = [
   void initState() {
     super.initState();
     _filteredSymptoms = _sectionSymptoms['Symptoms']!;
+     _loadSelectedItems(); 
   }
 
   void _filterSymptoms(String query) {
@@ -69,8 +72,24 @@ List<String> tabTitles = [
     });
   }
 
+  // Save selected items to SharedPreferences
+  Future<void> _saveSelectedItems() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList('selected_contraception', _selectedItems);
+  }
+
+  // Load saved selected items from SharedPreferences
+  Future<void> _loadSelectedItems() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _selectedItems = prefs.getStringList('selected_contraception') ?? [];
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
+        double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
        appBar: AppBar(
         title: Text(
@@ -85,7 +104,26 @@ List<String> tabTitles = [
         ),
       ),
       
-      body: SafeArea(
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 12.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(tabTitles.length, (index) {
+                return GestureDetector(
+                  onTap: () => handleButtonPress(index),
+                  child: Container(
+                    height: 4,
+                    width: screenWidth * 0.08,
+                    color: selectedIndex == index ? Colors.teal : Colors.grey,
+                    margin: const EdgeInsets.symmetric(horizontal: 2.0),
+                  ),
+                );
+              }),
+            ),
+          ),
+         Expanded(
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -236,14 +274,13 @@ List<String> tabTitles = [
                           ),
                           SizedBox(height: 10),
                           TextButton(
-                            onPressed: () {
-                               Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => OnboardingPage(),
-                        ),
-                      );
-                            },
+                             onPressed: () {
+                          _saveSelectedItems();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => OnboardingPage()),
+                          );
+                        },
                             child: Text(
                               "Save and continue later",
                               style: TextStyle(fontSize: 16, color: Color(0xFF4C48B7)),
@@ -255,6 +292,9 @@ List<String> tabTitles = [
             ],
           ),
         ),
+        
+      ),
+      ],
       ),
     );
   }

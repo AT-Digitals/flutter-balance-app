@@ -34,7 +34,6 @@ class _PeriodScreenState extends State<PeriodScreen> {
     _loadSavedSelection();
   }
 
-  // Load saved selection from SharedPreferences
   Future<void> _loadSavedSelection() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -42,7 +41,6 @@ class _PeriodScreenState extends State<PeriodScreen> {
     });
   }
 
-  // Save selection in SharedPreferences
   Future<void> _saveSelection(String value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('selectedPeriodOption', value);
@@ -57,7 +55,7 @@ class _PeriodScreenState extends State<PeriodScreen> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -91,114 +89,95 @@ class _PeriodScreenState extends State<PeriodScreen> {
             ),
           ),
           Expanded(
-            child: IndexedStack(
-              index: selectedIndex,
-              children: [
-                Column(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "How would you describe your periods?",
-                                style: TextStyle(
-                                  fontFamily: 'Playfair Display',
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.w700,
-                                  color: Color(0xFF0b5369),
-                                ),
+                    Text(
+                      "How would you describe your periods?",
+                      style: TextStyle(
+                        fontFamily: 'Playfair Display',
+                        fontSize: 30,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF0b5369),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    Column(
+                      children: [
+                        _buildOptionTile("They're regular"),
+                        _buildOptionTile("They're erratic or irregular"),
+                        _buildOptionTile("I don't have periods"),
+                      ],
+                    ),
+                    if (selectedOption == "I don't have periods")
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        child: Row(
+                          children: [
+                            Icon(Icons.error_outline, color: Colors.purple),
+                            SizedBox(width: 8),
+                            Expanded(
+                              child: Text(
+                                warningMessage,
+                                style: TextStyle(color: Colors.purple, fontSize: 14),
                               ),
-                              SizedBox(height: 20),
-                              Column(
-                                children: [
-                                  _buildOptionTile("They're regular"),
-                                  _buildOptionTile("They're erratic or irregular"),
-                                  _buildOptionTile("I don't have periods"),
-                                ],
-                              ),
-                              if (selectedOption == "I don't have periods")
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 10.0),
-                                  child: Row(
-                                    children: [
-                                      Icon(Icons.error_outline, color: Colors.purple),
-                                      SizedBox(width: 8),
-                                      Expanded(
-                                        child: Text(
-                                          warningMessage,
-                                          style: TextStyle(color: Colors.purple, fontSize: 14),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              SizedBox(height: 20),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          SizedBox(
-                            width: double.infinity,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                setState(() {
-                                  selectedIndex = 1; // Switch to "HRT Medication" tab
-                                });
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFF4C48B7),
-                                padding: const EdgeInsets.symmetric(vertical: 15),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                              ),
-                              child: const Text(
-                                'Next: HRT',
-                                style: TextStyle(fontSize: 18, color: Colors.white),
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 10),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => OnboardingPage(),
-                                ),
-                              );
-                            },
-                            child: Text(
-                              "Save and continue later",
-                              style: TextStyle(fontSize: 16, color: Color(0xFF4C48B7)),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                    SizedBox(height: 20),
                   ],
                 ),
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: HRTMedicationScreen(selectedOption: selectedOption),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HRTMedicationScreen(selectedOption: selectedOption),
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF4C48B7),
+                      padding: const EdgeInsets.symmetric(vertical: 15),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                    ),
+                    child: const Text(
+                      'Next: HRT',
+                      style: TextStyle(fontSize: 18, color: Colors.white),
+                    ),
                   ),
                 ),
-                ...List.generate(7, (index) {
-                  return Center(
-                    child: Text("Content for tab ${index + 3}"),
-                  );
-                }),
+                SizedBox(height: 10),
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => OnboardingPage(),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    "Save and continue later",
+                    style: TextStyle(fontSize: 16, color: Color(0xFF4C48B7)),
+                  ),
+                ),
               ],
             ),
           ),
@@ -206,6 +185,7 @@ class _PeriodScreenState extends State<PeriodScreen> {
       ),
     );
   }
+
 
   Widget _buildOptionTile(String text) {
     return Container(
@@ -220,13 +200,14 @@ class _PeriodScreenState extends State<PeriodScreen> {
         onChanged: (value) {
           setState(() {
             selectedOption = value;
-            _saveSelection(value!); // Save selection
+            _saveSelection(value!);
           });
         },
         title: Text(
           text,
           style: TextStyle(
-            color: Color(0xFF054D63), fontSize: 18,
+            color: Color(0xFF054D63),
+            fontSize: 18,
           ),
         ),
         tileColor: Colors.transparent,

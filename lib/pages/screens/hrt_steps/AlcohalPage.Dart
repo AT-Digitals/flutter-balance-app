@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:balance_app/pages/screens/OnboardingPage.Dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 
 class AlcohalPage extends StatefulWidget {
@@ -24,14 +26,56 @@ class _AlcohalPageState extends State<AlcohalPage> {
     setState(() {
       _selectedOption = value;
     });
+    _saveSelection(value);
+  }
+
+      int selectedIndex = 10;
+
+   List<String> tabTitles = [
+    'Health Conditions',
+    'HRT Medication',
+    'Contraception',
+    'Other Medication',
+    'Procedures',
+    'Health Conditions',
+    'Frequent Symptoms',
+    'Height',
+    'Weight',
+    'Smoking',
+    'Alcohol'
+  ];
+
+  void handleButtonPress(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
+  }
+
+   void initState() {
+    super.initState();
+    _loadSavedSelection();
+  }
+
+    Future<void> _loadSavedSelection() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _selectedOption = prefs.getString('selectedAlcohalOption'); // Retrieve saved option
+    });
+  }
+
+  // Function to save the selected option in SharedPreferences
+  Future<void> _saveSelection(String value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('selectedAlcohalOption', value); // Save selected value
   }
 
   @override
   Widget build(BuildContext context) {
+          double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-     appBar: AppBar(
-        title: const Text(
-          "Alcohol",
+    appBar: AppBar(
+        title: Text(
+          tabTitles[selectedIndex],
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: const Color(0xFF0b5369),
@@ -41,8 +85,25 @@ class _AlcohalPageState extends State<AlcohalPage> {
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: Column(
+   body: Column(
         children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 12.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(tabTitles.length, (index) {
+                return GestureDetector(
+                  onTap: () => handleButtonPress(index),
+                  child: Container(
+                    height: 4,
+                    width: screenWidth * 0.08,
+                    color: selectedIndex == index ? Colors.teal : Colors.grey,
+                    margin: const EdgeInsets.symmetric(horizontal: 2.0),
+                  ),
+                );
+              }),
+            ),
+          ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
@@ -139,6 +200,7 @@ class _AlcohalPageState extends State<AlcohalPage> {
               onPressed: _selectedOption != null
                   ? () async {
                       // Navigate and pass selected value
+                     // _saveSelection(value!);
                       final result = await Navigator.push(
                         context,
                         MaterialPageRoute(

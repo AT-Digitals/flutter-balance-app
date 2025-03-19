@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:balance_app/pages/screens/hrt_steps/PeriodScreen.Dart';
 import 'package:balance_app/pages/screens/hrt_steps/ContraceptionScreen.Dart';
+import 'package:balance_app/pages/screens/OnboardingPage.Dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 class HRTMedicationScreen extends StatefulWidget {
-
   final String? selectedOption;
-  
+
   HRTMedicationScreen({required this.selectedOption});
+
   @override
   _HRTMedicationScreenState createState() => _HRTMedicationScreenState();
 }
@@ -44,23 +47,79 @@ class _HRTMedicationScreenState extends State<HRTMedicationScreen> {
     'Testosterone': ['Androfeme cream', 'Testogel gel', 'Meditation', 'Testosterone tablets - other', 'Tostran gel'],
   };
 
-  final List<String> _selectedItems = [];
-  int selectedIndex = 0;
+List<String> _selectedItems = [];
+  int selectedIndex = 1;
+
+  List<String> tabTitles = [
+    'Health Conditions', 'HRT Medication', 'Contraception', 'Other Medication', 'Procedures',
+    'Health Conditions', 'Frequent Symptoms', 'Height', 'Weight', 'Smoking', 'Alcohol'
+  ];
 
   void handleButtonPress(int index) {
     setState(() {
       selectedIndex = index;
     });
   }
+  @override
+  void initState() {
+    super.initState();
+    _loadSelectedItems(); // Load previously saved selections
+  }
+    Future<void> _saveSelectedItems() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('selectedHRTItems', jsonEncode(_selectedItems));
+  }
+
+  // Load selected items from SharedPreferences
+  Future<void> _loadSelectedItems() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? savedData = prefs.getString('selectedHRTItems');
+
+    if (savedData != null) {
+      setState(() {
+        _selectedItems = List<String>.from(jsonDecode(savedData));
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
+      appBar: AppBar(
+        title: Text(
+          tabTitles[selectedIndex],
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: const Color(0xFF0b5369),
+        centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 12.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(tabTitles.length, (index) {
+                return GestureDetector(
+                  onTap: () => handleButtonPress(index),
+                  child: Container(
+                    height: 4,
+                    width: screenWidth * 0.08,
+                    color: selectedIndex == index ? Colors.teal : Colors.grey,
+                    margin: const EdgeInsets.symmetric(horizontal: 2.0),
+                  ),
+                );
+              }),
+            ),
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,35 +144,19 @@ class _HRTMedicationScreenState extends State<HRTMedicationScreen> {
                         ),
                         child: _selectedItems.isEmpty
                             ? const Text('Nothing selected')
-                            : SingleChildScrollView(
-                                child: Wrap(
-                                  spacing: 18,
-                                  runSpacing: 8,
-                                  children: _selectedItems
-                                      .map(
-                                        (item) => Chip(
-                                          label: Text(
-                                            item,
-                                            style: TextStyle(color: Color(0xFF0b5369)),
-                                          ),
-                                          deleteIcon: const Icon(Icons.close),
-                                          onDeleted: () {
-                                            setState(() {
-                                              _selectedItems.remove(item);
-                                            });
-                                          },
-                                          backgroundColor: Color(0xFFE6E6FF),
-                                          shape: RoundedRectangleBorder(
-                                            side: BorderSide(
-                                              color: Color(0xFF0b5369),
-                                              width: 1.5,
-                                            ),
-                                            borderRadius: BorderRadius.circular(30),
-                                          ),
-                                        ),
-                                      )
-                                      .toList(),
-                                ),
+                            : Wrap(
+                                spacing: 18,
+                                runSpacing: 8,
+                                children: _selectedItems.map((item) => Chip(
+                                  label: Text(item, style: TextStyle(color: Color(0xFF0b5369))),
+                                  deleteIcon: const Icon(Icons.close),
+                                  onDeleted: () => setState(() => _selectedItems.remove(item)),
+                                  backgroundColor: Color(0xFFE6E6FF),
+                                  shape: RoundedRectangleBorder(
+                                    side: BorderSide(color: Color(0xFF0b5369), width: 1.5),
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                )).toList(),
                               ),
                       ),
                     ),
@@ -199,10 +242,8 @@ class _HRTMedicationScreenState extends State<HRTMedicationScreen> {
                         );
                       }).toList(),
                     ),
-                  ],
-                ),
-              ),
-             Padding(
+
+                    Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
@@ -210,17 +251,14 @@ class _HRTMedicationScreenState extends State<HRTMedicationScreen> {
                           SizedBox(
                             width: double.infinity,
                             child: ElevatedButton(
-                              onPressed: () {
-                                 setState(() {
-                                  selectedIndex = 1; // Switch to "HRT Medication" tab
-                                  });
-                                Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ContraceptionScreen(),
-                        ),
-                      );
-                                },
+                               onPressed: () {
+                               Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ContraceptionScreen(),
+                            ),
+                          );
+                              },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: const Color(0xFF4C48B7),
                                 padding: const EdgeInsets.symmetric(vertical: 15),
@@ -236,9 +274,12 @@ class _HRTMedicationScreenState extends State<HRTMedicationScreen> {
                           ),
                           SizedBox(height: 10),
                           TextButton(
-                            onPressed: () {
-                              // Save functionality
-                            },
+                            onPressed: () async {
+                        await _saveSelectedItems();
+                        Navigator.push(context, MaterialPageRoute(
+                          builder: (context) => OnboardingPage(),
+                        ));
+                      },
                             child: Text(
                               "Save and continue later",
                               style: TextStyle(fontSize: 16, color: Color(0xFF4C48B7)),
@@ -247,21 +288,12 @@ class _HRTMedicationScreenState extends State<HRTMedicationScreen> {
                         ],
                       ),
                     ),
-                //      Center(
-                //   child: Padding(
-                //     padding: const EdgeInsets.all(16.0),
-                //     child: ContraceptionScreen(),
-                //   ),
-                // ),
-                // ...List.generate(10, (index) {
-                //   return Center(
-                //     child: Text("Content for tab ${index + 3}"),
-                //   );
-                // }),
-            ],
+                  ],
+                ),
+              ),
+            ),
           ),
-          
-        ),
+        ],
       ),
     );
   }
