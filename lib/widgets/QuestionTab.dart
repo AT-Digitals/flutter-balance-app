@@ -16,57 +16,73 @@ class QuestionTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          question,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          textAlign: TextAlign.center,
-        ),
-        const SizedBox(height: 10),
-        Text(
-          description,
-          style: const TextStyle(fontSize: 16),
-          textAlign: TextAlign.center,
-        ),
-        const SizedBox(height: 20),
-        ...options.asMap().entries.map((entry) {
-          final index = entry.key;
-          final option = entry.value;
-
-          return GestureDetector(
-            onTap: () => onOptionSelected(index),
-            child: Container(
-              margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black),
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: Row(
-                children: [
-                  Container(
-                    width: 15,
-                    height: 15,
-                    decoration: BoxDecoration(
-                      color: option["color"] as Color,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: Text(
-                      option["label"] as String,
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                  ),
-                ],
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              question,
+              style: TextStyle(
+                fontFamily: 'Playfair Display',
+                fontSize: 30,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFF0b5369),
               ),
             ),
-          );
-        }),
-      ],
+            const SizedBox(height: 10),
+            Text(
+              description,
+              style: const TextStyle(fontSize: 24, color: Color(0xFF0b5369)),
+              // textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 20),
+            ...options.asMap().entries.map((entry) {
+              final index = entry.key;
+              final option = entry.value;
+
+              return GestureDetector(
+                onTap: () => onOptionSelected(index),
+                child: Container(
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 25, horizontal: 10),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Color(0xFF0b5369),
+                    ),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 15,
+                        height: 15,
+                        decoration: BoxDecoration(
+                          color: option["color"] as Color,
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Text(
+                          option["label"] as String,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: Color(0xFF0b5369),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            }),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -16,18 +16,17 @@ class CustomTab extends StatelessWidget {
       controller: tabController,
       isScrollable: true,
       indicatorColor: Colors.transparent, // Removes default underline
+      labelPadding: EdgeInsets.symmetric(horizontal: 0), // Minimize spacing
       tabs: List.generate(
         tabController.length,
         (index) => Padding(
-          padding: const EdgeInsets.symmetric(
-              horizontal: 1), // Adjust spacing between tabs
+          padding: const EdgeInsets.symmetric(horizontal: 1), // Fine-tune space
           child: Container(
             width: 20, // Width of each tab indicator
             height: 4, // Height of each tab indicator
             decoration: BoxDecoration(
               color: index <= currentTabIndex ? Colors.teal : Colors.grey,
-              borderRadius:
-                  BorderRadius.circular(2), // Optional rounded corners
+              borderRadius: BorderRadius.circular(2), // Rounded corners
             ),
           ),
         ),
