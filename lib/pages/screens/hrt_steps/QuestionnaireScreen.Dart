@@ -1,7 +1,6 @@
-
-   import 'package:flutter/material.dart';
-
-
+import 'package:flutter/material.dart';
+import 'package:balance_app/widgets/CustomTab.dart';
+import 'package:balance_app/widgets/QuestionTab.dart';
 
 class QuestionnaireScreen extends StatefulWidget {
   @override
@@ -13,18 +12,124 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen>
   late TabController _tabController;
   int _currentTabIndex = 0;
 
+  final List<Map<String, dynamic>> _questions = [
+    {
+      "question": "How often have you felt nervous in the past week?",
+      "description": "Feeling on edge or anxious",
+      "options": [
+        {"label": "Not at all", "color": Colors.yellow},
+        {"label": "A little", "color": Colors.orange},
+        {"label": "Quite a bit", "color": Colors.deepOrange},
+        {"label": "Extremely", "color": Colors.red},
+      ],
+    },
+    {
+      "question": "How often have you had trouble sleeping?",
+      "description": "Difficulty falling asleep or staying asleep",
+      "options": [
+        {"label": "Never", "color": Colors.green},
+        {"label": "Sometimes", "color": Colors.lightGreen},
+        {"label": "Often", "color": Colors.orange},
+        {"label": "Always", "color": Colors.red},
+      ],
+    },
+    {
+      "question": "Do you feel fatigued during the day?",
+      "description": "Feeling tired or low on energy",
+      "options": [
+        {"label": "Not at all", "color": Colors.yellow},
+        {"label": "A little", "color": Colors.orange},
+        {"label": "Quite a bit", "color": Colors.deepOrange},
+        {"label": "Extremely", "color": Colors.red},
+      ],
+    },
+    {
+      "question": "How often have you felt down or hopeless?",
+      "description": "Persistent sadness or feeling of emptiness",
+      "options": [
+        {"label": "Never", "color": Colors.green},
+        {"label": "Sometimes", "color": Colors.lightGreen},
+        {"label": "Often", "color": Colors.orange},
+        {"label": "Always", "color": Colors.red},
+      ],
+    },
+    {
+      "question": "How is your appetite lately?",
+      "description": "Loss of appetite or eating more than usual",
+      "options": [
+        {"label": "Good", "color": Colors.green},
+        {"label": "Average", "color": Colors.lightGreen},
+        {"label": "Poor", "color": Colors.orange},
+        {"label": "Very Poor", "color": Colors.red},
+      ],
+    },
+    {
+      "question": "How often have you felt overwhelmed?",
+      "description": "Feeling like you can't handle things",
+      "options": [
+        {"label": "Not at all", "color": Colors.yellow},
+        {"label": "A little", "color": Colors.orange},
+        {"label": "Quite a bit", "color": Colors.deepOrange},
+        {"label": "Extremely", "color": Colors.red},
+      ],
+    },
+    {
+      "question": "Do you feel physically tense or tight?",
+      "description": "Muscle tension or stiffness",
+      "options": [
+        {"label": "Not at all", "color": Colors.green},
+        {"label": "A little", "color": Colors.lightGreen},
+        {"label": "Quite a bit", "color": Colors.orange},
+        {"label": "Extremely", "color": Colors.red},
+      ],
+    },
+    {
+      "question": "How often have you felt irritable?",
+      "description": "Getting annoyed or frustrated easily",
+      "options": [
+        {"label": "Never", "color": Colors.green},
+        {"label": "Sometimes", "color": Colors.lightGreen},
+        {"label": "Often", "color": Colors.orange},
+        {"label": "Always", "color": Colors.red},
+      ],
+    },
+    {
+      "question": "How often have you had headaches?",
+      "description": "Tension or pressure in the head",
+      "options": [
+        {"label": "Never", "color": Colors.green},
+        {"label": "Sometimes", "color": Colors.lightGreen},
+        {"label": "Often", "color": Colors.orange},
+        {"label": "Always", "color": Colors.red},
+      ],
+    },
+    {
+      "question": "Do you feel like you’re lacking motivation?",
+      "description": "Struggling to start or finish tasks",
+      "options": [
+        {"label": "Not at all", "color": Colors.yellow},
+        {"label": "A little", "color": Colors.orange},
+        {"label": "Quite a bit", "color": Colors.deepOrange},
+        {"label": "Extremely", "color": Colors.red},
+      ],
+    },
+  ];
+
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 10, vsync: this);
+    _tabController = TabController(length: _questions.length, vsync: this);
   }
 
   void _onOptionSelected(int index) {
-    if (_currentTabIndex < 9) {
+    if (_currentTabIndex < _questions.length - 1) {
       setState(() {
         _currentTabIndex++;
         _tabController.animateTo(_currentTabIndex);
       });
+    } else {
+      print("Questionnaire completed");
+      // TODO: Handle questionnaire completion
     }
   }
 
@@ -32,136 +137,42 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Questionnaire'),
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(20), // Minimized height for tabs
-          child: TabBar(
-            controller: _tabController,
-            isScrollable: true,
-            indicator: BoxDecoration(), // Remove default TabBar indicator
-            tabs: List.generate(
-              10,
-              (index) => CustomTab(
-                isSelected: index <= _currentTabIndex,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: const Text(
+          'Questionnaire',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: const Color(0xFF0b5369),
+        centerTitle: true,
+        toolbarHeight: 70.0,
+      ),
+      body: Column(
+        children: [
+          const SizedBox(height: 40),
+          CustomTab(
+            tabController: _tabController,
+            currentTabIndex: _currentTabIndex,
+          ),
+          Expanded(
+            child: TabBarView(
+              controller: _tabController,
+              physics: const NeverScrollableScrollPhysics(),
+              children: List.generate(
+                _questions.length,
+                (index) => QuestionTab(
+                  question: _questions[index]['question'] as String,
+                  description: _questions[index]['description'] as String,
+                  options: _questions[index]['options'] as List<Map<String, dynamic>>,
+                  onOptionSelected: _onOptionSelected,
+                ),
               ),
             ),
-            labelPadding: EdgeInsets.symmetric(horizontal: 2), // Small horizontal padding // Minimize padding between tabs
-  indicatorPadding: EdgeInsets.zero, // Remove padding for the indicator
           ),
-        ),
-      ),
-      body: TabBarView(
-        controller: _tabController,
-        physics: NeverScrollableScrollPhysics(),
-        children: List.generate(
-          10,
-          (index) => QuestionTab(
-            onOptionSelected: _onOptionSelected,
-          ),
-        ),
-      ),
-    );
-  }
-}
-class CustomTab extends StatelessWidget {
-  final bool isSelected;
-
-  const CustomTab({required this.isSelected});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-       margin: EdgeInsets.symmetric(vertical: 1),
-      // padding: EdgeInsets.symmetric(vertical: 10),
-      child: Row(
-        children: [
-          Container(
-            width: 30,
-            height: 2,
-            color: isSelected ? Colors.blue : Colors.grey,
-          ),
-          // SizedBox(width: 5),
-          // Container(
-          //   width: 10,
-          //   height: 2,
-          //   color: isSelected ? Colors.blue : Colors.grey,
-          // ),
-          // SizedBox(width: 5),
-          // Container(
-          //   width: 10,
-          //   height: 2,
-          //   color: isSelected ? Colors.blue : Colors.grey,
-          // ),
         ],
       ),
-    );
-  }
-}
-class QuestionTab extends StatelessWidget {
-  final void Function(int) onOptionSelected;
-
-  const QuestionTab({required this.onOptionSelected});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          "Recently, how much have you been affected by:",
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          textAlign: TextAlign.center,
-        ),
-        SizedBox(height: 10),
-        Text(
-          "Heart beating quickly or strongly",
-          style: TextStyle(fontSize: 16),
-        ),
-        SizedBox(height: 20),
-        ...[
-          {"label": "Not at all", "color": Colors.yellow},
-          {"label": "A little", "color": Colors.orange},
-          {"label": "Quite a bit", "color": Colors.deepOrange},
-          {"label": "Extremely", "color": Colors.red},
-        ].asMap().entries.map(
-          (entry) {
-            final index = entry.key;
-            final option = entry.value;
-
-            return GestureDetector(
-              onTap: () => onOptionSelected(index),
-              child: Container(
-                margin: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-                padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black),
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: Row(
-                  children: [
-                    // Small circle with the respective color
-                    Container(
-                      width: 15,
-                      height: 15,
-                      decoration: BoxDecoration(
-                        color: option["color"] as Color,
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                    SizedBox(width: 10),
-                    Expanded(
-                      child: Text(
-                        option["label"] as String,
-                        style: TextStyle(fontSize: 16),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
-        ),
-      ],
     );
   }
 }
