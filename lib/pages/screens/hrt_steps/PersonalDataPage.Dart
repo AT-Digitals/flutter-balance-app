@@ -4,6 +4,7 @@ import 'package:balance_app/pages/screens/OnboardingPage.dart';
 import 'package:balance_app/pages/screens/hrt_steps/PeriodScreen.dart';
 import 'package:balance_app/pages/screens/hrt_steps/GenderPopup.dart';
 import 'package:balance_app/pages/screens/hrt_steps/Ethincity.dart';
+import 'package:balance_app/pages/screens/hrt_steps/AccountPage.dart';
 
 class PersonalDataPage extends StatefulWidget {
   @override
@@ -175,7 +176,7 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => LoginScreen()),
+              MaterialPageRoute(builder: (context) => AccountPage()),
             );
           },
         ),
