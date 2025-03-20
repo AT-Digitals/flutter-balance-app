@@ -11,6 +11,8 @@ import 'package:balance_app/pages/screens/hrt_steps/ProceduresPage.Dart';
 import 'package:balance_app/pages/screens/hrt_steps/AccountPage.Dart';
 import 'package:balance_app/pages/screens/hrt_steps/PersonalDataPage.Dart';
 import 'package:balance_app/pages/screens/hrt_steps/HealthPage.Dart';
+import 'package:balance_app/pages/medications/HrtMedicationScreen.Dart';
+import 'package:balance_app/pages/medications/ContraceptionPage.Dart';
 
 class OnboardingPage extends StatelessWidget {
   @override
@@ -225,27 +227,27 @@ Stack(
                     //     style: TextStyle(fontSize: 18, color: Colors.white),
                     //   ),
                     // ),
-                    //  const SizedBox(height: 24),
-                    //  ElevatedButton(
-                    //   onPressed: () {
-                    //       Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(builder: (context) => PersonalDataPage()),
-                    // );
-                    //   },
-                    //   style: ElevatedButton.styleFrom(
-                    //     backgroundColor: const Color(0xFF4C48B7), // Purple color
-                    //     padding: const EdgeInsets.symmetric(
-                    //         horizontal: 120, vertical: 15),
-                    //     shape: RoundedRectangleBorder(
-                    //       borderRadius: BorderRadius.circular(30),
-                    //     ),
-                    //   ),
-                    //   child: const Text(
-                    //     'Details',
-                    //     style: TextStyle(fontSize: 18, color: Colors.white),
-                    //   ),
-                    // ),
+                     const SizedBox(height: 24),
+                     ElevatedButton(
+                      onPressed: () {
+                          Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => HrtMedicationScreen()),
+                    );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF4C48B7), // Purple color
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 120, vertical: 15),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                      child: const Text(
+                        'HRT',
+                        style: TextStyle(fontSize: 18, color: Colors.white),
+                      ),
+                    ),
                      const SizedBox(height: 24),
                      ElevatedButton(
                       onPressed: () {
@@ -267,27 +269,27 @@ Stack(
                         style: TextStyle(fontSize: 18, color: Colors.white),
                       ),
                     ),
-                    // const SizedBox(height: 24),
-                    //  ElevatedButton(
-                    //   onPressed: () {
-                    //       Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(builder: (context) => NewPage()),
-                    // );
-                    //   },
-                    //   style: ElevatedButton.styleFrom(
-                    //     backgroundColor: const Color(0xFF4C48B7), // Purple color
-                    //     padding: const EdgeInsets.symmetric(
-                    //         horizontal: 120, vertical: 15),
-                    //     shape: RoundedRectangleBorder(
-                    //       borderRadius: BorderRadius.circular(30),
-                    //     ),
-                    //   ),
-                    //   child: const Text(
-                    //     'New Page',
-                    //     style: TextStyle(fontSize: 18, color: Colors.white),
-                    //   ),
-                    // ),
+                    const SizedBox(height: 24),
+                     ElevatedButton(
+                      onPressed: () {
+                          Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ContraceptionPage()),
+                    );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF4C48B7), // Purple color
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 120, vertical: 15),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                      child: const Text(
+                        'Contraception',
+                        style: TextStyle(fontSize: 18, color: Colors.white),
+                      ),
+                    ),
                     // const SizedBox(height: 24),
                     //  ElevatedButton(
                     //   onPressed: () {
