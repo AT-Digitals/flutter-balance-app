@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:balance_app/pages/forms/LoginScreen.Dart';
 import 'package:balance_app/pages/screens/OnboardingPage.Dart';
-import 'package:balance_app/pages/screens/hrt_steps/PersonalDataPage.dart';
+import 'package:balance_app/pages/screens/hrt_steps/PeriodScreen.dart';
 
-class AccountPage extends StatelessWidget {
+class HealthPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -16,12 +16,12 @@ class AccountPage extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => LoginScreen()),
+              MaterialPageRoute(builder: (context) => OnboardingPage()),
             );
           },
         ),
         title: const Text(
-          'Onboarding',
+          'Health Overview',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: const Color(0xFF0b5369),
@@ -30,20 +30,6 @@ class AccountPage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(4, (index) {
-                return Container(
-                  height: 4,
-                  width: screenWidth * 0.20,
-                  color: Colors.teal,
-                  margin: const EdgeInsets.symmetric(horizontal: 2.0),
-                );
-              }),
-            ),
-          ),
           Expanded(
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(16.0),
@@ -53,7 +39,7 @@ class AccountPage extends StatelessWidget {
                   // Title
                 
                    Text(
-                      "Your account is ready!",
+                      "Your health overview",
                       style: TextStyle(
                         fontFamily: 'Playfair Display',
                         fontSize: 24,
@@ -66,7 +52,7 @@ class AccountPage extends StatelessWidget {
                   // Image
                   Center(
                     child: Image.asset(
-                      'assets/images/onboard.jpg',
+                      'assets/images/balance_mobile.jpg',
                       height: 200,
                       fit: BoxFit.cover,
                     ),
@@ -74,7 +60,7 @@ class AccountPage extends StatelessWidget {
                   const SizedBox(height: 30),
                   // Description
                   const Text(
-                    "To get the very best out of the balance app, we would suggest inputting some more details.",
+                    "To get the very best out of the balance app, we would suggest inputting some medical history.",
                     style: TextStyle(
                       fontSize: 18,
                       color: Color(0xFF24495A),
@@ -83,7 +69,7 @@ class AccountPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 30),
                   const Text(
-                    "In your profile there's a graph where you'll be able to see your symptom information all in one place once you start to record your symptoms in your journal.",
+                    "Certain health conditions can be caused by hormones or have an impact on your health during the perimenopause and the menopause. We ask you for this information so that we can surface relevant articles that will help you understand how your health can affect the menopause.",
                     style: TextStyle(
                       fontSize: 18,
                       color: Color(0xFF24495A),
@@ -100,7 +86,7 @@ class AccountPage extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => PersonalDataPage(),
+                                builder: (context) => PeriodScreen(),
                               ),
                             );
                           },
@@ -113,7 +99,7 @@ class AccountPage extends StatelessWidget {
                           ),
                           child: const Center(
                             child: Text(
-                              'Add your personal details',
+                              'Add health overview',
                               style: TextStyle(fontSize: 18, color: Colors.white),
                             ),
                           ),

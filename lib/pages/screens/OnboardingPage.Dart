@@ -10,6 +10,7 @@ import 'package:balance_app/pages/screens/hrt_steps/ContraceptionPopup.Dart';
 import 'package:balance_app/pages/screens/hrt_steps/ProceduresPage.Dart';
 import 'package:balance_app/pages/screens/hrt_steps/AccountPage.Dart';
 import 'package:balance_app/pages/screens/hrt_steps/PersonalDataPage.Dart';
+import 'package:balance_app/pages/screens/hrt_steps/HealthPage.Dart';
 
 class OnboardingPage extends StatelessWidget {
   @override
@@ -203,33 +204,54 @@ Stack(
                               ),
                             ),
                    
-                      const SizedBox(height: 24),
-                     ElevatedButton(
-                      onPressed: () {
-                          Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => AccountPage()),
-                    );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF4C48B7), // Purple color
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 120, vertical: 15),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
-                      child: const Text(
-                        'Account',
-                        style: TextStyle(fontSize: 18, color: Colors.white),
-                      ),
-                    ),
+                    //   const SizedBox(height: 24),
+                    //  ElevatedButton(
+                    //   onPressed: () {
+                    //       Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => AccountPage()),
+                    // );
+                    //   },
+                    //   style: ElevatedButton.styleFrom(
+                    //     backgroundColor: const Color(0xFF4C48B7), // Purple color
+                    //     padding: const EdgeInsets.symmetric(
+                    //         horizontal: 120, vertical: 15),
+                    //     shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(30),
+                    //     ),
+                    //   ),
+                    //   child: const Text(
+                    //     'Account',
+                    //     style: TextStyle(fontSize: 18, color: Colors.white),
+                    //   ),
+                    // ),
+                    //  const SizedBox(height: 24),
+                    //  ElevatedButton(
+                    //   onPressed: () {
+                    //       Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => PersonalDataPage()),
+                    // );
+                    //   },
+                    //   style: ElevatedButton.styleFrom(
+                    //     backgroundColor: const Color(0xFF4C48B7), // Purple color
+                    //     padding: const EdgeInsets.symmetric(
+                    //         horizontal: 120, vertical: 15),
+                    //     shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(30),
+                    //     ),
+                    //   ),
+                    //   child: const Text(
+                    //     'Details',
+                    //     style: TextStyle(fontSize: 18, color: Colors.white),
+                    //   ),
+                    // ),
                      const SizedBox(height: 24),
                      ElevatedButton(
                       onPressed: () {
                           Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => PersonalDataPage()),
+                      MaterialPageRoute(builder: (context) => HealthPage()),
                     );
                       },
                       style: ElevatedButton.styleFrom(
@@ -241,7 +263,7 @@ Stack(
                         ),
                       ),
                       child: const Text(
-                        'Details',
+                        'Health',
                         style: TextStyle(fontSize: 18, color: Colors.white),
                       ),
                     ),

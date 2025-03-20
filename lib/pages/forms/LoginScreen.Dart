@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:balance_app/pages/screens/BalanceAppScreen.Dart';
-import 'package:balance_app/pages/screens/OnboardingPage.Dart';
 import 'package:balance_app/pages/forms/ResetPasswordPage.Dart';
+import 'package:balance_app/pages/screens/hrt_steps/AccountPage.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -164,7 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     // If the form is valid, navigate to the next page
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => OnboardingPage()),
+                      MaterialPageRoute(builder: (context) => AccountPage()),
                     );
                   }
                 },
