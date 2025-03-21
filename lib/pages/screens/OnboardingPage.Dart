@@ -11,7 +11,7 @@ import 'package:balance_app/pages/screens/hrt_steps/ProceduresPage.Dart';
 import 'package:balance_app/pages/screens/hrt_steps/AccountPage.Dart';
 import 'package:balance_app/pages/screens/hrt_steps/PersonalDataPage.Dart';
 import 'package:balance_app/pages/screens/hrt_steps/HealthPage.Dart';
-import 'package:balance_app/pages/medications/HrtMedicationScreen.Dart';
+import 'package:balance_app/pages/medications/MedicationPage.Dart';
 import 'package:balance_app/pages/medications/ContraceptionPage.Dart';
 
 class OnboardingPage extends StatelessWidget {
@@ -232,7 +232,7 @@ Stack(
                       onPressed: () {
                           Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => HrtMedicationScreen()),
+                      MaterialPageRoute(builder: (context) => MedicationPage()),
                     );
                       },
                       style: ElevatedButton.styleFrom(
@@ -244,7 +244,7 @@ Stack(
                         ),
                       ),
                       child: const Text(
-                        'HRT',
+                        'Medication',
                         style: TextStyle(fontSize: 18, color: Colors.white),
                       ),
                     ),
